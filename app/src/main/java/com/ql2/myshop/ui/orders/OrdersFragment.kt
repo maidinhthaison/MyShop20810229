@@ -1,24 +1,21 @@
-package com.ql2.myshop.ui.dashboard
+package com.ql2.myshop.ui.orders
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import com.ql2.myshop.base.BaseFragment
-import com.ql2.myshop.databinding.FragmentDashboardBinding
+import com.ql2.myshop.databinding.FragmentOrdersBinding
 
-class DashboardFragment :
-    BaseFragment<FragmentDashboardBinding>() {
+class OrdersFragment :
+    BaseFragment<FragmentOrdersBinding>() {
     override fun initBindingObject(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): FragmentDashboardBinding {
-        return FragmentDashboardBinding.inflate(inflater, container, false)
+    ): FragmentOrdersBinding {
+        return FragmentOrdersBinding.inflate(inflater, container, false)
     }
-    private val dashboardViewModel by viewModels<DashboardViewModel>()
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
