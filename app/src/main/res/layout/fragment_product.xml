@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue"
-    tools:context=".ui.dashboard.DashboardFragment">
+    android:background="@color/darkGray"
+    tools:context=".ui.products.ProductFragment">
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:text="Dashboard"
-        android:id="@+id/text_dashboard"
+        android:id="@+id/text_product"
+        android:text="Products"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
