@@ -7,8 +7,8 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.ql2.myshop.ui.home.HomeFragment"
-        android:label="@string/title_home"
+        android:name="com.ql2.myshop.ui.products.ProductFragment"
+        android:label="@string/title_products"
         tools:layout="@layout/fragment_home" />
 
     <fragment
@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.ql2.myshop.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
+        android:name="com.ql2.myshop.ui.orders.OrdersFragment"
+        android:label="@string/title_orders"
         tools:layout="@layout/fragment_notifications" />
 </navigation>
