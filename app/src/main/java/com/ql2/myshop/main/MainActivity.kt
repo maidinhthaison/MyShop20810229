@@ -39,13 +39,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(
+        /*val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_product, R.id.navigation_order,
                 R.id.navigation_dashboard, R.id.navigation_report,
                 R.id.navigation_setting
             )
         )
-        setupActionBarWithNavController(navController, appBarConfiguration)
+        setupActionBarWithNavController(navController, appBarConfiguration)*/
     }
 }

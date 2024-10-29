@@ -1,10 +1,12 @@
 package com.ql2.myshop.di
 
 import android.content.Context
+import android.content.SharedPreferences
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.ql2.myshop.config.AppConfig
+import com.ql2.myshop.data.LocalCacheImpl
 import com.ql2.myshop.data.network.ConnectivityDataSource
 import com.ql2.myshop.data.retrofit.RetrofitManager
 import dagger.Module
@@ -41,8 +43,8 @@ class AppModule {
         return RetrofitManager(
             gson = gson,
             connectivityDataSource = connectivityDataSource,
-            baseUrl = AppConfig.backendEnvironment.baseUrl,
-            jwtToken = AppConfig.backendEnvironment.jwtToken
+            baseUrl = AppConfig.backendEnvironment.baseUrl
         )
     }
+
 }

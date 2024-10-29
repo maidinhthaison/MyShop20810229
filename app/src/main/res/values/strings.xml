@@ -1,10 +1,32 @@
 <resources>
-    <string name="app_name">MyShop20810229</string>
+    <string name="app_name">Laptop 365</string>
     <string name="title_products">Product</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_orders">Orders</string>
     <string name="title_report">Report</string>
     <string name="title_setting">Settings</string>
 
+    <!--Login-->
+    <string name="login_title">Mobile 247</string>
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
+    <string name="login_button_text">Login</string>
+    <string name="clear_button_text">Clear</string>
+    <string name="dialog_login_error_title">Error</string>
+    <string name="dialog_login_error_message">Username or password was incorrect</string>
+
+    <!--Common-->
+    <string name="ok">OK</string>"
+    <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <!--Setting-->
+    <string name="logout">Logout</string>
+    <string name="dialog_logout_confirm_title">Logout</string>
+    <string name="dialog_logout_confirm_message">Are you sure?</string>
+
+    <!--Product-->
+    <string name="product_list_title">Products</string>
     <string name="message_api_error">API error</string>
 </resources>
