@@ -29,4 +29,12 @@
     <!--Product-->
     <string name="product_list_title">Products</string>
     <string name="message_api_error">API error</string>
+
+    <!--Product Detail-->
+    <string name="hint_product_name">Product name</string>
+    <string name="hint_product_price">Price</string>
+    <string name="hint_product_quantity">Quantity</string>
+    <string name="hint_product_description">Description</string>
+    <string name="buttonSave">Save</string>
+    <string name="buttonClear">Clear</string>
 </resources>

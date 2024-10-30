@@ -1,4 +1,4 @@
-package com.ql2.myshop.data.usecase
+package com.ql2.myshop.data.usecase.product
 
 import com.ql2.myshop.domain.TaskResult
 import com.ql2.myshop.domain.model.product.ProductModel

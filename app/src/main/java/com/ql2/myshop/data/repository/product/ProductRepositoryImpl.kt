@@ -24,4 +24,12 @@ class ProductRepositoryImpl (private val productAPI: ProductAPI,
         emit(result)
     }.flowOn(defaultDispatcher)
 
+    override fun searchProducts(cateId: Int, proName: String): Flow<TaskResult<List<ProductModel>>> = flow<TaskResult<List<ProductModel>>> {
+        emit(TaskResult.Loading)
+        val result = SafeCallAPI.callApi {
+            productAPI.searchProducts(cateId = cateId, proName = proName)
+        }.map { it -> it.map { it.toProductModel() } }
+        emit(result)
+    }.flowOn(defaultDispatcher)
+
 }
