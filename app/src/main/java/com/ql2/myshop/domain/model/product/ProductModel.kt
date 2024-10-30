@@ -1,6 +1,5 @@
 package com.ql2.myshop.domain.model.product
 
-import com.ql2.myshop.utils.formatPrice
 import java.io.Serializable
 
 

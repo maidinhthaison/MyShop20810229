@@ -99,7 +99,7 @@ class ProductFragment :
                         ) {
 
                             cateId = it.data[position].cateId
-                            Timber.d(">>$cateId")
+
                         }
 
                         override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -133,7 +133,7 @@ class ProductFragment :
         val bundle = Bundle().apply {
             this.putSerializable(PRODUCT_ITEM_MODEL, productModel)
         }
-        Timber.d(">>>${productModel.productId}")
+
         findNavController().navigate(R.id.action_navigation_product_to_productDetailFragment, bundle)
     }
 
