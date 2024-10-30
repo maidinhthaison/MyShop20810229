@@ -5,9 +5,11 @@ import com.ql2.myshop.data.repository.product.ProductRepositoryImpl
 import com.ql2.myshop.data.retrofit.RetrofitManager
 import com.ql2.myshop.data.usecase.product.GetProductUseCaseImpl
 import com.ql2.myshop.data.usecase.product.SearchProductUseCaseImpl
+import com.ql2.myshop.data.usecase.product.UpdateProductByIdUseCaseImpl
 import com.ql2.myshop.domain.repository.product.ProductRepository
 import com.ql2.myshop.domain.usecase.product.GetProductUseCase
 import com.ql2.myshop.domain.usecase.product.SearchProductUseCase
+import com.ql2.myshop.domain.usecase.product.UpdateProductByIdUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -41,5 +43,10 @@ class ProductModule {
     @Provides
     fun provideSearchProductUseCase(productRepository: ProductRepository): SearchProductUseCase {
         return SearchProductUseCaseImpl(productRepository)
+    }
+
+    @Provides
+    fun provideUpdateProductByIdUseCase(productRepository: ProductRepository): UpdateProductByIdUseCase {
+        return UpdateProductByIdUseCaseImpl(productRepository)
     }
 }

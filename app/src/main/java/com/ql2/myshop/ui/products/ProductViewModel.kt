@@ -2,8 +2,11 @@ package com.ql2.myshop.ui.products
 
 import androidx.lifecycle.viewModelScope
 import com.ql2.myshop.base.BaseViewModel
+import com.ql2.myshop.domain.model.product.UpdateProductByIdModel
 import com.ql2.myshop.domain.usecase.product.GetProductUseCase
 import com.ql2.myshop.domain.usecase.product.SearchProductUseCase
+import com.ql2.myshop.domain.usecase.product.UpdateProductByIdUseCase
+import com.ql2.myshop.ui.products.detail.UpdateProductUIModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,7 +16,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ProductViewModel @Inject constructor(
     private val getProductUseCase: GetProductUseCase,
-    private val searchProductUseCase: SearchProductUseCase
+    private val searchProductUseCase: SearchProductUseCase,
+    private val updateProductByIdUseCase: UpdateProductByIdUseCase
 ) : BaseViewModel() {
 
     private val _uiGetProductModel = MutableStateFlow(ProductUIModel())
@@ -21,6 +25,9 @@ class ProductViewModel @Inject constructor(
 
     private val _uiSearchProductModel = MutableStateFlow(ProductUIModel())
     val uiSearchProductModel = _uiSearchProductModel.asStateFlow()
+
+    private val _uiUpdateProductModel = MutableStateFlow(UpdateProductUIModel())
+    val uiUpdateProductModel = _uiUpdateProductModel.asStateFlow()
 
     fun getListProducts() {
         viewModelScope.launch {
@@ -31,6 +38,13 @@ class ProductViewModel @Inject constructor(
     fun searchProducts(cateId: Int, proName: String) {
         viewModelScope.launch {
             searchProductUseCase(cateId, proName).collectAsState(_uiSearchProductModel)
+        }
+    }
+
+    fun updateProductById(proId: Int, importPrice: Float, quantity: Int, description: String,  proName: String) {
+        viewModelScope.launch {
+            updateProductByIdUseCase(proId, importPrice, quantity, description, proName)
+                .collectAsState(_uiUpdateProductModel)
         }
     }
 }
