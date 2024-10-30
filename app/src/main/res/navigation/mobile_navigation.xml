@@ -9,7 +9,11 @@
         android:id="@+id/navigation_product"
         android:name="com.ql2.myshop.ui.products.ProductFragment"
         android:label="@string/title_products"
-        tools:layout="@layout/fragment_product" />
+        tools:layout="@layout/fragment_product" >
+        <action
+            android:id="@+id/action_navigation_product_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_order"
@@ -34,4 +38,8 @@
         android:name="com.ql2.myshop.ui.settings.SettingFragment"
         android:label="@string/title_setting"
         tools:layout="@layout/fragment_setting" />
+    <fragment
+        android:id="@+id/productDetailFragment"
+        android:name="com.ql2.myshop.ui.products.detail.ProductDetailFragment"
+        android:label="ProductDetailFragment" />
 </navigation>
