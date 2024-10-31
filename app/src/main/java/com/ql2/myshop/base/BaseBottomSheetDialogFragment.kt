@@ -82,6 +82,10 @@ abstract class BaseBottomSheetDialogFragment <T : ViewBinding> : BottomSheetDial
         collectWhenOwnerStarted(viewLifecycleOwner, action)
     }
 
+    fun <T> Flow<T>.collectLatestWhenStarted(action: suspend (T) -> Unit) {
+        collectLatestWhenOwnerStarted(viewLifecycleOwner, action)
+    }
+
     fun <T> Flow<T>.collectWhenResumed(action: suspend (T) -> Unit) {
         collectWhenOwnerResumed(viewLifecycleOwner, action)
     }
@@ -89,4 +93,5 @@ abstract class BaseBottomSheetDialogFragment <T : ViewBinding> : BottomSheetDial
     fun <T> Flow<T>.collectWhenCreated(action: suspend (T) -> Unit) {
         collectWhenOwnerCreated(viewLifecycleOwner, action)
     }
+
 }

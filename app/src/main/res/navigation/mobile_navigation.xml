@@ -44,6 +44,6 @@
         android:label="ProductDetailFragment" />
     <dialog
         android:id="@+id/addProductBottomSheetFragment"
-        android:name="com.ql2.myshop.ui.bottomsheet.AddProductBottomSheetFragment"
+        android:name="com.ql2.myshop.ui.products.bottomsheet.AddProductBottomSheetFragment"
         android:label="AddProductBottomSheetFragment" />
 </navigation>

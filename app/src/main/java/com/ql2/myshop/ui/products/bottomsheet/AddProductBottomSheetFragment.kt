@@ -1,21 +1,24 @@
-package com.ql2.myshop.ui.bottomsheet
+package com.ql2.myshop.ui.products.bottomsheet
 
-import android.os.Build
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.speech.tts.TextToSpeech
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.DefaultItemAnimator
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.ql2.myshop.R
 import com.ql2.myshop.base.BaseBottomSheetDialogFragment
+import com.ql2.myshop.base.collectWhenOwnerStarted
 import com.ql2.myshop.databinding.FragmentAddProductBinding
+import com.ql2.myshop.domain.model.category.CategoryModel
 import com.ql2.myshop.ui.category.CategoryViewModel
 import com.ql2.myshop.ui.products.ProductViewModel
+import com.ql2.myshop.utils.AppDialog
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -24,11 +27,13 @@ import timber.log.Timber
 class AddProductBottomSheetFragment :
     BaseBottomSheetDialogFragment<FragmentAddProductBinding>() {
 
-    val productViewModel by viewModels<ProductViewModel>()
+    private val productViewModel by viewModels<ProductViewModel>()
 
     private val categoryViewModel by viewModels<CategoryViewModel>()
     private lateinit var arrayAdapter: ArrayAdapter<String>
-    private var cateId: Int? = 0
+    private lateinit var categoryModel: CategoryModel
+
+    private var flag : Boolean = true
 
     override fun initBindingObject(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -44,6 +49,7 @@ class AddProductBottomSheetFragment :
         return 0.8f
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //val offsetFromTop = 200
@@ -67,7 +73,7 @@ class AddProductBottomSheetFragment :
                 arrayAdapter.clear()
                 arrayAdapter.addAll(it.data.map { it.cateName })
                 arrayAdapter.notifyDataSetChanged()
-
+                categoryModel = it.data[0]
                 binding.spinnerCate.onItemSelectedListener =
                     object : AdapterView.OnItemSelectedListener {
                         override fun onItemSelected(
@@ -77,8 +83,8 @@ class AddProductBottomSheetFragment :
                             id: Long
                         ) {
 
-                            cateId = it.data[position].cateId
-                            Timber.d(">>>CateId $cateId")
+                            categoryModel = it.data[position]
+
                         }
 
                         override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -86,6 +92,46 @@ class AddProductBottomSheetFragment :
                         }
                     }
             }
+        }
+        binding.buttonSave.setOnClickListener {
+            val cateId = categoryModel.cateId
+            val proName = binding.proNameEditText.text.toString()
+            val proPrice = binding.proPriceEditText.text.toString().toFloat()
+            val proQuantity = binding.proQuantityEditText.text.toString().toInt()
+            val proDes = binding.proDesEditText.text.toString()
+            val proImage = "asus_vivobook14_0.png@@asus_vivobook14_1.png@@asus_vivobook14_2.png"
+            with(productViewModel) {
+                cateId?.let { it1 -> addNewProduct(it1, proPrice, proQuantity, proDes, proName, proImage) }
+            }
+        }
+
+        productViewModel.uiAddProductModel.collectWhenStarted  {
+            binding.loadingProgress.isVisible = it.isLoading
+
+            if (flag) {
+                val responseModel = it.data
+                if (responseModel != null){
+
+                    AppDialog.displayErrorMessage(
+                        requireContext(), R.string.dialog_add_product_title,
+                        R.string.dialog_add_product_message,
+                        R.string.ok
+                    ) { _, _ ->
+                        flag = false
+                    }
+
+                }
+            }else{
+                flag = true
+            }
+
+        }
+        binding.buttonClear.setOnClickListener {
+            binding.proNameEditText.setText("")
+            binding.proPriceEditText.setText("")
+            binding.proQuantityEditText.setText("")
+            binding.proDesEditText.setText("")
+
         }
     }
 

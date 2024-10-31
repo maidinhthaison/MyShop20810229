@@ -7,10 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ql2.myshop.databinding.ViewHolderProductItemBinding
-import com.ql2.myshop.di.GlideUtils
 import com.ql2.myshop.domain.model.product.ProductModel
 import com.ql2.myshop.utils.AssetUtils
-import com.ql2.myshop.utils.formatPrice
+import com.ql2.myshop.utils.formatPriceToCurrency
 
 internal class ProductAdapter (
     private var context: Context,
@@ -45,10 +44,10 @@ internal class ProductAdapter (
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ProductModel, position: Int) {
             binding.tvProName.text = item.productName
-            binding.tvProPrice.text = formatPrice(item.importPrice)
+            binding.tvProPrice.text = formatPriceToCurrency(item.importPrice)
             binding.tvProDescription.text= item.description
             AssetUtils.loadImageFromAssets(context = context,
-                fileName = "dell_5450_2024.jpg", binding.ivProductThumb)
+                fileName = item.getImages()[0], binding.ivProductThumb)
             binding.root.setOnClickListener {
                 onClicked?.invoke(ListProductUIEvent.OnItemClicked(item))
             }

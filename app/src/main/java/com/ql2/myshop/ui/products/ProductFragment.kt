@@ -79,7 +79,6 @@ class ProductFragment :
         }
         categoryViewModel.uiGetCategoryModel.collectWhenStarted { it ->
             if (it.data != null) {
-                //val listBloodTypes = listCategory.map { it.cateName }
                 arrayAdapter.clear()
                 arrayAdapter.addAll(it.data.map { it.cateName })
                 arrayAdapter.notifyDataSetChanged()

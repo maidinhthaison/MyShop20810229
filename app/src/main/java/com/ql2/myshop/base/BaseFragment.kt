@@ -53,10 +53,6 @@ abstract class BaseFragment <T : ViewBinding> : Fragment() {
     fun <T> Flow<T>.collectWhenCreated(action: suspend (T) -> Unit) {
         collectWhenOwnerCreated(viewLifecycleOwner, action)
     }
-/*
-    fun <T> Flow<T>.collectLatest(action: suspend (T) -> Unit) {
-        collectLatest(viewLifecycleOwner, action)
-    }*/
 
 }
 

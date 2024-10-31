@@ -1,6 +1,8 @@
 package com.ql2.myshop.data.api
 
+import com.ql2.myshop.data.api.request.AddProductRequestDTO
 import com.ql2.myshop.data.api.request.UpdateProductRequestDTO
+import com.ql2.myshop.data.api.response.AddProductResponseDTO
 import com.ql2.myshop.data.api.response.ProductResponseDTO
 import com.ql2.myshop.data.api.response.UpdateProductByIdResponseDTO
 import retrofit2.Response
@@ -26,5 +28,10 @@ interface ProductAPI {
         @Path("id") id: Int,
         @Body request: UpdateProductRequestDTO
     ): Response<UpdateProductByIdResponseDTO>
+
+    @POST("/api/products")
+    suspend fun addNewProduct(
+        @Body request: AddProductRequestDTO
+    ): Response<AddProductResponseDTO>
 
 }

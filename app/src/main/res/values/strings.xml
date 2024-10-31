@@ -39,4 +39,8 @@
     <string name="buttonClear">Clear</string>
     <string name="dialog_update_product_title">Update Product</string>
     <string name="dialog_update_product_message">Update product successfully</string>
+
+    <!--Add product bottom sheet-->
+    <string name="dialog_add_product_title">Add Product</string>
+    <string name="dialog_add_product_message">Add product successfully</string>
 </resources>
