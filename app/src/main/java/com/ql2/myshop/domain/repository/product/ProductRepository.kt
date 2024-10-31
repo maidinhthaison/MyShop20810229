@@ -1,6 +1,7 @@
 package com.ql2.myshop.domain.repository.product
 
 import com.ql2.myshop.domain.TaskResult
+import com.ql2.myshop.domain.model.product.AddProductModel
 import com.ql2.myshop.domain.model.product.ProductModel
 import com.ql2.myshop.domain.model.product.UpdateProductByIdModel
 import kotlinx.coroutines.flow.Flow
@@ -11,4 +12,7 @@ interface ProductRepository {
     fun updateProductById(productId: Int, importPrice: Float, quantity: Int,
                           description: String, productName: String):
             Flow<TaskResult<UpdateProductByIdModel>>
+    fun addProduct(cateId: Int, importPrice: Float, quantity: Int,
+                   description: String, productName: String, productImage: String) :
+            Flow<TaskResult<AddProductModel>>
 }

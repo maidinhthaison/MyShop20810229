@@ -23,24 +23,40 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:background="@color/white"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="@dimen/_350sdp">
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/ivProductTop"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_launcher_background"
-                    android:padding="@dimen/_10sdp"
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_250sdp"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
+                <me.relex.circleindicator.CircleIndicator
+                    android:background="@color/gray"
+                    android:id="@+id/indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:elevation="@dimen/_4sdp"/>
+                <!--<androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivProductTop"
+                    android:layout_width="@dimen/_200sdp"
+                    android:layout_height="@dimen/_150sdp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_launcher_background"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>-->
                 <androidx.appcompat.widget.AppCompatImageView
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:id="@+id/ivBack"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
                     app:srcCompat="@drawable/ic_arrow_back_24"
                     android:padding="@dimen/_2sdp"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -135,7 +151,7 @@
             <com.google.android.material.button.MaterialButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/buttonClear"
+                android:text="@string/cancel"
                 android:id="@+id/buttonClear"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>

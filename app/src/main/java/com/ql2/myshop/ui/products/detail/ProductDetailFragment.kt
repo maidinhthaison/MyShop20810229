@@ -9,19 +9,17 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ql2.myshop.R
 import com.ql2.myshop.base.BaseFragment
-import com.ql2.myshop.base.collectLatestWhenOwnerStarted
 import com.ql2.myshop.databinding.FragmentProductDetailBinding
 import com.ql2.myshop.domain.model.product.ProductModel
 import com.ql2.myshop.ui.products.ProductFragment
 import com.ql2.myshop.ui.products.ProductViewModel
+import com.ql2.myshop.ui.products.detail.adapter.ImageSlideAdapter
 import com.ql2.myshop.utils.AppDialog
-import com.ql2.myshop.utils.AssetUtils
+import com.ql2.myshop.utils.formatFloatToString
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
-import timber.log.Timber
+import me.relex.circleindicator.CircleIndicator
 
 @AndroidEntryPoint
 class ProductDetailFragment :
@@ -37,6 +35,10 @@ class ProductDetailFragment :
     private val productViewModel by viewModels<ProductViewModel>()
 
     private var flag : Boolean = true
+
+    private lateinit var viewPagerAdapter: ImageSlideAdapter
+
+    private lateinit var indicator: CircleIndicator
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -81,7 +83,6 @@ class ProductDetailFragment :
                         R.string.dialog_update_product_message,
                         R.string.ok
                     ) { _, _ ->
-                        Timber.d(">>>>>>>111111")
                         flag = false
                     }
 
@@ -91,17 +92,19 @@ class ProductDetailFragment :
             }
         }
         binding.buttonClear.setOnClickListener {
-            binding.proNameEditText.setText("")
-            binding.proPriceEditText.setText("")
-            binding.proQuantityEditText.setText("")
-            binding.proDesEditText.setText("")
+            findNavController().popBackStack()
 
         }
     }
     private fun bindData(productModel: ProductModel){
-        AssetUtils.loadImageFromAssets(requireContext(), fileName = "dell_5450_2024.jpg", binding.ivProductTop)
+        /*AssetUtils.loadImageFromAssets(requireContext(), fileName = productModel.getImages()[0],
+            binding.ivProductTop)*/
+        viewPagerAdapter = ImageSlideAdapter(requireContext(),productModel.getImages())
+        binding.viewpager.adapter = viewPagerAdapter
+        binding.indicator.setViewPager(binding.viewpager)
+
         binding.proNameEditText.setText(productModel.productName)
-        binding.proPriceEditText.setText(productModel.importPrice.toString())
+        binding.proPriceEditText.setText(formatFloatToString(productModel.importPrice))
         binding.proQuantityEditText.setText(productModel.quantity.toString())
         binding.proDesEditText.setText(productModel.description)
 

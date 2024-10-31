@@ -19,9 +19,10 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivProductThumb"
             android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
             app:srcCompat="@drawable/ic_launcher_background"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_200sdp"/>
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_100sdp"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:ellipsize="end"

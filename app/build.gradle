@@ -159,6 +159,12 @@ dependencies {
 
     //encrypt shared preference
     implementation "androidx.security:security-crypto:1.1.0-alpha06"
+
+    //Viewpager Implementation
+    implementation "androidx.viewpager2:viewpager2:1.1.0"
+
+    //CircleIndicator
+    implementation "me.relex:circleindicator:2.1.6"
 }
 
 
