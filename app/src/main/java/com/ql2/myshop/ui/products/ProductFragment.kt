@@ -37,11 +37,6 @@ class ProductFragment :
     private val categoryViewModel by viewModels<CategoryViewModel>()
     private lateinit var arrayAdapter: ArrayAdapter<String>
 
-
-    /**
-     *Searchable Spinner
-     */
-
     private var cateId: Int? = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -125,6 +120,14 @@ class ProductFragment :
 
             }
 
+        }
+        /**
+         * Add Product
+         */
+        binding.ivAddProduct.setOnClickListener {
+            findNavController().navigate(
+                R.id.addProductBottomSheetFragment
+            )
         }
     }
 

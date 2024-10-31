@@ -9,15 +9,16 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ql2.myshop.R
 import com.ql2.myshop.base.BaseFragment
+import com.ql2.myshop.base.collectLatestWhenOwnerStarted
 import com.ql2.myshop.databinding.FragmentProductDetailBinding
 import com.ql2.myshop.domain.model.product.ProductModel
 import com.ql2.myshop.ui.products.ProductFragment
 import com.ql2.myshop.ui.products.ProductViewModel
 import com.ql2.myshop.utils.AppDialog
 import com.ql2.myshop.utils.AssetUtils
-import com.ql2.myshop.utils.formatPrice
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import timber.log.Timber
@@ -34,6 +35,8 @@ class ProductDetailFragment :
     }
 
     private val productViewModel by viewModels<ProductViewModel>()
+
+    private var flag : Boolean = true
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,7 +56,9 @@ class ProductDetailFragment :
         binding.ivBack.setOnClickListener {
             findNavController().popBackStack()
         }
-
+        /**
+         * Update product
+         */
         binding.buttonSave.setOnClickListener {
             val proName = binding.proNameEditText.text.toString()
             val proPrice = binding.proPriceEditText.text.toString().toFloat()
@@ -63,23 +68,28 @@ class ProductDetailFragment :
             with(productViewModel) {
                 updateProductById(proId, proPrice, proQuantity, proDes, proName)
             }
-            productViewModel.uiUpdateProductModel.collectWhenStarted {
-                binding.loadingProgress.isVisible = it.isLoading
-                val responseModel = it.data
-                if (responseModel != null) {
-                    if (responseModel.info!="" && responseModel.affectedRows == 1){
-                        Timber.d(">>>>>>>")
-                        AppDialog.displayErrorMessage(
-                            requireActivity(), R.string.dialog_update_product_title,
-                            R.string.dialog_update_product_message,
-                            R.string.ok
-                        ) { _, _ -> }
-                    }
-                }
-            }
-
         }
 
+        productViewModel.uiUpdateProductModel.collectLatestWhenStarted {
+            binding.loadingProgress.isVisible = it.isLoading
+            if (flag) {
+                val responseModel = it.data
+                if (responseModel?.info !="" && responseModel?.affectedRows == 1){
+
+                    AppDialog.displayErrorMessage(
+                        requireContext(), R.string.dialog_update_product_title,
+                        R.string.dialog_update_product_message,
+                        R.string.ok
+                    ) { _, _ ->
+                        Timber.d(">>>>>>>111111")
+                        flag = false
+                    }
+
+                }
+            }else{
+                flag = true
+            }
+        }
         binding.buttonClear.setOnClickListener {
             binding.proNameEditText.setText("")
             binding.proPriceEditText.setText("")
