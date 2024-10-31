@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
 
 abstract class BaseFragment <T : ViewBinding> : Fragment() {
     private var _binding: T? = null
@@ -52,6 +53,11 @@ abstract class BaseFragment <T : ViewBinding> : Fragment() {
     fun <T> Flow<T>.collectWhenCreated(action: suspend (T) -> Unit) {
         collectWhenOwnerCreated(viewLifecycleOwner, action)
     }
+/*
+    fun <T> Flow<T>.collectLatest(action: suspend (T) -> Unit) {
+        collectLatest(viewLifecycleOwner, action)
+    }*/
+
 }
 
 

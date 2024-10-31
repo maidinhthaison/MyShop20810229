@@ -79,6 +79,15 @@
                     android:text="@string/product_list_title"
                     android:textSize="@dimen/_16sdp"
                     android:textColor="@color/black" />
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivAddProduct"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    app:srcCompat="@drawable/ic_add_circle_36"
+                    android:layout_below="@+id/buttonSearch"
+                    android:layout_toRightOf="@+id/tvHeader"
+                    android:layout_marginHorizontal="@dimen/_10sdp"/>
+
             </RelativeLayout>
 
 

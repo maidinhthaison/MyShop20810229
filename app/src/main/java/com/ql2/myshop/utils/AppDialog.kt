@@ -11,7 +11,7 @@ object AppDialog {
 
     fun displayErrorMessage(context: Context, title: Int, message: Int,
                             positive: Int,
-                            positiveClicked: DialogInterface.OnClickListener) {
+                            positiveClicked: DialogInterface.OnClickListener){
         val materialAlertDialogBuilder = getDialogBuilder(context)
         materialAlertDialogBuilder.setTitle(title)
         materialAlertDialogBuilder.setMessage(message)
