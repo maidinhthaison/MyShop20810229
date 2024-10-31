@@ -55,8 +55,8 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:id="@+id/ivBack"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
                     app:srcCompat="@drawable/ic_arrow_back_24"
                     android:padding="@dimen/_2sdp"/>
             </androidx.constraintlayout.widget.ConstraintLayout>

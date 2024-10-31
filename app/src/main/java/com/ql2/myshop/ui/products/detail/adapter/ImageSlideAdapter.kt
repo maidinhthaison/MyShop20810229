@@ -9,6 +9,7 @@ import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.ql2.myshop.R
 import com.ql2.myshop.utils.AssetUtils
+import timber.log.Timber
 
 internal class ImageSlideAdapter(private val context: Context,
                                  private var imageList: List<String>
@@ -25,6 +26,7 @@ internal class ImageSlideAdapter(private val context: Context,
         val view: View =  (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)
                 as LayoutInflater).inflate(R.layout.image_slider_item, null)
         val ivImages = view.findViewById<AppCompatImageView>(R.id.iv_images)
+        Timber.d(">>$imageList")
         AssetUtils.loadImageFromAssets(context = context,
             fileName = imageList[position], ivImages)
 
