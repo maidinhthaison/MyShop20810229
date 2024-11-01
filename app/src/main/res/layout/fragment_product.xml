@@ -51,7 +51,7 @@
 
                 <androidx.appcompat.widget.AppCompatEditText
 
-                    android:hint="Product name..."
+                    android:hint="@string/hint_product_name"
                     android:textSize="@dimen/_12sdp"
                     android:layout_toRightOf="@+id/spinnerCate"
                     android:layout_width="@dimen/_125sdp"
@@ -62,9 +62,7 @@
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Search"
-                    android:hint="Product name..."
-                    android:textSize="@dimen/_10sdp"
+                    android:text="@string/search"
                     android:textAllCaps="false"
                     android:id="@+id/buttonSearch"
                    />
@@ -72,6 +70,7 @@
                     android:id="@+id/tvHeader"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginVertical="@dimen/_10sdp"
                     android:layout_below="@+id/buttonSearch"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
@@ -83,6 +82,7 @@
                     android:id="@+id/ivAddProduct"
                     android:layout_width="@dimen/_24sdp"
                     android:layout_height="@dimen/_24sdp"
+                    android:layout_marginVertical="@dimen/_10sdp"
                     app:srcCompat="@drawable/ic_add_circle_36"
                     android:layout_below="@+id/buttonSearch"
                     android:layout_toRightOf="@+id/tvHeader"
@@ -96,7 +96,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvMovies"
+        android:id="@+id/rvProducts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipChildren="false"

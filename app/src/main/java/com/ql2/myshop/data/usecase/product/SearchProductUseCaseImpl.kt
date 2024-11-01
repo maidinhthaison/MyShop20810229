@@ -13,4 +13,5 @@ class SearchProductUseCaseImpl (private val productRepository: ProductRepository
     override fun invoke(cateId: Int, proName: String): Flow<TaskResult<List<ProductModel>>> {
         return productRepository.searchProducts(cateId, proName)
     }
+
 }
