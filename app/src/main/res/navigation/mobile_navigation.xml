@@ -13,13 +13,20 @@
         <action
             android:id="@+id/action_navigation_product_to_productDetailFragment"
             app:destination="@id/productDetailFragment" />
+        <action
+            android:id="@+id/action_navigation_product_to_addProductBottomSheetFragment"
+            app:destination="@id/addProductBottomSheetFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_order"
         android:name="com.ql2.myshop.ui.orders.OrdersFragment"
         android:label="@string/title_orders"
-        tools:layout="@layout/fragment_orders" />
+        tools:layout="@layout/fragment_orders" >
+        <action
+            android:id="@+id/action_navigation_order_to_orderDetailFragment2"
+            app:destination="@id/orderDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -46,4 +53,9 @@
         android:id="@+id/addProductBottomSheetFragment"
         android:name="com.ql2.myshop.ui.products.bottomsheet.AddProductBottomSheetFragment"
         android:label="AddProductBottomSheetFragment" />
+    <dialog
+        android:id="@+id/orderDetailFragment"
+        android:name="com.ql2.myshop.ui.orders.bottomsheet.OrderDetailFragment"
+        android:label="OrderDetailFragment" />
+
 </navigation>

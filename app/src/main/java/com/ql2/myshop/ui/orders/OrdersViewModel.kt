@@ -1,13 +1,25 @@
 package com.ql2.myshop.ui.orders
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.ql2.myshop.base.BaseViewModel
+import com.ql2.myshop.domain.usecase.orders.SearchOrderUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class OrdersViewModel : ViewModel() {
+@HiltViewModel
+class OrdersViewModel @Inject constructor(
+    private val searchOrderUseCase: SearchOrderUseCase
+) : BaseViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
+    private val _uiSearchOrderModel = MutableStateFlow(OrderUIModel())
+    val uiSearchOrderModel = _uiSearchOrderModel.asStateFlow()
+
+    fun searchOrders(status: String, dateFrom: String, dateTo: String) {
+        viewModelScope.launch {
+            searchOrderUseCase(status, dateFrom, dateTo).collectAsState(_uiSearchOrderModel)
+        }
     }
-    val text: LiveData<String> = _text
 }

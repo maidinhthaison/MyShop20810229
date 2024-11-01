@@ -20,6 +20,7 @@
     <string name="cancel">Cancel</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="search">Search</string>
 
     <!--Setting-->
     <string name="logout">Logout</string>
@@ -43,4 +44,15 @@
     <!--Add product bottom sheet-->
     <string name="dialog_add_product_title">Add Product</string>
     <string name="dialog_add_product_message">Add product successfully</string>
+
+    <!--Orders-->
+
+    <string name="order_list_title">Orders</string>
+    <string name="hint_date_from">Date from</string>
+    <string name="hint_date_to">Date to</string>
+
+    <!--Date time picker-->
+    <string name="title_select_date">Select Date</string>
+    <string name="title_select_time">Select time</string>
+
 </resources>

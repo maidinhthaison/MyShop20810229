@@ -43,7 +43,7 @@ class ProductFragment :
         super.onViewCreated(view, savedInstanceState)
 
         productAdapter =  ProductAdapter(context = requireContext())
-        binding.rvMovies.apply {
+        binding.rvProducts.apply {
             adapter = productAdapter
             layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
             itemAnimator = DefaultItemAnimator()

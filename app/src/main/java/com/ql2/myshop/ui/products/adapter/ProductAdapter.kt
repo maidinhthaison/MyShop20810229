@@ -13,7 +13,7 @@ import com.ql2.myshop.utils.formatPriceToCurrency
 
 internal class ProductAdapter (
     private var context: Context,
-) : ListAdapter<ProductModel, ProductAdapter.ProductItemViewHolder>(
+) : ListAdapter<ProductModel, ProductAdapter.OrderItemViewHolder>(
     DIFF_CALLBACK
 ) {
 
@@ -22,16 +22,16 @@ internal class ProductAdapter (
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ProductAdapter.ProductItemViewHolder {
+    ): ProductAdapter.OrderItemViewHolder {
         val binding = ViewHolderProductItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
 
-        return ProductItemViewHolder(binding)
+        return OrderItemViewHolder(binding)
     }
 
     override fun onBindViewHolder(
-        holder: ProductAdapter.ProductItemViewHolder,
+        holder: ProductAdapter.OrderItemViewHolder,
         position: Int
     ) {
         val item = getItem(position)
@@ -40,7 +40,7 @@ internal class ProductAdapter (
         }
     }
 
-    internal inner class ProductItemViewHolder(private val binding: ViewHolderProductItemBinding) :
+    internal inner class OrderItemViewHolder(private val binding: ViewHolderProductItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ProductModel, position: Int) {
             binding.tvProName.text = item.productName
