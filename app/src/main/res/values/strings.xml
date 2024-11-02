@@ -46,7 +46,6 @@
     <string name="dialog_add_product_message">Add product successfully</string>
 
     <!--Orders-->
-
     <string name="order_list_title">Orders</string>
     <string name="hint_date_from">Date from</string>
     <string name="hint_date_to">Date to</string>
@@ -55,4 +54,16 @@
     <string name="title_select_date">Select Date</string>
     <string name="title_select_time">Select time</string>
 
+    <!--Orders Details Bottom Sheet-->
+    <string name="label_order_id">Order Id: %1$s</string>
+    <string name="label_order_date">Order Date: %1$s</string>
+    <string name="label_order_final_price">Final price: %1$s</string>
+    <string name="label_order_status">Status: %1$s</string>
+
+    <string name="label_unit_price">Unit price: %1$s</string>
+    <string name="label_quantity">Quantity: %1$s</string>
+    <string name="label_total_price">Total price: %1$s</string>
+
+    <string name="dialog_update_order_title">Update Product</string>
+    <string name="dialog_update_order_message">Update product successfully</string>
 </resources>

@@ -16,58 +16,58 @@
         android:padding="@dimen/_5sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <com.google.android.material.textview.MaterialTextView
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:id="@+id/tvOrderId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_12sdp"
-            tools:text="Order Id" />
-        <com.google.android.material.textview.MaterialTextView
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:id="@+id/tvOrderDate"
-            android:layout_below="@+id/tvOrderId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_12sdp"
-            tools:text="Date time" />
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvOrderPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvOrderDate"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:textColor="@color/red"
-            android:textStyle="bold"
-            android:textSize="@dimen/_12sdp"
-            tools:text="Final Price" />
-        <com.google.android.material.textview.MaterialTextView
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_below="@+id/tvOrderPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:id="@+id/tvOrderStatus"
-            android:textSize="@dimen/_12sdp"
-            android:textStyle="bold"
-            tools:text="Status"/>
-
         <androidx.appcompat.widget.AppCompatImageView
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:layout_width="@dimen/_24sdp"
-            android:layout_height="@dimen/_24sdp"
-            android:padding="@dimen/_4sdp"
-            app:srcCompat="@drawable/ic_black_arrow_forward_24"/>
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:id="@+id/ivProductThumb"
+            app:srcCompat="@drawable/ic_launcher_background"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_toRightOf="@+id/ivProductThumb"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:id="@+id/tvProName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12sdp"
+            tools:text="Product" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvProPrice"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_below="@+id/tvProName"
+            android:layout_toRightOf="@+id/ivProductThumb"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:textSize="@dimen/_12sdp"
+            tools:text="Price" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvProPrice"
+            android:layout_toRightOf="@+id/ivProductThumb"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12sdp"
+            tools:text="Quantity" />
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_below="@+id/tvQuantity"
+            android:layout_toRightOf="@+id/ivProductThumb"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:id="@+id/tvTotalPrice"
+            android:textSize="@dimen/_12sdp"
+            tools:text="Total Price"/>
 
     </RelativeLayout>
 

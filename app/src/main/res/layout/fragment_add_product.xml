@@ -39,7 +39,7 @@
                     android:orientation="vertical">
                     <androidx.appcompat.widget.AppCompatSpinner
                         android:layout_width="@dimen/_80sdp"
-                        android:layout_height="@dimen/_35sdp"
+                        android:layout_height="@dimen/_30sdp"
                         android:background="@drawable/bg_default_spinner"
                         android:id="@+id/spinnerCate" />
                     <com.google.android.material.textfield.TextInputLayout

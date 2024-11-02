@@ -1,5 +1,6 @@
 package com.ql2.myshop.domain.model.product
 
+import com.ql2.myshop.utils.StringExt
 import java.io.Serializable
 
 
@@ -14,6 +15,6 @@ data class ProductModel(
 ): Serializable {
     private val CHAR_SPLIT = "@@"
     fun getImages(): List<String> {
-        return  productImage!!.split(CHAR_SPLIT)
+        return  StringExt.splitString(productImage = productImage)
     }
 }

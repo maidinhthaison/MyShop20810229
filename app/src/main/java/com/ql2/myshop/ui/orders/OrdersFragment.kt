@@ -18,6 +18,7 @@ import com.google.android.material.timepicker.TimeFormat
 import com.ql2.myshop.R
 import com.ql2.myshop.base.BaseFragment
 import com.ql2.myshop.databinding.FragmentOrdersBinding
+import com.ql2.myshop.domain.model.orders.OrderDetailModel
 import com.ql2.myshop.domain.model.orders.OrdersModel
 import com.ql2.myshop.ui.orders.adapter.ListOrderAdapter
 import com.ql2.myshop.ui.orders.adapter.ListOrderUIEvent
@@ -191,9 +192,9 @@ class OrdersFragment :
             }.show(childFragmentManager, DATETIME_DIALOG_FRAGMENT_TAG)
     }
 
-    private fun gotoDetailScreen(ordersModel: OrdersModel) {
+    private fun gotoDetailScreen(orderItemModel: OrdersModel) {
         val bundle = Bundle().apply {
-            this.putSerializable(ORDER_ITEM_MODEL, ordersModel)
+            this.putSerializable(ORDER_ITEM_MODEL, orderItemModel)
         }
 
         findNavController().navigate(R.id.action_navigation_order_to_orderDetailFragment2, bundle)
