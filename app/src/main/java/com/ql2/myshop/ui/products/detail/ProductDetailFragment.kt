@@ -38,8 +38,6 @@ class ProductDetailFragment :
 
     private lateinit var viewPagerAdapter: ImageSlideAdapter
 
-    private lateinit var indicator: CircleIndicator
-
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

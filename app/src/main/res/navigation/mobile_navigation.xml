@@ -55,7 +55,7 @@
         android:label="AddProductBottomSheetFragment" />
     <dialog
         android:id="@+id/orderDetailFragment"
-        android:name="com.ql2.myshop.ui.orders.bottomsheet.OrderDetailFragment"
+        android:name="com.ql2.myshop.ui.orders.detail.OrderDetailBottomSheetFragment"
         android:label="OrderDetailFragment" />
 
 </navigation>
