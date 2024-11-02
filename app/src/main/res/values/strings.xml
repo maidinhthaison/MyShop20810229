@@ -62,5 +62,8 @@
 
     <string name="label_unit_price">Unit price: %1$s</string>
     <string name="label_quantity">Quantity: %1$s</string>
-    <string name="label_total_price">Total price: %1$s</string>"
+    <string name="label_total_price">Total price: %1$s</string>
+
+    <string name="dialog_update_order_title">Update Product</string>
+    <string name="dialog_update_order_message">Update product successfully</string>
 </resources>

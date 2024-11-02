@@ -8,11 +8,13 @@ import com.ql2.myshop.data.retrofit.RetrofitManager
 import com.ql2.myshop.data.usecase.category.GetAllCategoryUseCaseImpl
 import com.ql2.myshop.data.usecase.orders.GetOrderDetailUseCaseImpl
 import com.ql2.myshop.data.usecase.orders.SearchOrderUseCaseImpl
+import com.ql2.myshop.data.usecase.orders.UpdateOrderByIdUseCaseImpl
 import com.ql2.myshop.domain.repository.category.CategoryRepository
 import com.ql2.myshop.domain.repository.orders.OrdersRepository
 import com.ql2.myshop.domain.usecase.category.GetAllCategoryUseCase
 import com.ql2.myshop.domain.usecase.orders.GetOrderDetailUseCase
 import com.ql2.myshop.domain.usecase.orders.SearchOrderUseCase
+import com.ql2.myshop.domain.usecase.orders.UpdateOrderByIdUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -47,4 +49,11 @@ class OrdersModule {
     fun provideGetOrderDetailUseCase(ordersRepository: OrdersRepository): GetOrderDetailUseCase {
         return GetOrderDetailUseCaseImpl(ordersRepository)
     }
+
+    @Provides
+    fun provideUpdateOrderByIdUseCase(ordersRepository: OrdersRepository): UpdateOrderByIdUseCase {
+        return UpdateOrderByIdUseCaseImpl(ordersRepository)
+    }
+
+
 }

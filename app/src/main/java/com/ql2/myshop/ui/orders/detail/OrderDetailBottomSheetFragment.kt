@@ -21,6 +21,7 @@ import com.ql2.myshop.domain.model.orders.OrdersModel
 import com.ql2.myshop.ui.orders.OrdersFragment.Companion.ORDER_ITEM_MODEL
 import com.ql2.myshop.ui.orders.OrdersViewModel
 import com.ql2.myshop.ui.orders.adapter.OrderDetailAdapter
+import com.ql2.myshop.utils.AppDialog
 import com.ql2.myshop.utils.formatDateTimeServer
 import com.ql2.myshop.utils.formatPriceToCurrency
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,6 +34,7 @@ class OrderDetailBottomSheetFragment :
     private val ordersViewModel by viewModels<OrdersViewModel>()
     private lateinit var orderDetailAdapter: OrderDetailAdapter
     private lateinit var orderStatus: String
+    private var flag : Boolean = true
     override fun initBindingObject(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): FragmentOrderDetailBinding {
@@ -91,13 +93,6 @@ class OrderDetailBottomSheetFragment :
                         ordersModel.createdTime?.let { it1 -> formatDateTimeServer(it1) }))
                     binding.tvFinalPrice.text = String.format(getString(R.string.label_order_final_price,
                         formatPriceToCurrency(ordersModel.finalPrice)))
-                    /*binding.tvStatus.text = String.format(getString(R.string.label_order_status, ordersModel.orderStatus))
-                    val id: Int = when(ordersModel.orderStatus){
-                        "Paid" -> R.color.malachite
-                        "Created" -> R.color.blue
-                        else -> R.color.red
-                    }
-                    binding.tvStatus.setTextColor(context?.getColor(id) ?: R.color.black)*/
                     binding.spinnerCate.setSelection(
                         resources.getStringArray(R.array.order_status).indexOf(ordersModel.orderStatus))
                 }
@@ -134,6 +129,30 @@ class OrderDetailBottomSheetFragment :
          */
         binding.buttonSave.setOnClickListener {
             Timber.d("orderStatus: $orderStatus")
+            with(ordersViewModel) {
+                updateOrderById(orderStatus, ordersModel?.orderId ?: "")
+            }
+        }
+
+        ordersViewModel.uiUpdateOrderByIdModel.collectWhenStarted {
+            binding.loadingProgress.isVisible = it.isLoading
+            if (flag) {
+                val responseModel = it.data
+                if (responseModel?.info !="" && responseModel?.affectedRows == 1){
+
+                    AppDialog.displayErrorMessage(
+                        requireContext(), R.string.dialog_update_order_title,
+                        R.string.dialog_update_order_message,
+                        R.string.ok
+                    ) { _, _ ->
+                        flag = false
+                    }
+
+                }
+            }else{
+                flag = true
+            }
+
         }
         /**
          * Close dialog
