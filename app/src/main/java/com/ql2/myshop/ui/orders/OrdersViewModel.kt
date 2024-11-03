@@ -2,7 +2,6 @@ package com.ql2.myshop.ui.orders
 
 import androidx.lifecycle.viewModelScope
 import com.ql2.myshop.base.BaseViewModel
-import com.ql2.myshop.domain.model.orders.UpdateOrderByIdModel
 import com.ql2.myshop.domain.usecase.orders.GetOrderDetailUseCase
 import com.ql2.myshop.domain.usecase.orders.SearchOrderUseCase
 import com.ql2.myshop.domain.usecase.orders.UpdateOrderByIdUseCase

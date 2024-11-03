@@ -66,4 +66,7 @@
 
     <string name="dialog_update_order_title">Update Product</string>
     <string name="dialog_update_order_message">Update product successfully</string>
+
+    <!--DashBoard-->
+    <string name="label_piechart_product_by_cate">Products by Category</string>
 </resources>
