@@ -1,10 +1,9 @@
-package com.ql2.myshop.domain.model.product
+package com.ql2.myshop.domain.model.dashboard
 
 import com.ql2.myshop.utils.StringExt
 import java.io.Serializable
 
-
-data class ProductModel(
+data class OutOfStockProductModel (
     val productId: Int? = null,
     val cateId: Int? = null,
     val importPrice: Float? = null,
@@ -12,7 +11,7 @@ data class ProductModel(
     val description: String? = null,
     val productName: String? = null,
     val productImage: String? = null
-): Serializable {
+) : Serializable {
     fun getImages(): List<String> {
         return  StringExt.splitString(productImage = productImage)
     }

@@ -42,15 +42,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:elevation="@dimen/_4sdp"/>
-                <!--<androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/ivProductTop"
-                    android:layout_width="@dimen/_200sdp"
-                    android:layout_height="@dimen/_150sdp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_launcher_background"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>-->
                 <androidx.appcompat.widget.AppCompatImageView
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"

@@ -1,37 +1,40 @@
-package com.ql2.myshop.ui.products.adapter
+package com.ql2.myshop.ui.dashboard.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.ql2.myshop.R
+import com.ql2.myshop.databinding.ViewHolderAnalyticProductBinding
 import com.ql2.myshop.databinding.ViewHolderProductItemBinding
+import com.ql2.myshop.domain.model.dashboard.OutOfStockProductModel
 import com.ql2.myshop.domain.model.product.ProductModel
 import com.ql2.myshop.utils.AssetUtils
 import com.ql2.myshop.utils.formatPriceToCurrency
+import timber.log.Timber
 
-internal class ProductAdapter (
+internal class OutOfStockProductAdapter (
     private var context: Context,
-) : ListAdapter<ProductModel, ProductAdapter.OrderItemViewHolder>(
+) : ListAdapter<OutOfStockProductModel,OutOfStockProductAdapter.OutOfStockItemViewHolder>(
     DIFF_CALLBACK
 ) {
-
-    var onClicked: ((ListProductUIEvent) -> Unit)? = null
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ProductAdapter.OrderItemViewHolder {
-        val binding = ViewHolderProductItemBinding.inflate(
+    ): OutOfStockProductAdapter.OutOfStockItemViewHolder {
+        val binding = ViewHolderAnalyticProductBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
 
-        return OrderItemViewHolder(binding)
+        return OutOfStockItemViewHolder(binding)
     }
 
     override fun onBindViewHolder(
-        holder: ProductAdapter.OrderItemViewHolder,
+        holder: OutOfStockProductAdapter.OutOfStockItemViewHolder,
         position: Int
     ) {
         val item = getItem(position)
@@ -40,34 +43,31 @@ internal class ProductAdapter (
         }
     }
 
-    internal inner class OrderItemViewHolder(private val binding: ViewHolderProductItemBinding) :
+    internal inner class OutOfStockItemViewHolder(private val binding: ViewHolderAnalyticProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ProductModel, position: Int) {
+        fun bind(item: OutOfStockProductModel, position: Int) {
             binding.tvProName.text = item.productName
             binding.tvProPrice.text = formatPriceToCurrency(item.importPrice)
-            binding.tvDescription.text= item.description
+            binding.tvQuantity.text= String.format(
+                context.getString(R.string.label_outOfStock_product_quantity),
+                item.quantity.toString())
             AssetUtils.loadImageFromAssets(context = context,
                 fileName = item.getImages()[0], binding.ivProductThumb)
-            binding.root.setOnClickListener {
-                onClicked?.invoke(ListProductUIEvent.OnItemClicked(item))
-            }
+
         }
     }
 
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ProductModel>() {
-            override fun areItemsTheSame(oldItem: ProductModel, newItem: ProductModel): Boolean {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<OutOfStockProductModel>() {
+            override fun areItemsTheSame(oldItem: OutOfStockProductModel, newItem: OutOfStockProductModel): Boolean {
                 return oldItem.productId == newItem.productId
             }
 
-            override fun areContentsTheSame(oldItem: ProductModel, newItem: ProductModel): Boolean {
+            @SuppressLint("DiffUtilEquals")
+            override fun areContentsTheSame(oldItem: OutOfStockProductModel, newItem: OutOfStockProductModel): Boolean {
                 return oldItem == newItem
             }
         }
     }
-}
-
-sealed class ListProductUIEvent() {
-    data class OnItemClicked(val productItem: ProductModel) : ListProductUIEvent()
 }
