@@ -5,6 +5,9 @@ import com.ql2.myshop.data.api.DashboardAPI
 import com.ql2.myshop.domain.TaskResult
 import com.ql2.myshop.domain.map
 import com.ql2.myshop.domain.model.dashboard.BestSalesProductModel
+import com.ql2.myshop.domain.model.dashboard.IncomeInDayModel
+import com.ql2.myshop.domain.model.dashboard.LatestOrderModel
+import com.ql2.myshop.domain.model.dashboard.OrdersInDayModel
 import com.ql2.myshop.domain.model.dashboard.OutOfStockProductModel
 import com.ql2.myshop.domain.model.dashboard.PieChartModel
 import com.ql2.myshop.domain.repository.dashboard.DashboardRepository
@@ -39,6 +42,30 @@ class DashboardRepositoryImpl (private val dashboardAPI: DashboardAPI,
         val result = SafeCallAPI.callApi {
             dashboardAPI.getBestSalesProduct(limit)
         }.map { it -> it.map { it.toBestSalesProductModel() } }
+        emit(result)
+    }.flowOn(defaultDispatcher)
+
+    override fun getOrderInDay(): Flow<TaskResult<List<OrdersInDayModel>>> = flow<TaskResult<List<OrdersInDayModel>>> {
+        emit(TaskResult.Loading)
+        val result = SafeCallAPI.callApi {
+            dashboardAPI.getAllOrdersInDay()
+        }.map { it -> it.map { it.toOrdersInDayModel() } }
+        emit(result)
+    }.flowOn(defaultDispatcher)
+
+    override fun getIncomeInDay(): Flow<TaskResult<List<IncomeInDayModel>>> = flow<TaskResult<List<IncomeInDayModel>>> {
+        emit(TaskResult.Loading)
+        val result = SafeCallAPI.callApi {
+            dashboardAPI.getIncomeInDay()
+        }.map { it -> it.map { it.toIncomeInDayModel() } }
+        emit(result)
+    }.flowOn(defaultDispatcher)
+
+    override fun getLatestOrders(): Flow<TaskResult<List<LatestOrderModel>>> = flow<TaskResult<List<LatestOrderModel>>> {
+        emit(TaskResult.Loading)
+        val result = SafeCallAPI.callApi {
+            dashboardAPI.getLatestOrders()
+        }.map { it -> it.map { it.toLatestOrderModel() } }
         emit(result)
     }.flowOn(defaultDispatcher)
 

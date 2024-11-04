@@ -1,5 +1,6 @@
 package com.ql2.myshop.utils
 
+import android.annotation.SuppressLint
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -30,4 +31,17 @@ fun formatDate(date: Calendar, outputFormat: String): String {
     )
     val outFormatter = DateTimeFormatter.ofPattern(outputFormat)
     return localDate.format(outFormatter)
+}
+
+fun formatDate(date: Date, outputFormat: String): String {
+    val localDate = LocalDateTime.ofInstant(date.toInstant(), TimeZone.getDefault().toZoneId())
+    val outFormatter = DateTimeFormatter.ofPattern(outputFormat)
+    return localDate.format(outFormatter)
+}
+
+@SuppressLint("SimpleDateFormat")
+fun formatDate(outputFormat: String): String {
+    val time = Calendar.getInstance().time
+    val formatter = SimpleDateFormat(outputFormat)
+    return formatter.format(time)
 }

@@ -3,9 +3,12 @@ package com.ql2.myshop.ui.dashboard
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Html
+import android.text.Html.FROM_HTML_MODE_LEGACY
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -22,8 +25,14 @@ import com.ql2.myshop.R
 import com.ql2.myshop.base.BaseFragment
 import com.ql2.myshop.databinding.FragmentDashboardBinding
 import com.ql2.myshop.ui.dashboard.adapter.BestSalesProductAdapter
+import com.ql2.myshop.ui.dashboard.adapter.LatestOrderAdapter
 import com.ql2.myshop.ui.dashboard.adapter.OutOfStockProductAdapter
+import com.ql2.myshop.utils.DATE_ORDER_DATETIME
+import com.ql2.myshop.utils.formatDate
+import com.ql2.myshop.utils.formatPriceToCurrency
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
+import java.util.Date
 
 @AndroidEntryPoint
 class DashboardFragment :
@@ -41,9 +50,11 @@ class DashboardFragment :
 
     private lateinit var bestSalesProductAdapter: BestSalesProductAdapter
 
+    private lateinit var latestOrderAdapter: LatestOrderAdapter
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        bindStatisticInDay()
         setupPieChart(binding.pieChartProductCategory)
         loadPieChartData(binding.pieChartProductCategory)
 
@@ -64,6 +75,55 @@ class DashboardFragment :
             layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
             itemAnimator = DefaultItemAnimator()
         }
+
+        latestOrderAdapter =  LatestOrderAdapter(context = requireContext())
+        binding.rvTop3LatestOrders.apply {
+            adapter = latestOrderAdapter
+            layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+            itemAnimator = DefaultItemAnimator()
+        }
+    }
+
+    private fun bindStatisticInDay(){
+        with(dashboardViewModel) {
+            getOrderInDay()
+            getIncomeInDay()
+            getLatestOrder()
+        }
+        val text = String.format(
+            getString(R.string.label_total_order_today_title), formatDate(Date(), DATE_ORDER_DATETIME)
+        )
+        binding.tvTotalOrderInDayTitle.text = HtmlCompat.fromHtml(
+            text, HtmlCompat.FROM_HTML_MODE_LEGACY
+        )
+        dashboardViewModel.uiGetOrderInDayModel.collectWhenStarted {
+            binding.loadingProgress.isVisible = it.isLoading
+            if (it.data != null) {
+
+                val text = String.format(
+                    getString(R.string.label_total_order_today), it.data.size.toString()
+                )
+                binding.tvTotalOrderInDay.text = HtmlCompat.fromHtml(
+                    text, HtmlCompat.FROM_HTML_MODE_LEGACY
+                )
+
+            }
+        }
+        dashboardViewModel.uiGetIncomeInDayModel.collectWhenStarted {
+            binding.loadingProgress.isVisible = it.isLoading
+            val list = it.data
+            if (list != null) {
+                val incomeInDay = list.sumOf { it1 -> it1.totalPriceInDay ?: 0 }
+                val text = String.format(
+                    getString(R.string.label_total_income_today),
+                    formatPriceToCurrency(incomeInDay.toFloat())
+                )
+                binding.tvTotalIncomeInDay.text = HtmlCompat.fromHtml(
+                    text, HtmlCompat.FROM_HTML_MODE_LEGACY
+                )
+
+            }
+        }
     }
     private fun loadOutOfStockProduct(limit : Int) {
 
@@ -83,6 +143,13 @@ class DashboardFragment :
             binding.loadingProgress.isVisible = it.isLoading
             if (it.data != null) {
                 bestSalesProductAdapter.submitList(it.data.toList())
+            }
+        }
+
+        dashboardViewModel.uiGetLatestOrderModel.collectWhenStarted {
+            binding.loadingProgress.isVisible = it.isLoading
+            if (it.data != null) {
+                latestOrderAdapter.submitList(it.data.toList())
             }
         }
 

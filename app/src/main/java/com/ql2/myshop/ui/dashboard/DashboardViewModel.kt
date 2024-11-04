@@ -3,7 +3,10 @@ package com.ql2.myshop.ui.dashboard
 import androidx.lifecycle.viewModelScope
 import com.ql2.myshop.base.BaseViewModel
 import com.ql2.myshop.domain.usecase.dashboard.GetBestSalesProductUseCase
+import com.ql2.myshop.domain.usecase.dashboard.GetIncomeInDayUseCase
+import com.ql2.myshop.domain.usecase.dashboard.GetLatestOrderUseCase
 import com.ql2.myshop.domain.usecase.dashboard.GetNumberOfProductByCateIdUseCase
+import com.ql2.myshop.domain.usecase.dashboard.GetOrdersInDayUseCase
 import com.ql2.myshop.domain.usecase.dashboard.GetOutOfStockProductUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +18,10 @@ import javax.inject.Inject
 class DashboardViewModel @Inject constructor(
     private val getNumberOfProductByCateIdUseCase: GetNumberOfProductByCateIdUseCase,
     private val getOutOfStockProductUseCase: GetOutOfStockProductUseCase,
-    private val getBestSalesProductUseCase: GetBestSalesProductUseCase
+    private val getBestSalesProductUseCase: GetBestSalesProductUseCase,
+    private val getOrdersInDayUseCase: GetOrdersInDayUseCase,
+    private val getIncomeInDayUseCase: GetIncomeInDayUseCase,
+    private val getLatestOrderUseCase: GetLatestOrderUseCase
 ) : BaseViewModel() {
     private val _uiPieChartModel = MutableStateFlow(PieChartUIModel())
     val uiPieChartModel = _uiPieChartModel.asStateFlow()
@@ -25,6 +31,15 @@ class DashboardViewModel @Inject constructor(
 
     private val _uiBestSalesProductModel = MutableStateFlow(BestSalesProductUIModel())
     val uiBestSalesProductModel = _uiBestSalesProductModel.asStateFlow()
+
+    private val _uiGetOrderInDayModel = MutableStateFlow(OrderInDayUIModel())
+    val uiGetOrderInDayModel = _uiGetOrderInDayModel.asStateFlow()
+
+    private val _uiGetIncomeInDayModel = MutableStateFlow(TotalIncomeInDayUIModel())
+    val uiGetIncomeInDayModel = _uiGetIncomeInDayModel.asStateFlow()
+
+    private val _uiGetLatestOrderModel = MutableStateFlow(LatestOrderUIModel())
+    val uiGetLatestOrderModel = _uiGetLatestOrderModel.asStateFlow()
 
     fun generatePieChart()  {
         viewModelScope.launch {
@@ -41,6 +56,24 @@ class DashboardViewModel @Inject constructor(
     fun getBestSalesProducts(limit: Int)  {
         viewModelScope.launch {
             getBestSalesProductUseCase(limit).collectAsState(_uiBestSalesProductModel)
+        }
+    }
+
+    fun getOrderInDay()   {
+        viewModelScope.launch {
+            getOrdersInDayUseCase().collectAsState(_uiGetOrderInDayModel)
+        }
+    }
+
+    fun getIncomeInDay()   {
+        viewModelScope.launch {
+            getIncomeInDayUseCase().collectAsState(_uiGetIncomeInDayModel)
+        }
+    }
+
+    fun getLatestOrder()   {
+        viewModelScope.launch {
+            getLatestOrderUseCase().collectAsState(_uiGetLatestOrderModel)
         }
     }
 }
