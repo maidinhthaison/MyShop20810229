@@ -5,7 +5,7 @@ import com.ql2.myshop.data.api.DashboardAPI
 import com.ql2.myshop.domain.TaskResult
 import com.ql2.myshop.domain.map
 import com.ql2.myshop.domain.model.dashboard.BestSalesProductModel
-import com.ql2.myshop.domain.model.dashboard.IncomeInDayModel
+import com.ql2.myshop.domain.model.dashboard.IncomeInDateModel
 import com.ql2.myshop.domain.model.dashboard.LatestOrderModel
 import com.ql2.myshop.domain.model.dashboard.OrdersInDayModel
 import com.ql2.myshop.domain.model.dashboard.OutOfStockProductModel
@@ -53,11 +53,11 @@ class DashboardRepositoryImpl (private val dashboardAPI: DashboardAPI,
         emit(result)
     }.flowOn(defaultDispatcher)
 
-    override fun getIncomeInDay(): Flow<TaskResult<List<IncomeInDayModel>>> = flow<TaskResult<List<IncomeInDayModel>>> {
+    override fun getIncomeInDay(): Flow<TaskResult<List<IncomeInDateModel>>> = flow<TaskResult<List<IncomeInDateModel>>> {
         emit(TaskResult.Loading)
         val result = SafeCallAPI.callApi {
             dashboardAPI.getIncomeInDay()
-        }.map { it -> it.map { it.toIncomeInDayModel() } }
+        }.map { it -> it.map { it.toIncomeInDateModel() } }
         emit(result)
     }.flowOn(defaultDispatcher)
 
@@ -66,6 +66,14 @@ class DashboardRepositoryImpl (private val dashboardAPI: DashboardAPI,
         val result = SafeCallAPI.callApi {
             dashboardAPI.getLatestOrders()
         }.map { it -> it.map { it.toLatestOrderModel() } }
+        emit(result)
+    }.flowOn(defaultDispatcher)
+
+    override fun getIncomeInMonth(): Flow<TaskResult<List<IncomeInDateModel>>> = flow<TaskResult<List<IncomeInDateModel>>> {
+        emit(TaskResult.Loading)
+        val result = SafeCallAPI.callApi {
+            dashboardAPI.getIncomeInMonth()
+        }.map { it -> it.map { it.toIncomeInDateModel() } }
         emit(result)
     }.flowOn(defaultDispatcher)
 

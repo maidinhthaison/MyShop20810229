@@ -5,6 +5,7 @@ import com.ql2.myshop.data.repository.dashboard.DashboardRepositoryImpl
 import com.ql2.myshop.data.retrofit.RetrofitManager
 import com.ql2.myshop.data.usecase.dashboard.GetBestSalesProductUseCaseImpl
 import com.ql2.myshop.data.usecase.dashboard.GetIncomeInDayUseCaseImpl
+import com.ql2.myshop.data.usecase.dashboard.GetIncomeInMonthUseCaseImpl
 import com.ql2.myshop.data.usecase.dashboard.GetLatestOrderUseCaseImpl
 import com.ql2.myshop.data.usecase.dashboard.GetNumberOfProductByCateIdUseCaseImpl
 import com.ql2.myshop.data.usecase.dashboard.GetOrdersInDayUseCaseImpl
@@ -12,6 +13,7 @@ import com.ql2.myshop.data.usecase.dashboard.GetOutOfStockProductUseCaseImpl
 import com.ql2.myshop.domain.repository.dashboard.DashboardRepository
 import com.ql2.myshop.domain.usecase.dashboard.GetBestSalesProductUseCase
 import com.ql2.myshop.domain.usecase.dashboard.GetIncomeInDayUseCase
+import com.ql2.myshop.domain.usecase.dashboard.GetIncomeInMonthUseCase
 import com.ql2.myshop.domain.usecase.dashboard.GetLatestOrderUseCase
 import com.ql2.myshop.domain.usecase.dashboard.GetNumberOfProductByCateIdUseCase
 import com.ql2.myshop.domain.usecase.dashboard.GetOrdersInDayUseCase
@@ -69,5 +71,10 @@ class DashboardModule {
     @Provides
     fun provideGetLatestOrderUseCase(dashboardRepository: DashboardRepository): GetLatestOrderUseCase {
         return GetLatestOrderUseCaseImpl(dashboardRepository)
+    }
+
+    @Provides
+    fun provideGetIncomeInMonthUseCase(dashboardRepository: DashboardRepository): GetIncomeInMonthUseCase {
+        return GetIncomeInMonthUseCaseImpl(dashboardRepository)
     }
 }

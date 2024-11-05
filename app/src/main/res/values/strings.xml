@@ -80,6 +80,7 @@
     <string name="label_dashboard_nearly_outOfStock_divider">Nearly Out Of Stock</string>
     <string name="label_dashboard_bestSales_divider">Best Sales</string>
     <string name="label_dashboard_nearly_income_divider">Income</string>
+    <string name="label_dashboard_income_month_divider">Monthly income</string>
 
     <string name="label_total_order_today_title"><![CDATA[Up to now <font color=#FF0000>%1$s</font> you have:]]></string>
     <string name="label_total_order_today"><![CDATA[There are <font color=#FF0000>%1$s</font> orders]]></string>

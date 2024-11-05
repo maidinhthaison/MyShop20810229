@@ -2,7 +2,7 @@ package com.ql2.myshop.domain.repository.dashboard
 
 import com.ql2.myshop.domain.TaskResult
 import com.ql2.myshop.domain.model.dashboard.BestSalesProductModel
-import com.ql2.myshop.domain.model.dashboard.IncomeInDayModel
+import com.ql2.myshop.domain.model.dashboard.IncomeInDateModel
 import com.ql2.myshop.domain.model.dashboard.LatestOrderModel
 import com.ql2.myshop.domain.model.dashboard.OrdersInDayModel
 import com.ql2.myshop.domain.model.dashboard.OutOfStockProductModel
@@ -14,6 +14,7 @@ interface DashboardRepository {
     fun getOutOfStockProduct(limit : Int): Flow<TaskResult<List<OutOfStockProductModel>>>
     fun getBestSaleProduct(limit : Int): Flow<TaskResult<List<BestSalesProductModel>>>
     fun getOrderInDay(): Flow<TaskResult<List<OrdersInDayModel>>>
-    fun getIncomeInDay(): Flow<TaskResult<List<IncomeInDayModel>>>
+    fun getIncomeInDay(): Flow<TaskResult<List<IncomeInDateModel>>>
     fun getLatestOrders(): Flow<TaskResult<List<LatestOrderModel>>>
+    fun getIncomeInMonth(): Flow<TaskResult<List<IncomeInDateModel>>>
 }

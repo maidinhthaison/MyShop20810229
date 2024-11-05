@@ -3,8 +3,6 @@ package com.ql2.myshop.ui.dashboard
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
-import android.text.Html
-import android.text.Html.FROM_HTML_MODE_LEGACY
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,11 +12,24 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.Legend
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.XAxis.XAxisPosition
+import com.github.mikephil.charting.components.YAxis
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.ql2.myshop.R
@@ -33,6 +44,7 @@ import com.ql2.myshop.utils.formatPriceToCurrency
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.util.Date
+
 
 @AndroidEntryPoint
 class DashboardFragment :
@@ -57,7 +69,7 @@ class DashboardFragment :
         bindStatisticInDay()
         setupPieChart(binding.pieChartProductCategory)
         loadPieChartData(binding.pieChartProductCategory)
-
+        loadBarChart(binding.barChart)
         initRecycleView()
         loadOutOfStockProduct(limit = 5)
     }
@@ -113,7 +125,7 @@ class DashboardFragment :
             binding.loadingProgress.isVisible = it.isLoading
             val list = it.data
             if (list != null) {
-                val incomeInDay = list.sumOf { it1 -> it1.totalPriceInDay ?: 0 }
+                val incomeInDay = list.sumOf { it1 -> it1.totalPrice ?: 0 }
                 val text = String.format(
                     getString(R.string.label_total_income_today),
                     formatPriceToCurrency(incomeInDay.toFloat())
@@ -130,6 +142,7 @@ class DashboardFragment :
         with(dashboardViewModel) {
             getOutOfStockProducts(limit)
             getBestSalesProducts(limit)
+
         }
 
         dashboardViewModel.uiOutOfStockProductModel.collectWhenStarted {
@@ -170,6 +183,7 @@ class DashboardFragment :
         l.setDrawInside(false)
         l.isEnabled = true
     }
+
     @SuppressLint("StringFormatMatches")
     private fun loadPieChartData(pieChart: PieChart) {
         with(dashboardViewModel) {
@@ -215,6 +229,60 @@ class DashboardFragment :
             }
 
         }
+    }
+
+    private fun setUpBarChart(barChart: BarChart){
+        barChart.axisRight.setDrawLabels(false)
+        barChart.description.isEnabled = false
+        barChart.invalidate()
+
+
+        barChart.xAxis.position = XAxisPosition.BOTTOM
+        barChart.xAxis.granularity = 1f
+        barChart.xAxis.isGranularityEnabled = true
+        barChart.xAxis.textSize = 12f
+        barChart.setPinchZoom(false)
+    }
+    private fun loadBarChart(barChart: BarChart){
+        with(dashboardViewModel) {
+            getIncomeInMonth()
+        }
+        dashboardViewModel.uiGetIncomeInMonthModel.collectWhenStarted {
+            binding.loadingProgress.isVisible = it.isLoading
+            val lineChartData = it.data
+            if (lineChartData != null){
+                val xValues = ArrayList<String>()
+                val entries = ArrayList<BarEntry>()
+                for (i in lineChartData.indices) {
+                    xValues.add(lineChartData[i].formatDateTime())
+                    entries.add(BarEntry(i.toFloat(), lineChartData[i].totalPrice?.toFloat()?.div(1000) ?: 0f))
+                }
+
+
+                val yAxis = barChart.axisLeft
+                yAxis.axisMinimum = 0f
+                yAxis.axisMaximum = lineChartData.maxOf { it1 -> it1.totalPrice ?: 0 }.toFloat().div(1000)
+                yAxis.axisLineWidth = 2f
+                yAxis.axisLineColor = Color.BLACK
+                yAxis.labelCount = 10
+                yAxis.textColor = Color.BLACK
+                yAxis.textSize = 12f
+
+
+                val dataSet = BarDataSet(entries, getString(R.string.label_dashboard_income_month_divider))
+                dataSet.setColors(*ColorTemplate.MATERIAL_COLORS)
+                dataSet.valueTextColor = Color.BLACK
+                dataSet.valueTextSize = 12f
+
+                val barData = BarData(dataSet)
+                barChart.data = barData
+                barChart.xAxis.valueFormatter = IndexAxisValueFormatter(xValues)
+                setUpBarChart(barChart)
+
+            }
+
+        }
 
     }
+
 }

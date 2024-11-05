@@ -1,21 +1,21 @@
 package com.ql2.myshop.data.api.response
 
 import com.google.gson.annotations.SerializedName
-import com.ql2.myshop.domain.model.dashboard.IncomeInDayModel
+import com.ql2.myshop.domain.model.dashboard.IncomeInDateModel
 import java.io.Serializable
 
-data class IncomeInDayResponseDTO (
+data class IncomeInDateResponseDTO (
     @SerializedName("order_id") val orderId: String?,
     @SerializedName("created_time") val createTime: String?,
     @SerializedName("order_status") val orderStatus: String?,
-    @SerializedName("total_price_in_day") val totalPriceInDay: Int?
+    @SerializedName("total_price") val totalPrice: Int?
 ): Serializable {
-    fun toIncomeInDayModel(): IncomeInDayModel {
-        return IncomeInDayModel(
+    fun toIncomeInDateModel(): IncomeInDateModel {
+        return IncomeInDateModel(
             orderId = orderId,
             createdTime = createTime,
             orderStatus = orderStatus,
-            totalPriceInDay = totalPriceInDay
+            totalPrice = totalPrice
         )
     }
 }

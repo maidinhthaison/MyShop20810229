@@ -78,6 +78,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_300sdp" />
             <com.google.android.material.textview.MaterialTextView
+                android:text="@string/label_dashboard_income_month_divider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/lightGray"
+                android:textStyle="bold"
+                android:textSize="@dimen/_12sdp"
+                android:padding="@dimen/_10sdp"
+                />
+            <com.github.mikephil.charting.charts.BarChart
+                android:visibility="visible"
+                android:id="@+id/barChart"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_500sdp"/>
+            <com.google.android.material.textview.MaterialTextView
                 android:text="@string/label_dashboard_latest_order_divider"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -145,16 +159,7 @@
                 tools:itemCount="5"
                 app:spanCount="3"
                 tools:listitem="@layout/view_holder_product_item" />
-            <com.google.android.material.textview.MaterialTextView
-                android:text="@string/label_dashboard_nearly_income_divider"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/lightGray"
-                android:textStyle="bold"
-                android:textSize="@dimen/_12sdp"
-                android:padding="@dimen/_10sdp"
-                />
-<!--            Chart income in month by day-->
+
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.core.widget.NestedScrollView>
     <androidx.core.widget.ContentLoadingProgressBar

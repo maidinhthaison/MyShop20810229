@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.ql2.myshop.base.BaseViewModel
 import com.ql2.myshop.domain.usecase.dashboard.GetBestSalesProductUseCase
 import com.ql2.myshop.domain.usecase.dashboard.GetIncomeInDayUseCase
+import com.ql2.myshop.domain.usecase.dashboard.GetIncomeInMonthUseCase
 import com.ql2.myshop.domain.usecase.dashboard.GetLatestOrderUseCase
 import com.ql2.myshop.domain.usecase.dashboard.GetNumberOfProductByCateIdUseCase
 import com.ql2.myshop.domain.usecase.dashboard.GetOrdersInDayUseCase
@@ -21,7 +22,8 @@ class DashboardViewModel @Inject constructor(
     private val getBestSalesProductUseCase: GetBestSalesProductUseCase,
     private val getOrdersInDayUseCase: GetOrdersInDayUseCase,
     private val getIncomeInDayUseCase: GetIncomeInDayUseCase,
-    private val getLatestOrderUseCase: GetLatestOrderUseCase
+    private val getLatestOrderUseCase: GetLatestOrderUseCase,
+    private val getIncomeInMonthUseCase: GetIncomeInMonthUseCase
 ) : BaseViewModel() {
     private val _uiPieChartModel = MutableStateFlow(PieChartUIModel())
     val uiPieChartModel = _uiPieChartModel.asStateFlow()
@@ -35,11 +37,14 @@ class DashboardViewModel @Inject constructor(
     private val _uiGetOrderInDayModel = MutableStateFlow(OrderInDayUIModel())
     val uiGetOrderInDayModel = _uiGetOrderInDayModel.asStateFlow()
 
-    private val _uiGetIncomeInDayModel = MutableStateFlow(TotalIncomeInDayUIModel())
+    private val _uiGetIncomeInDayModel = MutableStateFlow(TotalIncomeByDateUIModel())
     val uiGetIncomeInDayModel = _uiGetIncomeInDayModel.asStateFlow()
 
     private val _uiGetLatestOrderModel = MutableStateFlow(LatestOrderUIModel())
     val uiGetLatestOrderModel = _uiGetLatestOrderModel.asStateFlow()
+
+    private val _uiGetIncomeInMonthModel = MutableStateFlow(TotalIncomeByDateUIModel())
+    val uiGetIncomeInMonthModel = _uiGetIncomeInMonthModel.asStateFlow()
 
     fun generatePieChart()  {
         viewModelScope.launch {
@@ -74,6 +79,12 @@ class DashboardViewModel @Inject constructor(
     fun getLatestOrder()   {
         viewModelScope.launch {
             getLatestOrderUseCase().collectAsState(_uiGetLatestOrderModel)
+        }
+    }
+
+    fun getIncomeInMonth()   {
+        viewModelScope.launch {
+            getIncomeInMonthUseCase().collectAsState(_uiGetIncomeInMonthModel)
         }
     }
 }
