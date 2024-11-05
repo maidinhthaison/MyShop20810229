@@ -19,7 +19,6 @@ import com.ql2.myshop.ui.products.detail.adapter.ImageSlideAdapter
 import com.ql2.myshop.utils.AppDialog
 import com.ql2.myshop.utils.formatFloatToString
 import dagger.hilt.android.AndroidEntryPoint
-import me.relex.circleindicator.CircleIndicator
 
 @AndroidEntryPoint
 class ProductDetailFragment :

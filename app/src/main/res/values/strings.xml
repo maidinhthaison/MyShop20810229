@@ -66,4 +66,28 @@
 
     <string name="dialog_update_order_title">Update Product</string>
     <string name="dialog_update_order_message">Update product successfully</string>
+
+    <!--DashBoard-->
+    <string name="label_pieChart_product_by_cate">Products by Category</string>
+    <string name="label_pieChart_numOfProduct_by_cate">%1$s %2$s items</string>
+
+    <string name="label_outOfStock_product_quantity">Quantity: %1$s</string>
+    <string name="label_bestSales_product_quantity">Best Sales: %1$s unit</string>
+    <string name="label_bestSales_product_quantity_units">Best Sales: %1$s units</string>
+
+    <string name="label_dashboard_product_divider">Products</string>
+    <string name="label_dashboard_latest_order_divider">Latest Orders</string>
+    <string name="label_dashboard_nearly_outOfStock_divider">Nearly Out Of Stock</string>
+    <string name="label_dashboard_bestSales_divider">Best Sales</string>
+    <string name="label_dashboard_nearly_income_divider">Income</string>
+    <string name="label_dashboard_income_month_divider">Monthly income</string>
+
+    <string name="label_total_order_today_title"><![CDATA[Up to now <font color=#FF0000>%1$s</font> you have:]]></string>
+    <string name="label_total_order_today"><![CDATA[There are <font color=#FF0000>%1$s</font> orders]]></string>
+    <string name="label_total_income_today"><![CDATA[Income: <font color=#FF0000>%1$s</font> ]]></string>
+
+    <string name="label_latest_order_id">Id: %1$s</string>
+    <string name="label_latest_order_createdTime">Created: %1$s</string>
+    <string name="label_latest_order_finalPrice">Final Price: %1$s</string>
+    <string name="label_latest_order_status">Status: %1$s</string>
 </resources>

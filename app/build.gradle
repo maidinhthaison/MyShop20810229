@@ -10,6 +10,7 @@ plugins {
     // (deprecated), but data-binding still use as annotation processor
     id 'kotlin-kapt'
 
+
 }
 
 android {
@@ -165,6 +166,9 @@ dependencies {
 
     //CircleIndicator
     implementation "me.relex:circleindicator:2.1.6"
+
+    //Chart
+    implementation "com.github.PhilJay:MPAndroidChart:v3.1.0"
 }
 
 

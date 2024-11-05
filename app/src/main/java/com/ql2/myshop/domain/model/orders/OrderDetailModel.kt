@@ -14,8 +14,5 @@ data class OrderDetailModel (
     val description: String? = null,
     val productImage: String? = null
 ) : Serializable {
-    private val CHAR_SPLIT = "@@"
-    fun getImages(): List<String> {
-        return  productImage!!.split(CHAR_SPLIT)
-    }
+
 }

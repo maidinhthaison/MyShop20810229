@@ -16,46 +16,45 @@
         android:padding="@dimen/_5sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivProductThumb"
-            android:layout_alignParentTop="true"
-            android:layout_centerInParent="true"
-            app:srcCompat="@drawable/ic_launcher_background"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_100sdp"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:ellipsize="end"
             android:maxLines="1"
-            android:id="@+id/tvProName"
+            android:id="@+id/tvOrderId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/ivProductThumb"
             android:layout_marginTop="@dimen/_5sdp"
             android:textColor="@color/black"
-            android:textSize="@dimen/_12sdp"
-            tools:text="Product Name" />
+            android:textSize="@dimen/_10sdp"
+            tools:text="Order Id" />
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvProPrice"
+            android:id="@+id/tvCreatedDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvProName"
+            android:layout_below="@+id/tvOrderId"
             android:layout_marginTop="@dimen/_5sdp"
-            android:textColor="@color/red"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10sdp"
+            tools:text="Created Date" />
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_below="@+id/tvCreatedDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvFinalPrice"
             android:textStyle="bold"
-            android:textSize="@dimen/_12sdp"
-            tools:text="Price" />
+            android:textSize="@dimen/_10sdp"
+            tools:text="Final Price"/>
+
         <com.google.android.material.textview.MaterialTextView
-            android:ellipsize="end"
-            android:maxLines="2"
             android:layout_marginTop="@dimen/_5sdp"
-            android:layout_below="@+id/tvProPrice"
+            android:layout_below="@+id/tvFinalPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:id="@+id/tvDescription"
-            android:textSize="@dimen/_12sdp"
-            tools:text="Description"/>
+            android:id="@+id/tvOrderStatus"
+            android:textStyle="bold"
+            android:textSize="@dimen/_10sdp"
+            tools:text="Order Status"/>
 
 
 

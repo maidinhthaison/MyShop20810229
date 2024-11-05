@@ -41,21 +41,20 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvProName"
             android:layout_marginTop="@dimen/_5sdp"
-            android:textColor="@color/red"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:textSize="@dimen/_12sdp"
             tools:text="Price" />
         <com.google.android.material.textview.MaterialTextView
-            android:ellipsize="end"
-            android:maxLines="2"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_below="@+id/tvProPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:id="@+id/tvDescription"
+            android:textColor="@color/red"
+            android:id="@+id/tvQuantity"
+            android:textStyle="bold"
             android:textSize="@dimen/_12sdp"
-            tools:text="Description"/>
+            tools:text="Quantity"/>
 
 
 
