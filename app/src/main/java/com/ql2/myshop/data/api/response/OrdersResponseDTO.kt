@@ -8,7 +8,7 @@ import java.io.Serializable
 data class OrdersResponseDTO (
     @SerializedName("order_id") val orderId: String?,
     @SerializedName("created_time") val createdTime: String?,
-    @SerializedName("final_price") val finalPrice: Float?,
+    @SerializedName("final_price") val finalPrice: Int?,
     @SerializedName("order_status") val orderStatus: String?
 ): Serializable {
     fun toOrdersModel(): OrdersModel {

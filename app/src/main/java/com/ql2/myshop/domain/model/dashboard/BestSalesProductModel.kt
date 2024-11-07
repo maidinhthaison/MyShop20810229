@@ -5,7 +5,8 @@ import java.io.Serializable
 
 data class BestSalesProductModel (
     val productId: Int? = null,
-    val importPrice: Float? = null,
+    val importPrice: Int? = null,
+    val salePrice: Int? = null,
     val description: String? = null,
     val productName: String? = null,
     val productImage: String? = null,

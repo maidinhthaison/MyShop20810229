@@ -38,35 +38,37 @@ class ProductRepositoryImpl (private val productAPI: ProductAPI,
 
     override fun updateProductById(
         productId: Int,
-        importPrice: Float,
+        salePrice: Int,
         quantity: Int,
         description: String,
         productName: String
     ): Flow<TaskResult<UpdateProductByIdModel>> = flow {
         emit(TaskResult.Loading)
-        val updateProductRequestDTO = UpdateProductRequestDTO(importPrice = importPrice,
-            quantity = quantity, description = description, productName = productName)
+        val updateProductRequestDTO = UpdateProductRequestDTO(salePrice, quantity, description, productName)
         val result = SafeCallAPI.callApi {
-            productAPI.updateProductById(id = productId, request = updateProductRequestDTO)
+            productAPI.updateProductById(productId, UpdateProductRequestDTO(salePrice, quantity, description, productName))
         }.map { it.toUpdateProductByIdModel()}
         emit(result)
     }.flowOn(defaultDispatcher)
 
     override fun addProduct(
         cateId: Int,
-        importPrice: Float,
+        importPrice: Int,
         quantity: Int,
         description: String,
         productName: String,
-        productImage: String
+        productImage: String,
+        salePrice: Int
     ): Flow<TaskResult<AddProductModel>> = flow<TaskResult<AddProductModel>> {
         emit(TaskResult.Loading)
-        val addProductRequestDTO =
-            AddProductRequestDTO(cateId, importPrice, quantity, description, productName, productImage)
+        val addProductRequestDTO = AddProductRequestDTO(cateId = cateId, importPrice = importPrice,
+            salePrice = salePrice, quantity = quantity, description = description,
+            productName = productName, productImage = productImage)
         val result = SafeCallAPI.callApi {
             productAPI.addNewProduct(request = addProductRequestDTO)
         }.map { it.toAddProductModel()}
         emit(result)
     }.flowOn(defaultDispatcher)
+
 
 }

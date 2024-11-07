@@ -128,7 +128,7 @@ class DashboardFragment :
                 val incomeInDay = list.sumOf { it1 -> it1.totalPrice ?: 0 }
                 val text = String.format(
                     getString(R.string.label_total_income_today),
-                    formatPriceToCurrency(incomeInDay.toFloat())
+                    formatPriceToCurrency(incomeInDay)
                 )
                 binding.tvTotalIncomeInDay.text = HtmlCompat.fromHtml(
                     text, HtmlCompat.FROM_HTML_MODE_LEGACY

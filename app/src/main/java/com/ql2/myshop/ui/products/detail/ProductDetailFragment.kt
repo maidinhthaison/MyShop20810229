@@ -17,7 +17,7 @@ import com.ql2.myshop.ui.products.ProductFragment
 import com.ql2.myshop.ui.products.ProductViewModel
 import com.ql2.myshop.ui.products.detail.adapter.ImageSlideAdapter
 import com.ql2.myshop.utils.AppDialog
-import com.ql2.myshop.utils.formatFloatToString
+import com.ql2.myshop.utils.formatIntToString
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -60,12 +60,12 @@ class ProductDetailFragment :
          */
         binding.buttonSave.setOnClickListener {
             val proName = binding.proNameEditText.text.toString()
-            val proPrice = binding.proPriceEditText.text.toString().toFloat()
-            val proQuantity = binding.proQuantityEditText.text.toString().toInt()
+            val proPrice = binding.proPriceEditText.text.toString()
+            val proQuantity = binding.proQuantityEditText.text.toString()
             val proDes = binding.proDesEditText.text.toString()
             val proId = productItem?.productId ?: 0
             with(productViewModel) {
-                updateProductById(proId, proPrice, proQuantity, proDes, proName)
+                updateProductById(proId, proPrice.toInt(), proQuantity.toInt(), proDes, proName)
             }
         }
 
@@ -94,14 +94,13 @@ class ProductDetailFragment :
         }
     }
     private fun bindData(productModel: ProductModel){
-        /*AssetUtils.loadImageFromAssets(requireContext(), fileName = productModel.getImages()[0],
-            binding.ivProductTop)*/
+
         viewPagerAdapter = ImageSlideAdapter(requireContext(),productModel.getImages())
         binding.viewpager.adapter = viewPagerAdapter
         binding.indicator.setViewPager(binding.viewpager)
 
         binding.proNameEditText.setText(productModel.productName)
-        binding.proPriceEditText.setText(formatFloatToString(productModel.importPrice))
+        binding.proPriceEditText.setText(formatIntToString(productModel.salePrice))
         binding.proQuantityEditText.setText(productModel.quantity.toString())
         binding.proDesEditText.setText(productModel.description)
 

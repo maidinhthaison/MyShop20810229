@@ -96,12 +96,16 @@ class AddProductBottomSheetFragment :
         binding.buttonSave.setOnClickListener {
             val cateId = categoryModel.cateId
             val proName = binding.proNameEditText.text.toString()
-            val proPrice = binding.proPriceEditText.text.toString().toFloat()
-            val proQuantity = binding.proQuantityEditText.text.toString().toInt()
+            val proImportPrice = binding.proPriceEditText.text.toString()
+            val proSalePrice = binding.proSalePriceEditText.text.toString()
+            val proQuantity = binding.proQuantityEditText.text.toString()
             val proDes = binding.proDesEditText.text.toString()
             val proImage = "asus_vivobook14_0.png@@asus_vivobook14_1.png@@asus_vivobook14_2.png"
             with(productViewModel) {
-                cateId?.let { it1 -> addNewProduct(it1, proPrice, proQuantity, proDes, proName, proImage) }
+                if (cateId != null) {
+                    addNewProduct(cateId, proImportPrice.toInt(), proSalePrice.toInt(),
+                        proQuantity.toInt(), proDes, proName, proImage)
+                }
             }
         }
 

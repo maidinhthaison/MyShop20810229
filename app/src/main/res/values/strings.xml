@@ -33,7 +33,8 @@
 
     <!--Product Detail-->
     <string name="hint_product_name">Product name</string>
-    <string name="hint_product_price">Price</string>
+    <string name="hint_product_import_price">Import Price</string>
+    <string name="hint_product_sale_price">Sale Price</string>
     <string name="hint_product_quantity">Quantity</string>
     <string name="hint_product_description">Description</string>
     <string name="buttonSave">Save</string>
@@ -90,4 +91,8 @@
     <string name="label_latest_order_createdTime">Created: %1$s</string>
     <string name="label_latest_order_finalPrice">Final Price: %1$s</string>
     <string name="label_latest_order_status">Status: %1$s</string>
+
+    <!--Report-->
+    <string name="label_sales_report_divider">Sales Report</string>
+    <string name="label_revenue_profit_report_product_divider">Revenue &amp; Profit Report</string>
 </resources>

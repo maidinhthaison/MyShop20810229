@@ -9,10 +9,10 @@ import kotlinx.coroutines.flow.Flow
 interface ProductRepository {
     fun getAllProducts(): Flow<TaskResult<List<ProductModel>>>
     fun searchProducts(cateId: Int, proName: String): Flow<TaskResult<List<ProductModel>>>
-    fun updateProductById(productId: Int, importPrice: Float, quantity: Int,
+    fun updateProductById(productId: Int, salePrice: Int, quantity: Int,
                           description: String, productName: String):
             Flow<TaskResult<UpdateProductByIdModel>>
-    fun addProduct(cateId: Int, importPrice: Float, quantity: Int,
-                   description: String, productName: String, productImage: String) :
+    fun addProduct(cateId: Int, importPrice: Int, quantity: Int,
+                   description: String, productName: String, productImage: String, salePrice: Int) :
             Flow<TaskResult<AddProductModel>>
 }

@@ -5,15 +5,15 @@ enum class BackendEnvironment(
 ) {
 
     Dev(
-        baseUrl = "http://192.168.1.13:8080"
+        baseUrl = "http://192.168.1.11:8080"
     ),
 
     Staging(
-        baseUrl = "http://192.168.1.13:8080"
+        baseUrl = "http://192.168.1.11:8080"
     ),
 
     Prod(
-        baseUrl = "http://192.168.1.13:8080"
+        baseUrl = "http://192.168.1.11:8080"
     )
 
 }

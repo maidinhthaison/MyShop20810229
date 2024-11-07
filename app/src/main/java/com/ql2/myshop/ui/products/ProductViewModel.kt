@@ -47,16 +47,17 @@ class ProductViewModel @Inject constructor(
         }
     }
 
-    fun updateProductById(proId: Int, importPrice: Float, quantity: Int, description: String,  proName: String) {
+    fun updateProductById(proId: Int, salePrice: Int, quantity: Int, description: String,  proName: String) {
+
         viewModelScope.launch {
-            updateProductByIdUseCase(proId, importPrice, quantity, description, proName)
+            updateProductByIdUseCase(proId, salePrice, quantity, description, proName)
                 .collectAsState(_uiUpdateProductModel)
         }
     }
-    fun addNewProduct(cateId: Int, importPrice: Float, quantity: Int,
+    fun addNewProduct(cateId: Int, importPrice: Int, salePrice: Int, quantity: Int,
                       description: String,  proName: String, proImage: String) {
         viewModelScope.launch {
-            addProductUseCase(cateId, importPrice, quantity, description, proName, proImage)
+            addProductUseCase(cateId, importPrice, salePrice, quantity, description, proName, proImage)
                 .collectAsState(_uiAddProductModel)
         }
     }

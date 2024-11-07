@@ -4,11 +4,12 @@ import java.io.Serializable
 
 data class OrderDetailModel (
     val orderItemId: String? = null,
-    val unitSalePrice: Float? = null,
+    val unitSalePrice: Int? = null,
     val quantity: Int? = null,
-    val totalPrice: Float? = null,
-    val productId: String? = null,
-    val importPrice: Float? = null,
+    val totalPrice: Int? = null,
+    val productId: Int? = null,
+    val importPrice: Int? = null,
+    val salePrice: Int? = null,
     val cateId: Int? = null,
     val productName: String? = null,
     val description: String? = null,
