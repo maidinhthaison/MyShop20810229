@@ -43,7 +43,7 @@ internal class BestSalesProductAdapter (
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: BestSalesProductModel, position: Int) {
             binding.tvProName.text = item.productName
-            binding.tvProPrice.text = formatPriceToCurrency(item.importPrice)
+            binding.tvProPrice.text = formatPriceToCurrency(item.salePrice)
             when(item.totalSales){
                 "1" -> binding.tvQuantity.text = String.format(
                     context.getString(R.string.label_bestSales_product_quantity),

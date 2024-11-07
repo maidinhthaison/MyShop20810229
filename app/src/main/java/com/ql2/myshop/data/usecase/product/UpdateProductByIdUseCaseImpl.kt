@@ -9,14 +9,14 @@ import kotlinx.coroutines.flow.Flow
 class UpdateProductByIdUseCaseImpl(private val productRepository: ProductRepository)
     : UpdateProductByIdUseCase {
 
-
     override fun invoke(
         productId: Int,
-        importPrice: Float,
+        salePrice: Int,
         quantity: Int,
         description: String,
         productName: String
     ): Flow<TaskResult<UpdateProductByIdModel>> {
-         return  productRepository.updateProductById(productId, importPrice, quantity, description, productName)
+        return  productRepository.updateProductById(productId, salePrice,
+            quantity, description, productName)
     }
 }

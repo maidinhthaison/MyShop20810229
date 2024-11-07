@@ -46,7 +46,7 @@ internal class LatestOrderAdapter (
             binding.tvCreatedDate.text = String.format(context.getString(R.string.label_latest_order_createdTime),
                 item.toDateTime())
             binding.tvFinalPrice.text = String.format(context.getString(R.string.label_latest_order_finalPrice),
-                formatPriceToCurrency(item.finalPrice?.toFloat())
+                formatPriceToCurrency(item.finalPrice)
             )
             binding.tvOrderStatus.text = item.orderStatus
             val id: Int = when(item.orderStatus){

@@ -7,7 +7,8 @@ import java.io.Serializable
 data class BestSaleProductResponseDTO (
     @SerializedName("product_id") val productId: Int?,
     @SerializedName("product_name") val productName: String?,
-    @SerializedName("import_price") val importPrice: Float?,
+    @SerializedName("import_price") val importPrice: Int?,
+    @SerializedName("sale_price") val salePrice: Int?,
     @SerializedName("description") val description: String?,
     @SerializedName("product_image") val productImage: String?,
     @SerializedName("total_sales") val totalSales: String?
@@ -17,6 +18,7 @@ data class BestSaleProductResponseDTO (
             productId = productId,
             productImage = productImage,
             importPrice = importPrice,
+            salePrice = salePrice,
             description = description,
             productName = productName,
             totalSales = totalSales

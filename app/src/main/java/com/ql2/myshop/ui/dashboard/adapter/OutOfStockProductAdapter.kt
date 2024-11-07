@@ -47,7 +47,7 @@ internal class OutOfStockProductAdapter (
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: OutOfStockProductModel, position: Int) {
             binding.tvProName.text = item.productName
-            binding.tvProPrice.text = formatPriceToCurrency(item.importPrice)
+            binding.tvProPrice.text = formatPriceToCurrency(item.salePrice)
             binding.tvQuantity.text= String.format(
                 context.getString(R.string.label_outOfStock_product_quantity),
                 item.quantity.toString())

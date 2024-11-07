@@ -7,7 +7,8 @@ import java.io.Serializable
 data class ProductModel(
     val productId: Int? = null,
     val cateId: Int? = null,
-    val importPrice: Float? = null,
+    val importPrice: Int? = null,
+    val salePrice: Int? = null,
     val quantity: Int? = null,
     val description: String? = null,
     val productName: String? = null,

@@ -44,7 +44,7 @@ internal class ProductAdapter (
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ProductModel, position: Int) {
             binding.tvProName.text = item.productName
-            binding.tvProPrice.text = formatPriceToCurrency(item.importPrice)
+            binding.tvProPrice.text = formatPriceToCurrency(item.salePrice)
             binding.tvDescription.text= item.description
             AssetUtils.loadImageFromAssets(context = context,
                 fileName = item.getImages()[0], binding.ivProductThumb)
