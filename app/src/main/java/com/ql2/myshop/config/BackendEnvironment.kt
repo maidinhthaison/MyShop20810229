@@ -1,19 +1,21 @@
 package com.ql2.myshop.config
 
+import com.ql2.myshop.BuildConfig
+
 enum class BackendEnvironment(
     val baseUrl: String
 ) {
 
     Dev(
-        baseUrl = "http://192.168.1.11:8080"
+        baseUrl = BuildConfig.BASE_API_URL
     ),
 
     Staging(
-        baseUrl = "http://192.168.1.11:8080"
+        baseUrl = BuildConfig.BASE_API_URL
     ),
 
     Prod(
-        baseUrl = "http://192.168.1.11:8080"
+        baseUrl = BuildConfig.BASE_API_URL
     )
 
 }

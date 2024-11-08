@@ -26,12 +26,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <!-- Bottom sheet contents. -->
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <RelativeLayout
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
                 <androidx.appcompat.widget.LinearLayoutCompat
 
                     android:layout_width="match_parent"
@@ -144,10 +143,18 @@
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivCloseBottomSheet"
+                    android:layout_width="@dimen/_36sdp"
+                    android:layout_height="@dimen/_36sdp"
+                    android:padding="@dimen/_5sdp"
+                    app:srcCompat="@drawable/ic_cancel_circle_36"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginHorizontal="@dimen/_10sdp"/>
 
 
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
+            </RelativeLayout>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

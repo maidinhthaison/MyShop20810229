@@ -95,4 +95,13 @@
     <!--Report-->
     <string name="label_sales_report_divider">Sales Report</string>
     <string name="label_revenue_profit_report_product_divider">Revenue &amp; Profit Report</string>
+    <string name="dialog_select_date_error_title">Select Date</string>
+    <string name="dialog_select_date_error_message">Please select date</string>
+    <string name="label_report_revenue_title">Revenue</string>
+    <string name="label_report_profit_title">Profit</string>
+    <string name="label_report_product_sales_title">Product Sales</string>
+
+    <string name="label_report_revenue_header_title">Revenue from %1$s to %2$s</string>
+    <string name="label_report_profit_header_title">Profit from %1$s to %2$s</string>
+    <string name="label_report_product_sales_header_title">Product Sales from %1$s to %2$s</string>
 </resources>

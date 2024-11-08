@@ -1,7 +1,7 @@
 package com.ql2.myshop.data.repository.category
 
 import com.ql2.myshop.data.SafeCallAPI
-import com.ql2.myshop.data.api.CategoryApi
+import com.ql2.myshop.data.api.CategoryAPI
 import com.ql2.myshop.domain.TaskResult
 import com.ql2.myshop.domain.map
 import com.ql2.myshop.domain.model.category.CategoryModel
@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
-class CategoryRepositoryImpl (private val categoryApi: CategoryApi,
+class CategoryRepositoryImpl (private val categoryApi: CategoryAPI,
                               private val defaultDispatcher: CoroutineDispatcher = Dispatchers.IO)
     : CategoryRepository {
 

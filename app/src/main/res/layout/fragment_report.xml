@@ -1,12 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:ignore="SpUsage">
+    tools:ignore="SpUsage" >
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:contentScrim="@color/white"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_60sdp"
+                android:visibility="visible" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:layout_collapseMode="pin">
+
+            <RelativeLayout
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:focusable="false"
+                    android:focusableInTouchMode="true"
+                    android:hint="@string/hint_date_from"
+                    android:textSize="@dimen/_12sdp"
+                    android:layout_width="@dimen/_125sdp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/editTextDateFrom"/>
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:focusable="false"
+                    android:focusableInTouchMode="true"
+                    android:layout_toRightOf="@+id/editTextDateFrom"
+                    android:hint="@string/hint_date_to"
+                    android:textSize="@dimen/_12sdp"
+                    android:layout_width="@dimen/_125sdp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/editTextDateTo"/>
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_below="@+id/editTextDateFrom"
+                    android:id="@+id/imvCancel"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:layout_toRightOf="@+id/buttonSearch"
+                    android:layout_marginVertical="@dimen/_10sdp"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    app:srcCompat="@drawable/ic_cancel_circle_36"/>
+                <com.google.android.material.button.MaterialButton
+                    android:layout_below="@+id/editTextDateFrom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/search"
+                    android:textAllCaps="false"
+                    android:id="@+id/buttonSearch"
+                    />
+
+            </RelativeLayout>
+
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -14,30 +88,58 @@
         android:fillViewport="true"
         android:overScrollMode="never"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <RelativeLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
             <com.google.android.material.textview.MaterialTextView
-                android:text="@string/label_revenue_profit_report_product_divider"
-                android:id="@+id/label_sales_report_divider"
+                tools:text="@string/label_report_revenue_header_title"
+                android:id="@+id/tvRevenueHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/lightGray"
-                android:layout_alignParentTop="true"
                 android:textStyle="bold"
                 android:textSize="@dimen/_12sdp"
-                android:padding="@dimen/_10sdp" />
-
-            <com.github.mikephil.charting.charts.LineChart
-                android:layout_above="@+id/label_sales_report_divider"
-                android:layout_gravity="center"
-                android:id="@+id/lineChartSalesReport"
+                android:padding="@dimen/_10sdp"
+                />
+            <com.github.mikephil.charting.charts.BarChart
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:id="@+id/barChartRevenue"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_500sdp" />
-
-        </RelativeLayout>
+                android:layout_height="@dimen/_400sdp" />
+            <com.google.android.material.textview.MaterialTextView
+                tools:text="@string/label_report_profit_header_title"
+                android:id="@+id/tvProfitHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/lightGray"
+                android:textStyle="bold"
+                android:textSize="@dimen/_12sdp"
+                android:padding="@dimen/_10sdp"
+                />
+            <com.github.mikephil.charting.charts.BarChart
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:id="@+id/barChartProfit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_400sdp" />
+            <com.google.android.material.textview.MaterialTextView
+                tools:text="@string/label_report_product_sales_header_title"
+                android:id="@+id/tvProductSales"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/lightGray"
+                android:textStyle="bold"
+                android:textSize="@dimen/_12sdp"
+                android:padding="@dimen/_10sdp"
+                />
+            <com.github.mikephil.charting.charts.LineChart
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:id="@+id/lineChartSalesProduct"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_400sdp"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.core.widget.NestedScrollView>
+
     <androidx.core.widget.ContentLoadingProgressBar
         android:id="@+id/loadingProgress"
         style="?android:attr/progressBarStyle"
@@ -45,4 +147,58 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:visibility="gone" />
-</FrameLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+    <!--
+    <?xml version="1.0" encoding="utf-8"?>
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/rootView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:ignore="SpUsage">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:overScrollMode="never"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.google.android.material.textview.MaterialTextView
+                    android:text="@string/label_revenue_profit_report_product_divider"
+                    android:id="@+id/label_sales_report_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/lightGray"
+                    android:layout_alignParentTop="true"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/_12sdp"
+                    android:padding="@dimen/_10sdp" />
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:layout_above="@+id/label_sales_report_divider"
+                    android:layout_gravity="center"
+                    android:id="@+id/lineChartSalesReport"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_500sdp" />
+
+            </RelativeLayout>
+        </androidx.core.widget.NestedScrollView>
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/loadingProgress"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+    </FrameLayout>
+    -->
