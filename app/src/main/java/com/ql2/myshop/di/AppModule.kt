@@ -9,6 +9,8 @@ import com.ql2.myshop.config.AppConfig
 import com.ql2.myshop.data.LocalCacheImpl
 import com.ql2.myshop.data.network.ConnectivityDataSource
 import com.ql2.myshop.data.retrofit.RetrofitManager
+import com.ql2.myshop.utils.FileUtils
+import com.ql2.myshop.utils.FileUtilsImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -44,6 +46,16 @@ class AppModule {
             gson = gson,
             connectivityDataSource = connectivityDataSource,
             baseUrl = AppConfig.backendEnvironment.baseUrl
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideFileUtils(
+        @ApplicationContext context: Context
+    ): FileUtils {
+        return FileUtilsImpl(
+            context = context
         )
     }
 

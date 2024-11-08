@@ -58,12 +58,10 @@
                     android:layout_height="match_parent"
                     android:id="@+id/editTextDateTo"/>
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_below="@+id/editTextDateFrom"
+                    android:layout_toRightOf="@+id/editTextDateTo"
                     android:id="@+id/imvCancel"
                     android:layout_width="@dimen/_24sdp"
                     android:layout_height="@dimen/_24sdp"
-                    android:layout_toRightOf="@+id/buttonSearch"
-                    android:layout_marginVertical="@dimen/_10sdp"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     app:srcCompat="@drawable/ic_cancel_circle_36"/>
                 <com.google.android.material.button.MaterialButton

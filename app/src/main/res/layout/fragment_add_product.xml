@@ -114,6 +114,46 @@
                             android:hint="@string/hint_product_description"
                             android:inputType="textMultiLine" />
                     </com.google.android.material.textfield.TextInputLayout>
+                    <RelativeLayout
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_alignParentStart="true"
+                            android:layout_toStartOf="@+id/buttonBrowseImages"
+                            android:id="@+id/tilProImages"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            app:endIconMode="clear_text">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:gravity="top"
+                                android:lines="3"
+                                android:maxLines="3"
+                                android:focusable="false"
+                                android:focusableInTouchMode="true"
+                                android:id="@+id/proImagesEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/hint_product_images"
+                                android:inputType="textMultiLine" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.button.MaterialButton
+                            app:cornerRadius="10dp"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:textAllCaps="false"
+                            android:textColor="@color/black"
+                            app:strokeColor="@color/darkGray"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Browse"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:id="@+id/buttonBrowseImages"/>
+                    </RelativeLayout>
+
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_marginTop="@dimen/_12sdp"
                         android:layout_width="match_parent"
