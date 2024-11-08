@@ -1,6 +1,6 @@
 package com.ql2.myshop.di
 
-import com.ql2.myshop.data.api.CategoryApi
+import com.ql2.myshop.data.api.CategoryAPI
 import com.ql2.myshop.data.repository.category.CategoryRepositoryImpl
 import com.ql2.myshop.data.retrofit.RetrofitManager
 import com.ql2.myshop.data.usecase.category.GetAllCategoryUseCaseImpl
@@ -18,7 +18,7 @@ class CategoryModule {
     @Singleton
     @Provides
     fun provideCategoryRepository(
-        categoryApi: CategoryApi
+        categoryApi: CategoryAPI
     ): CategoryRepository {
         return CategoryRepositoryImpl(
             categoryApi = categoryApi
@@ -27,8 +27,8 @@ class CategoryModule {
 
     @Singleton
     @Provides
-    fun provideCategoryAPI(@DefaultApiQualifier retrofitManager: RetrofitManager): CategoryApi {
-        return retrofitManager[CategoryApi::class.java]
+    fun provideCategoryAPI(@DefaultApiQualifier retrofitManager: RetrofitManager): CategoryAPI {
+        return retrofitManager[CategoryAPI::class.java]
     }
 
     @Provides

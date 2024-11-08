@@ -1,6 +1,6 @@
 package com.ql2.myshop.domain.model.dashboard
 
-import com.ql2.myshop.utils.formatDateTimeServer2LineChart
+import com.ql2.myshop.utils.formatDateTimeServer2BarChart
 import java.io.Serializable
 
 data class IncomeInDateModel(
@@ -10,7 +10,7 @@ data class IncomeInDateModel(
      val totalPrice: Int? = null
 ) : Serializable{
      fun formatDateTime(): String {
-          return formatDateTimeServer2LineChart(createdTime ?: "")
+          return formatDateTimeServer2BarChart(createdTime ?: "")
      }
 
 }

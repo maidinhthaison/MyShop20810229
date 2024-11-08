@@ -92,6 +92,14 @@ android {
 
     }
 
+    applicationVariants.all { variant ->
+        if (variant.getName() == "devDebug" || variant.getName() == "stagingDebug" ||
+                variant.getName() == "prodDebug") {
+            variant.buildConfigField "String", "BASE_API_URL", "\"http://192.168.1.5:8080/\""
+        } else {
+            variant.buildConfigField "String", "BASE_API_URL", "\"http://192.168.1.5:8080/\""
+        }
+    }
     packagingOptions {
         exclude 'META-INF/*'
     }

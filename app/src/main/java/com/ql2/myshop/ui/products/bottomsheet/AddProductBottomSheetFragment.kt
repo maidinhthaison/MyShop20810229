@@ -108,6 +108,7 @@ class AddProductBottomSheetFragment :
                 }
             }
         }
+        binding.ivCloseBottomSheet.setOnClickListener { this.dismiss() }
 
         productViewModel.uiAddProductModel.collectWhenStarted  {
             binding.loadingProgress.isVisible = it.isLoading
