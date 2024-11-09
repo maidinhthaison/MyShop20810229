@@ -13,6 +13,8 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,6 +56,8 @@ class AddProductBottomSheetFragment :
 
     @Inject lateinit var filesUtils: FileUtils
 
+    private var cateId: Int? = 0
+
     override fun initBindingObject(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): FragmentAddProductBinding {
@@ -71,6 +75,7 @@ class AddProductBottomSheetFragment :
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupListeners()
         //val offsetFromTop = 200
         (dialog as? BottomSheetDialog)?.behavior?.apply {
             isFitToContents = true
@@ -100,8 +105,7 @@ class AddProductBottomSheetFragment :
                             position: Int,
                             id: Long
                         ) {
-
-                            categoryModel = it.data[position]
+                            cateId = it.data[position].cateId
 
                         }
 
@@ -112,19 +116,22 @@ class AddProductBottomSheetFragment :
             }
         }
         binding.buttonSave.setOnClickListener {
-            val cateId = categoryModel.cateId
-            val proName = binding.proNameEditText.text.toString()
-            val proImportPrice = binding.proPriceEditText.text.toString()
-            val proSalePrice = binding.proSalePriceEditText.text.toString()
-            val proQuantity = binding.proQuantityEditText.text.toString()
-            val proDes = binding.proDesEditText.text.toString()
-            val proImage = binding.proImagesEditText.text.toString().trim().dropLast(2)
-            with(productViewModel) {
-                if (cateId != null) {
-                    addNewProduct(cateId, proImportPrice.toInt(), proSalePrice.toInt(),
-                        proQuantity.toInt(), proDes, proName, proImage)
+            if(isValidate()){
+                val proName = binding.proNameEditText.text.toString()
+                val proImportPrice = binding.proPriceEditText.text.toString()
+                val proSalePrice = binding.proSalePriceEditText.text.toString()
+                val proQuantity = binding.proQuantityEditText.text.toString()
+                val proDes = binding.proDesEditText.text.toString()
+                val proImage = binding.proImagesEditText.text.toString().trim().dropLast(2)
+                with(productViewModel) {
+                    cateId?.let { it1 ->
+                        addNewProduct(
+                            it1, proImportPrice.toInt(), proSalePrice.toInt(),
+                            proQuantity.toInt(), proDes, proName, proImage)
+                    }
                 }
             }
+
         }
         binding.ivCloseBottomSheet.setOnClickListener { this.dismiss() }
 
@@ -203,146 +210,133 @@ class AddProductBottomSheetFragment :
 
         }
     }
+    /**
+     * Validation
+     */
+    private fun isValidate(): Boolean =
+        validateProductName() && validateImportPrice() && validateSalePrice()
+                && validateQuantity() && validateDescription() && validateImages()
 
-   /* private fun getRealPathFromURI(context: Context, uri: Uri): String? {
-        when {
-            // DocumentProvider
-            DocumentsContract.isDocumentUri(context, uri) -> {
-                when {
-                    // ExternalStorageProvider
-                    isExternalStorageDocument(uri) -> {
-                        val docId = DocumentsContract.getDocumentId(uri)
-                        val split = docId.split(":").toTypedArray()
-                        val type = split[0]
-                        // This is for checking Main Memory
-                        return if ("primary".equals(type, ignoreCase = true)) {
-                            if (split.size > 1) {
-                                Environment.getExternalStorageDirectory().toString() + "/" + split[1]
-                            } else {
-                                Environment.getExternalStorageDirectory().toString() + "/"
-                            }
-                            // This is for checking SD Card
-                        } else {
-                            "storage" + "/" + docId.replace(":", "/")
-                        }
-                    }
-                    isDownloadsDocument(uri) -> {
-                        val fileName = getFilePath(context, uri)
-                        if (fileName != null) {
-                            return Environment.getExternalStorageDirectory().toString() + "/Download/" + fileName
-                        }
-                        var id = DocumentsContract.getDocumentId(uri)
-                        if (id.startsWith("raw:")) {
-                            id = id.replaceFirst("raw:".toRegex(), "")
-                            val file = File(id)
-                            if (file.exists()) return id
-                        }
-                        val contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), java.lang.Long.valueOf(id))
-                        return getDataColumn(context, contentUri, null, null)
-                    }
-                    isMediaDocument(uri) -> {
-                        val docId = DocumentsContract.getDocumentId(uri)
-                        val split = docId.split(":").toTypedArray()
-                        val type = split[0]
-                        var contentUri: Uri? = null
-                        when (type) {
-                            "image" -> {
-                                contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-                            }
-                            "video" -> {
-                                contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
-                            }
-                            "audio" -> {
-                                contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
-                            }
-                        }
-                        val selection = "_id=?"
-                        val selectionArgs = arrayOf(split[1])
-                        return getDataColumn(context, contentUri, selection, selectionArgs)
-                    }
+
+    private fun setupListeners() {
+        binding.proNameEditText.addTextChangedListener(TextFieldValidation(binding.proNameEditText))
+        binding.proPriceEditText.addTextChangedListener(TextFieldValidation(binding.proPriceEditText))
+        binding.proQuantityEditText.addTextChangedListener(TextFieldValidation(binding.proQuantityEditText))
+        binding.proDesEditText.addTextChangedListener(TextFieldValidation(binding.proDesEditText))
+        binding.proSalePriceEditText.addTextChangedListener(TextFieldValidation(binding.proSalePriceEditText))
+        binding.proImagesEditText.addTextChangedListener(TextFieldValidation(binding.proImagesEditText))
+    }
+
+    /**
+     * applying text watcher on each text field
+     */
+    inner class TextFieldValidation(private val view: View) : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {}
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            // checking ids of each text field and applying functions accordingly.
+            when (view.id) {
+                R.id.proNameEditText -> {
+                    validateProductName()
                 }
-            }
-            "content".equals(uri.scheme, ignoreCase = true) -> {
-                // Return the remote address
-                return if (isGooglePhotosUri(uri)) uri.lastPathSegment else getDataColumn(context, uri, null, null)
-            }
-            "file".equals(uri.scheme, ignoreCase = true) -> {
-                return uri.path
+
+                R.id.proPriceEditText -> {
+                    validateSalePrice()
+                }
+
+                R.id.proQuantityEditText -> {
+                    validateQuantity()
+                }
+
+                R.id.proQuantityEditText -> {
+                    validateDescription()
+                }
+
             }
         }
-        return null
     }
 
-    private fun getDataColumn(context: Context, uri: Uri?, selection: String?,
-                              selectionArgs: Array<String>?): String? {
-        var cursor: Cursor? = null
-        val column = "_data"
-        val projection = arrayOf(
-            column
-        )
-        try {
-            if (uri == null) return null
-            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs,
-                null)
-            if (cursor != null && cursor.moveToFirst()) {
-                val index = cursor.getColumnIndexOrThrow(column)
-                return cursor.getString(index)
-            }
-        } finally {
-            cursor?.close()
+    /**
+     *field must not be empty
+     */
+    private fun validateProductName(): Boolean {
+        return if (binding.proNameEditText.text.toString().trim().isEmpty()) {
+            binding.tilProName.error = "Required Field!"
+            binding.proNameEditText.requestFocus()
+            false
+        } else {
+            binding.tilProName.isErrorEnabled = false
+            true
         }
-        return null
     }
 
+    /**
+     * field must not be empty
+     */
+    private fun validateSalePrice(): Boolean {
 
-    private fun getFilePath(context: Context, uri: Uri?): String? {
-        var cursor: Cursor? = null
-        val projection = arrayOf(
-            MediaStore.MediaColumns.DISPLAY_NAME
-        )
-        try {
-            if (uri == null) return null
-            cursor = context.contentResolver.query(uri, projection, null, null,
-                null)
-            if (cursor != null && cursor.moveToFirst()) {
-                val index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DISPLAY_NAME)
-                return cursor.getString(index)
-            }
-        } finally {
-            cursor?.close()
+        return if (binding.proPriceEditText.text.toString().trim().isEmpty()) {
+            binding.tilProPrice.error = "Required Field!"
+            binding.proPriceEditText.requestFocus()
+            false
+        } else {
+            binding.tilProPrice.isErrorEnabled = false
+            true
         }
-        return null
+    }
+    /**
+     *field must not be empty
+     */
+    private fun validateQuantity(): Boolean {
+
+        return if (binding.proQuantityEditText.text.toString().trim().isEmpty()) {
+            binding.tilProQuantity.error = "Required Field!"
+            binding.proQuantityEditText.requestFocus()
+            false
+        } else {
+            binding.tilProQuantity.isErrorEnabled = false
+            true
+        }
+    }
+    /**
+     *field must not be empty
+     */
+    private fun validateDescription(): Boolean {
+
+        return if (binding.proDesEditText.text.toString().trim().isEmpty()) {
+            binding.tilProDes.error = "Required Field!"
+            binding.proDesEditText.requestFocus()
+            false
+        } else {
+            binding.tilProDes.isErrorEnabled = false
+            true
+        }
+    }
+    /**
+     *field must not be empty
+     */
+    private fun validateImages(): Boolean {
+        return if (binding.proImagesEditText.text.toString().trim().isEmpty()) {
+            binding.tilProImages.error = "Required Field!"
+            binding.proImagesEditText.requestFocus()
+            false
+        } else {
+            binding.tilProImages.isErrorEnabled = false
+            true
+        }
+    }
+    /**
+     *field must not be empty
+     */
+    private fun validateImportPrice(): Boolean {
+        return if (binding.proPriceEditText.text.toString().trim().isEmpty()) {
+            binding.tilProPrice.error = "Required Field!"
+            binding.proPriceEditText.requestFocus()
+            false
+        } else {
+            binding.tilProPrice.isErrorEnabled = false
+            true
+        }
     }
 
-    *//**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is ExternalStorageProvider.
-     *//*
-    private fun isExternalStorageDocument(uri: Uri): Boolean {
-        return "com.android.externalstorage.documents" == uri.authority
-    }
-
-    *//**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is DownloadsProvider.
-     *//*
-    private fun isDownloadsDocument(uri: Uri): Boolean {
-        return "com.android.providers.downloads.documents" == uri.authority
-    }
-
-    *//**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is MediaProvider.
-     *//*
-    private fun isMediaDocument(uri: Uri): Boolean {
-        return "com.android.providers.media.documents" == uri.authority
-    }
-
-    *//**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is Google Photos.
-     *//*
-    private fun isGooglePhotosUri(uri: Uri): Boolean {
-        return "com.google.android.apps.photos.content" == uri.authority
-    }*/
 }

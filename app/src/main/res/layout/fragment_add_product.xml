@@ -126,7 +126,6 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             app:endIconMode="clear_text">
-
                             <com.google.android.material.textfield.TextInputEditText
                                 android:gravity="top"
                                 android:lines="3"
