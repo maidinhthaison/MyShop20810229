@@ -46,7 +46,7 @@ class ProductRepositoryImpl (private val productAPI: ProductAPI,
         emit(TaskResult.Loading)
         val updateProductRequestDTO = UpdateProductRequestDTO(salePrice, quantity, description, productName)
         val result = SafeCallAPI.callApi {
-            productAPI.updateProductById(productId, UpdateProductRequestDTO(salePrice, quantity, description, productName))
+            productAPI.updateProductById(productId, updateProductRequestDTO)
         }.map { it.toUpdateProductByIdModel()}
         emit(result)
     }.flowOn(defaultDispatcher)

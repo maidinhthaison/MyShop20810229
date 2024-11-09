@@ -3,7 +3,7 @@ package com.ql2.myshop.data
 import com.ql2.myshop.domain.model.category.CategoryModel
 
 object GetCategoryResponseMock {
-    class MockUpdateProfileRequestDTO {
+    internal class MockGetAllCategoryResponseDTO {
 
         var cateId: Int = 1
         var cateName: String = "DELL"

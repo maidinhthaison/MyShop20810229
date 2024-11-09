@@ -2,6 +2,7 @@ package com.ql2.myshop.ui.dashboard
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -264,19 +265,25 @@ class DashboardFragment :
                 yAxis.axisMaximum = lineChartData.maxOf { it1 -> it1.totalPrice ?: 0 }.toFloat().div(1000)
                 yAxis.axisLineWidth = 2f
                 yAxis.axisLineColor = Color.BLACK
-                yAxis.labelCount = 10
+                yAxis.labelCount = lineChartData.size
                 yAxis.textColor = Color.BLACK
+                yAxis.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
                 yAxis.textSize = 12f
 
 
                 val dataSet = BarDataSet(entries, getString(R.string.label_dashboard_income_month_divider))
                 dataSet.setColors(*ColorTemplate.MATERIAL_COLORS)
-                dataSet.valueTextColor = Color.BLACK
+                dataSet.valueTextColor = Color.BLUE
                 dataSet.valueTextSize = 12f
+                dataSet.valueTypeface = Typeface.defaultFromStyle(Typeface.BOLD)
 
                 val barData = BarData(dataSet)
                 barChart.data = barData
                 barChart.xAxis.valueFormatter = IndexAxisValueFormatter(xValues)
+                barChart.xAxis.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+                barChart.xAxis.textSize = 12f
+                barChart.xAxis.axisLineWidth = 2f
+                barChart.xAxis.axisLineColor = Color.BLACK
                 setUpBarChart(barChart)
 
             }

@@ -170,10 +170,11 @@ class ReportFragment :  BaseFragment<FragmentReportBinding>() {
                 barChartRevenue.xAxis.valueFormatter = IndexAxisValueFormatter(xValues)
                 barChartRevenue.xAxis.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
                 barChartRevenue.xAxis.textSize = 12f
-                barChartRevenue.xAxis.axisLineWidth = 2f
+                //barChartRevenue.xAxis.axisLineWidth = 2f
                 barChartRevenue.xAxis.axisLineColor = Color.BLACK
-                barChartRevenue.xAxis.setCenterAxisLabels(true)
+                //barChartRevenue.xAxis.setCenterAxisLabels(true)
                 barChartRevenue.xAxis.mLabelHeight = 12
+
                 setUpBarChart(barChartRevenue)
                 /**
                  * Profit chart
@@ -189,7 +190,7 @@ class ReportFragment :  BaseFragment<FragmentReportBinding>() {
                 val yAxisBarChart = barChartProfit.axisLeft
                 yAxisBarChart.axisMinimum = 0f
                 yAxisBarChart.axisMaximum = chartData.maxOf { it1 -> it1.profit ?: 0 }.toFloat().div(1000)
-                yAxisBarChart.axisLineWidth = 2f
+                //yAxisBarChart.axisLineWidth = 2f
                 yAxisBarChart.axisLineColor = Color.BLACK
                 yAxisBarChart.labelCount = chartData.size
                 yAxisBarChart.textColor = Color.BLACK
@@ -208,9 +209,9 @@ class ReportFragment :  BaseFragment<FragmentReportBinding>() {
                 barChartProfit.xAxis.valueFormatter = IndexAxisValueFormatter(xValues)
                 barChartProfit.xAxis.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
                 barChartProfit.xAxis.textSize = 12f
-                barChartProfit.xAxis.axisLineWidth = 2f
+                //barChartProfit.xAxis.axisLineWidth = 2f
                 barChartProfit.xAxis.axisLineColor = Color.BLACK
-                barChartProfit.xAxis.setCenterAxisLabels(true)
+                //barChartProfit.xAxis.setCenterAxisLabels(true)
 
                 setUpBarChart(barChartProfit)
 
@@ -239,7 +240,7 @@ class ReportFragment :  BaseFragment<FragmentReportBinding>() {
                 val yAxisLineChart: YAxis = lineChart.axisLeft
                 yAxisLineChart.axisMinimum = 0f
                 yAxisLineChart.axisMaximum = chartData.maxOf { it1 -> it1.quantity ?: 0 }.toFloat()
-                yAxisLineChart.axisLineWidth = 2f
+                //yAxisLineChart.axisLineWidth = 2f
                 yAxisLineChart.axisLineColor = Color.RED
                 yAxisLineChart.textSize = 12f
                 yAxisLineChart.labelCount = chartData.size

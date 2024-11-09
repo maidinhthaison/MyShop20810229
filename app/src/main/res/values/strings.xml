@@ -36,6 +36,7 @@
     <string name="hint_product_import_price">Import Price</string>
     <string name="hint_product_sale_price">Sale Price</string>
     <string name="hint_product_quantity">Quantity</string>
+    <string name="hint_product_images">Images</string>
     <string name="hint_product_description">Description</string>
     <string name="buttonSave">Save</string>
     <string name="buttonClear">Clear</string>
@@ -45,6 +46,8 @@
     <!--Add product bottom sheet-->
     <string name="dialog_add_product_title">Add Product</string>
     <string name="dialog_add_product_message">Add product successfully</string>
+    <string name="dialog_select_image_title">Select Images</string>
+    <string name="dialog_select_image_message">Maximum 3 images</string>
 
     <!--Orders-->
     <string name="order_list_title">Orders</string>
