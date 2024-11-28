@@ -7,18 +7,22 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
-import androidx.activity.viewModels
-import androidx.core.content.ContentProviderCompat.requireContext
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import com.ql2.myshop.R
 import com.ql2.myshop.base.BaseActivity
 import com.ql2.myshop.databinding.ActivityLoginBinding
+import com.ql2.myshop.domain.ConfigServer
 import com.ql2.myshop.domain.UserAppSession
 import com.ql2.myshop.domain.model.login.UserModel
 import com.ql2.myshop.main.MainActivity
+import com.ql2.myshop.ui.config.ConfigActivity
 import com.ql2.myshop.utils.AppDialog
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class LoginActivity : BaseActivity<ActivityLoginBinding>() {
@@ -26,8 +30,13 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     @Inject
     lateinit var userAppSession: UserAppSession
 
+    @Inject
+    lateinit var configServer: ConfigServer
+
+    private lateinit var launcher: ActivityResultLauncher<Intent>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setupListeners()
         binding.loginButton.setOnClickListener {
             if (isValidate()) {
@@ -49,6 +58,23 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
             }
 
+        }
+        launcher = registerForActivityResult<Intent, ActivityResult>(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result: ActivityResult ->
+            if (result.resultCode == RESULT_OK) {
+                Toast.makeText(this, "Config saved", Toast.LENGTH_SHORT).show()
+                /*val data = result.data
+                configServer.saveConfig(ConfigModel(data?.getStringExtra(CONFIG_SERVER).toString()
+                    , data?.getStringExtra(CONFIG_PORT).toString()
+                ))*/
+                val config = configServer.getServer(configServer.getConfig())
+                Timber.d("$config")
+            }
+        }
+        binding.imvSetting.setOnClickListener {
+            val intent =  Intent(this, ConfigActivity::class.java)
+            launcher.launch(intent)
         }
     }
 
@@ -113,5 +139,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
             binding.tilPassword.isErrorEnabled = false
             true
         }
+    }
+
+    companion object {
+        const val CONFIG_SERVER = "config_server"
+        const val CONFIG_PORT = "config_port"
     }
 }

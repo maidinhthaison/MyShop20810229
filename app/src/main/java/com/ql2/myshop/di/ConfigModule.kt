@@ -1,8 +1,8 @@
 package com.ql2.myshop.di
 
-import com.ql2.myshop.data.local.UserAppSessionImpl
+import com.ql2.myshop.data.local.ConfigServerImpl
+import com.ql2.myshop.domain.ConfigServer
 import com.ql2.myshop.domain.LocalCache
-import com.ql2.myshop.domain.UserAppSession
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,12 +11,11 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class UserModule {
+class ConfigModule {
+
     @Singleton
     @Provides
-    fun provideUserAppSession(cache: LocalCache): UserAppSession {
-        return UserAppSessionImpl(cache)
+    fun provideConfigServer(cache: LocalCache): ConfigServer {
+        return ConfigServerImpl(cache)
     }
-
-
 }

@@ -32,10 +32,13 @@ class SettingFragment :  BaseFragment<FragmentSettingBinding>() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.infoAppTextView.text = getString(R.string.app_name) +
-                "\n${BuildConfig.VERSION_NAME}" +
-                " ${BuildConfig.FLAVOR}" +
-                " ${BuildConfig.BUILD_TYPE}"
+        val stringBuilder = StringBuilder()
+        stringBuilder.append(getString(R.string.app_name))
+            .append("\n${BuildConfig.VERSION_NAME}").append(" ")
+            .append(BuildConfig.FLAVOR)
+            .append(BuildConfig.BUILD_TYPE)
+            .append("\n${BuildConfig.BASE_API_URL}")
+        binding.infoAppTextView.text = stringBuilder.toString()
         binding.logoutButton.setOnClickListener {
             AppDialog.displayConfirmDialog(
                 requireContext(), R.string.dialog_logout_confirm_title,

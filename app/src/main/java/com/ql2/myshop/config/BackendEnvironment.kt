@@ -2,6 +2,7 @@ package com.ql2.myshop.config
 
 import com.ql2.myshop.BuildConfig
 
+
 enum class BackendEnvironment(
     val baseUrl: String
 ) {
@@ -10,12 +11,11 @@ enum class BackendEnvironment(
         baseUrl = BuildConfig.BASE_API_URL
     ),
 
-    Staging(
+    Stag(
         baseUrl = BuildConfig.BASE_API_URL
     ),
 
     Prod(
         baseUrl = BuildConfig.BASE_API_URL
     )
-
 }

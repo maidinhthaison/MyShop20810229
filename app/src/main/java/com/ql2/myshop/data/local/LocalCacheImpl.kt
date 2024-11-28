@@ -1,4 +1,4 @@
-package com.ql2.myshop.data
+package com.ql2.myshop.data.local
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -6,7 +6,6 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.google.gson.Gson
 import com.ql2.myshop.domain.LocalCache
-import com.ql2.myshop.domain.model.login.UserModel
 
 class LocalCacheImpl (private val sharedPreferences: SharedPreferences) : LocalCache {
     override fun putString(key: String, value: String?) {
