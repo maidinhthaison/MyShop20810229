@@ -6,9 +6,10 @@ import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.ql2.myshop.config.AppConfig
-import com.ql2.myshop.data.LocalCacheImpl
+import com.ql2.myshop.data.local.LocalCacheImpl
 import com.ql2.myshop.data.network.ConnectivityDataSource
 import com.ql2.myshop.data.retrofit.RetrofitManager
+import com.ql2.myshop.domain.LocalCache
 import com.ql2.myshop.utils.FileUtils
 import com.ql2.myshop.utils.FileUtilsImpl
 import dagger.Module
@@ -49,6 +50,7 @@ class AppModule {
         )
     }
 
+    // File Utils
     @Provides
     @Singleton
     fun provideFileUtils(
@@ -59,4 +61,16 @@ class AppModule {
         )
     }
 
+    // Local Cache
+    @Singleton
+    @Provides
+    fun provideAppSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
+        return LocalCacheImpl.getSharedPreferences(context, "APP_SESSION_PREFS_SECURE")
+    }
+
+    @Singleton
+    @Provides
+    fun provideLocalCache(sharedPreferences: SharedPreferences): LocalCache {
+        return LocalCacheImpl(sharedPreferences)
+    }
 }

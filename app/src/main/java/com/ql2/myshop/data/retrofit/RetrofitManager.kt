@@ -39,7 +39,7 @@ class RetrofitManager (
             }
             if (BuildConfig.DEBUG) {
                 if (AppConfig.backendEnvironment == BackendEnvironment.Dev
-                    || AppConfig.backendEnvironment == BackendEnvironment.Staging) {
+                    || AppConfig.backendEnvironment == BackendEnvironment.Stag) {
                     addNetworkInterceptor(HttpLoggingInterceptor(NetworkLogger()).apply {
                         level = HttpLoggingInterceptor.Level.BODY
                     })

@@ -1,8 +1,9 @@
-package com.ql2.myshop.data
+package com.ql2.myshop.data.local
 
 import com.ql2.myshop.domain.LocalCache
 import com.ql2.myshop.domain.UserAppSession
 import com.ql2.myshop.domain.UserAppSession.Companion.KEY_USER
+import com.ql2.myshop.domain.model.config.ConfigModel
 import com.ql2.myshop.domain.model.login.UserModel
 
 class UserAppSessionImpl(private val cache: LocalCache) : UserAppSession {
@@ -27,4 +28,5 @@ class UserAppSessionImpl(private val cache: LocalCache) : UserAppSession {
         cache.put(KEY_USER, null)
         userModel = null
     }
+
 }

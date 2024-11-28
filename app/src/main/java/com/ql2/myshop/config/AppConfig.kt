@@ -8,7 +8,7 @@ object AppConfig {
     private fun getFromBuildType(flavor: String): BackendEnvironment {
         return when (flavor) {
             "dev" -> BackendEnvironment.Dev
-            "stag" -> BackendEnvironment.Staging
+            "stag" -> BackendEnvironment.Stag
             else -> BackendEnvironment.Prod
         }
     }

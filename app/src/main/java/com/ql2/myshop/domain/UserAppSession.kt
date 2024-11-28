@@ -6,13 +6,11 @@ interface UserAppSession {
 
     fun getUser(): UserModel?
     fun saveUser(userModel: UserModel?)
-
     fun clearUser()
 
-    companion object{
+    companion object {
         const val MOCK_USERNAME = "admin"
         const val MOCK_PASSWORD = "123456"
-
         const val KEY_USER = "user"
     }
 }

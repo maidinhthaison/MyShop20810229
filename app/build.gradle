@@ -82,7 +82,7 @@ android {
 
         stag {
             dimension = "environment"
-            applicationIdSuffix = ".staging"
+            applicationIdSuffix = ".stag"
             signingConfig signingConfigs.staging
         }
 
@@ -93,10 +93,11 @@ android {
     }
 
     applicationVariants.all { variant ->
-        if (variant.getName() == "devDebug" || variant.getName() == "stagingDebug" ||
-                variant.getName() == "prodDebug") {
+        if (variant.getName() == "devDebug" || variant.getName() == "devRelease") {
             variant.buildConfigField "String", "BASE_API_URL", "\"http://192.168.1.5:8080/\""
-        } else {
+        } else if (variant.getName() == "stagDebug" || variant.getName() == "stagRelease") {
+            variant.buildConfigField "String", "BASE_API_URL", "\"http://192.168.1.5:8080/\""
+        }else if (variant.getName() == "prodDebug" || variant.getName() == "prodRelease") {
             variant.buildConfigField "String", "BASE_API_URL", "\"http://192.168.1.5:8080/\""
         }
     }
