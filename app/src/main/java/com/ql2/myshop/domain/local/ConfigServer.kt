@@ -1,4 +1,4 @@
-package com.ql2.myshop.domain
+package com.ql2.myshop.domain.local
 
 import com.ql2.myshop.domain.model.config.ConfigModel
 

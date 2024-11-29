@@ -9,7 +9,7 @@ import android.view.View
 import com.ql2.myshop.R
 import com.ql2.myshop.base.BaseActivity
 import com.ql2.myshop.databinding.ActivityConfigBinding
-import com.ql2.myshop.domain.ConfigServer
+import com.ql2.myshop.domain.local.ConfigServer
 import com.ql2.myshop.domain.model.config.ConfigModel
 import com.ql2.myshop.ui.login.LoginActivity
 import com.ql2.myshop.utils.AppDialog

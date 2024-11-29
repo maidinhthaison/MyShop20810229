@@ -13,7 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.ql2.myshop.R
 import com.ql2.myshop.base.BaseActivity
 import com.ql2.myshop.databinding.ActivityLoginBinding
-import com.ql2.myshop.domain.ConfigServer
+import com.ql2.myshop.domain.local.ConfigServer
 import com.ql2.myshop.domain.UserAppSession
 import com.ql2.myshop.domain.model.login.UserModel
 import com.ql2.myshop.main.MainActivity
@@ -68,8 +68,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
                 configServer.saveConfig(ConfigModel(data?.getStringExtra(CONFIG_SERVER).toString()
                     , data?.getStringExtra(CONFIG_PORT).toString()
                 ))*/
-                val config = configServer.getServer(configServer.getConfig())
-                Timber.d("$config")
+                val configModel = configServer.getConfig()
+                Timber.d(configModel?.server.plus(":${configModel?.port}"))
             }
         }
         binding.imvSetting.setOnClickListener {
