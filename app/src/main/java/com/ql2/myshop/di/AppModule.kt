@@ -10,6 +10,7 @@ import com.ql2.myshop.data.local.LocalCacheImpl
 import com.ql2.myshop.data.network.ConnectivityDataSource
 import com.ql2.myshop.data.retrofit.RetrofitManager
 import com.ql2.myshop.domain.LocalCache
+import com.ql2.myshop.domain.local.ConfigServer
 import com.ql2.myshop.utils.FileUtils
 import com.ql2.myshop.utils.FileUtilsImpl
 import dagger.Module
@@ -41,12 +42,12 @@ class AppModule {
     @DefaultApiQualifier
     @Provides
     fun provideRetrofitManager(
-        gson: Gson, connectivityDataSource: ConnectivityDataSource
+        gson: Gson, connectivityDataSource: ConnectivityDataSource, configServer: ConfigServer
     ): RetrofitManager {
         return RetrofitManager(
             gson = gson,
             connectivityDataSource = connectivityDataSource,
-            baseUrl = AppConfig.backendEnvironment.baseUrl
+            configServer = configServer
         )
     }
 

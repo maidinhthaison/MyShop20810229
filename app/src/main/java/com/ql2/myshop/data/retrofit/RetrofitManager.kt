@@ -6,18 +6,22 @@ import com.ql2.myshop.config.AppConfig
 import com.ql2.myshop.config.BackendEnvironment
 import com.ql2.myshop.data.network.ConnectivityDataSource
 import com.ql2.myshop.data.retrofit.interceptors.HttpLoggingInterceptor
+import com.ql2.myshop.domain.local.ConfigServer
+import com.ql2.myshop.domain.model.config.ConfigModel
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 import java.net.UnknownHostException
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 class RetrofitManager (
     private val gson: Gson,
     private val connectivityDataSource: ConnectivityDataSource,
-    private val baseUrl: String
+    private val configServer: ConfigServer
 ) {
+
     class NetworkLogger : HttpLoggingInterceptor.Logger {
         override fun log(message: String?) {
             Timber.d(message)
@@ -37,20 +41,36 @@ class RetrofitManager (
                 val newRequest = newRequestBuilder.build()
                 return@addNetworkInterceptor chain.proceed(newRequest)
             }
-            if (BuildConfig.DEBUG) {
+            /*if (BuildConfig.DEBUG) {
                 if (AppConfig.backendEnvironment == BackendEnvironment.Dev
                     || AppConfig.backendEnvironment == BackendEnvironment.Stag) {
                     addNetworkInterceptor(HttpLoggingInterceptor(NetworkLogger()).apply {
                         level = HttpLoggingInterceptor.Level.BODY
                     })
                 }
+            }*/
+            if (BuildConfig.DEBUG) {
+                addNetworkInterceptor(HttpLoggingInterceptor(NetworkLogger()).apply {
+                    level = HttpLoggingInterceptor.Level.BODY
+                })
             }
+
         }.connectTimeout(90, TimeUnit.SECONDS).callTimeout(90, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS).build()
     }
 
     private fun createRetrofit(): Retrofit {
-        return Retrofit.Builder().baseUrl(baseUrl)
+        val configModel = configServer.getConfig()
+        if(configModel?.server.isNullOrEmpty() || configModel?.port.isNullOrEmpty()){
+            return Retrofit.Builder().baseUrl(BuildConfig.BASE_API_URL)
+                .addConverterFactory(GsonConverterFactory.create(gson)).client(createHttpClient())
+                .build()
+        }
+        val baseUrl = StringBuilder()
+        baseUrl.append("http://")
+                .append(configModel?.server).append(":${configModel?.port}/")
+        Timber.d(">>>>${baseUrl}")
+        return Retrofit.Builder().baseUrl(baseUrl.toString())
             .addConverterFactory(GsonConverterFactory.create(gson)).client(createHttpClient())
             .build()
     }

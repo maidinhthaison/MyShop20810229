@@ -1,7 +1,7 @@
 package com.ql2.myshop.di
 
 import com.ql2.myshop.data.local.ConfigServerImpl
-import com.ql2.myshop.domain.ConfigServer
+import com.ql2.myshop.domain.local.ConfigServer
 import com.ql2.myshop.domain.LocalCache
 import dagger.Module
 import dagger.Provides
