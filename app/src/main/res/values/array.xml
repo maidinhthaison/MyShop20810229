@@ -5,4 +5,11 @@
         <item>Cancelled</item>
         <item>Paid</item>
     </string-array>
+    <string-array name="product_limit">
+        <item>2</item>
+        <item>4</item>
+        <item>5</item>
+        <item>8</item>
+        <item>10</item>
+    </string-array>
 </resources>

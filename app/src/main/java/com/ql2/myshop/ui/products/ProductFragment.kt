@@ -1,5 +1,6 @@
 package com.ql2.myshop.ui.products
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,11 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ql2.myshop.R
 import com.ql2.myshop.base.BaseFragment
+import com.ql2.myshop.data.api.request.GetAllProductRequestDTO
+import com.ql2.myshop.data.api.request.GetProductByCateAndNameRequestDTO
+import com.ql2.myshop.data.api.request.GetProductByCateRequestDTO
+import com.ql2.myshop.data.api.request.GetProductByNameRequestDTO
+import com.ql2.myshop.data.api.request.LIMIT
 import com.ql2.myshop.databinding.FragmentProductBinding
 import com.ql2.myshop.domain.model.product.ProductModel
 import com.ql2.myshop.ui.category.CategoryViewModel
@@ -31,6 +37,7 @@ class ProductFragment :
     ): FragmentProductBinding {
         return FragmentProductBinding.inflate(inflater, container, false)
     }
+
     private val productViewModel by viewModels<ProductViewModel>()
     private lateinit var productAdapter: ProductAdapter
 
@@ -38,20 +45,22 @@ class ProductFragment :
     private lateinit var arrayAdapter: ArrayAdapter<String>
 
     private var cateId: Int? = 0
+    private var offset: Int? = 0
+    private var totalPageSize: Int? = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        productAdapter =  ProductAdapter(context = requireContext())
+        productAdapter = ProductAdapter(context = requireContext())
         binding.rvProducts.apply {
             adapter = productAdapter
             layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
             itemAnimator = DefaultItemAnimator()
         }
-
-        with(productViewModel) {
-            getListProducts()
-        }
+        paging()
+        /*with(productViewModel) {
+            getListProducts(getAllProductRequestDTO = GetAllProductRequestDTO(offset = 0))
+        }*/
 
         productViewModel.uiGetProductModel.collectWhenStarted {
             binding.loadingProgress.isVisible = it.isLoading
@@ -80,6 +89,7 @@ class ProductFragment :
         categoryViewModel.uiGetCategoryModel.collectWhenStarted { it ->
             if (it.data != null) {
                 arrayAdapter.clear()
+                arrayAdapter.add(getString(R.string.all))
                 arrayAdapter.addAll(it.data.map { it.cateName })
                 arrayAdapter.notifyDataSetChanged()
 
@@ -91,9 +101,11 @@ class ProductFragment :
                             position: Int,
                             id: Long
                         ) {
-
-                            cateId = it.data[position].cateId
-
+                            cateId = if(position == 0){
+                                0
+                            }else{
+                                it.data[position - 1].cateId
+                            }
                         }
 
                         override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -104,21 +116,8 @@ class ProductFragment :
         }
         //Search
         binding.buttonSearch.setOnClickListener {
-
-            val proName = binding.editTextProductName.text.toString()
-            with(productViewModel) {
-                searchProducts(cateId ?: 0, proName)
-
-            }
-            productViewModel.uiSearchProductModel.collectWhenStarted {
-                binding.loadingProgress.isVisible = it.isLoading
-                if (it.data != null) {
-
-                    productAdapter.submitList(it.data.toList())
-                }
-
-            }
-
+            offset = 0
+            paging()
         }
         /**
          * Add Product
@@ -128,18 +127,74 @@ class ProductFragment :
                 R.id.addProductBottomSheetFragment
             )
         }
+        /**
+         * Pre Next Button Click
+         */
+        binding.ivPre.setOnClickListener {
+            offset = offset?.minus(LIMIT)
+            if(offset!! <  0){
+                offset = 0
+                binding.ivPre.isEnabled = false
+            }else{
+                binding.ivPre.isEnabled = true
+                paging()
+            }
+
+        }
+        binding.ivNext.setOnClickListener {
+            offset = offset?.plus(LIMIT)
+            paging()
+        }
     }
 
+    @SuppressLint("SetTextI18n")
+    private fun paging(){
+        Timber.d(">>>limit :$LIMIT - Offset: $offset")
+        val proName = binding.editTextProductName.text.toString()
+        with(productViewModel) {
+            if(cateId == 0 && proName.isNullOrEmpty()){
+                getListProducts(getAllProductRequestDTO = GetAllProductRequestDTO(offset = offset))
+            }else if(cateId != 0 && proName.isNullOrEmpty()){
+                getListProductsByCate(getProductByCateRequestDTO =
+                GetProductByCateRequestDTO(cateId = cateId, offset = offset))
+            }else if(cateId == 0 && !proName.isNullOrEmpty()){
+                getListProductsByName(getProductByNameRequestDTO =
+                GetProductByNameRequestDTO(proName = proName, offset = offset))
+            }else if(cateId != 0 && !proName.isNullOrEmpty()){
+                getListProductsByCateAndName(getProductByCateAndNameRequestDTO =
+                GetProductByCateAndNameRequestDTO(cateId = cateId, proName = proName, offset = offset))
+            }
+
+        }
+        productViewModel.uiGetProductModel.collectWhenStarted {
+            binding.loadingProgress.isVisible = it.isLoading
+            if (it.data != null) {
+                binding.tvPaging.text = String.format(getString(R.string.label_paging),
+                    "${offset?.div(LIMIT)?.plus(1)}")
+                if(it.data.size < LIMIT) binding.ivNext.isEnabled = false
+                else {
+                    binding.ivNext.isEnabled = true
+                    binding.ivPre.isEnabled = true
+                }
+                productAdapter.submitList(it.data.toList())
+
+            }
+
+        }
+    }
 
     private fun gotoDetailScreen(productModel: ProductModel) {
         val bundle = Bundle().apply {
             this.putSerializable(PRODUCT_ITEM_MODEL, productModel)
         }
 
-        findNavController().navigate(R.id.action_navigation_product_to_productDetailFragment, bundle)
+        findNavController().navigate(
+            R.id.action_navigation_product_to_productDetailFragment,
+            bundle
+        )
     }
 
-    companion object{
+    companion object {
         const val PRODUCT_ITEM_MODEL = "ProductItemModel"
     }
 }

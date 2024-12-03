@@ -3,6 +3,10 @@ package com.ql2.myshop.data.repository.product
 import com.ql2.myshop.data.SafeCallAPI
 import com.ql2.myshop.data.api.ProductAPI
 import com.ql2.myshop.data.api.request.AddProductRequestDTO
+import com.ql2.myshop.data.api.request.GetAllProductRequestDTO
+import com.ql2.myshop.data.api.request.GetProductByCateAndNameRequestDTO
+import com.ql2.myshop.data.api.request.GetProductByCateRequestDTO
+import com.ql2.myshop.data.api.request.GetProductByNameRequestDTO
 import com.ql2.myshop.data.api.request.UpdateProductRequestDTO
 import com.ql2.myshop.domain.TaskResult
 import com.ql2.myshop.domain.map
@@ -15,26 +19,53 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import timber.log.Timber
 
 class ProductRepositoryImpl (private val productAPI: ProductAPI,
                              private val defaultDispatcher: CoroutineDispatcher = Dispatchers.IO)
     : ProductRepository {
 
-    override fun getAllProducts(): Flow<TaskResult<List<ProductModel>>> = flow {
+    override fun getAllProducts(getAllProductRequestDTO: GetAllProductRequestDTO): Flow<TaskResult<List<ProductModel>>> = flow{
         emit(TaskResult.Loading)
         val result = SafeCallAPI.callApi {
-            productAPI.getAllProducts()
+            productAPI.getAllProducts(limit = getAllProductRequestDTO.limit, offset = getAllProductRequestDTO.offset)
         }.map { it -> it.map { it.toProductModel() } }
         emit(result)
     }.flowOn(defaultDispatcher)
 
-    override fun searchProducts(cateId: Int, proName: String): Flow<TaskResult<List<ProductModel>>> = flow<TaskResult<List<ProductModel>>> {
+    override fun getProductsByCate(
+        getProductByCateRequestDTO: GetProductByCateRequestDTO
+    ): Flow<TaskResult<List<ProductModel>>> = flow{
         emit(TaskResult.Loading)
         val result = SafeCallAPI.callApi {
-            productAPI.searchProducts(cateId = cateId, proName = proName)
+            productAPI.getProductByCate(cateId = getProductByCateRequestDTO.cateId,
+                limit = getProductByCateRequestDTO.limit, offset = getProductByCateRequestDTO.offset)
         }.map { it -> it.map { it.toProductModel() } }
         emit(result)
-    }.flowOn(defaultDispatcher)
+    }
+
+    override fun getProductsByName(getProductByNameRequestDTO: GetProductByNameRequestDTO):
+            Flow<TaskResult<List<ProductModel>>> = flow {
+        emit(TaskResult.Loading)
+        val result = SafeCallAPI.callApi {
+            productAPI.getProductByName(proName = getProductByNameRequestDTO.proName, limit =
+            getProductByNameRequestDTO.limit, offset = getProductByNameRequestDTO.offset)
+        }.map { it -> it.map { it.toProductModel() } }
+        emit(result)
+    }
+
+    override fun getProductsByCateAndName(getProductByCateAndNameRequestDTO: GetProductByCateAndNameRequestDTO):
+            Flow<TaskResult<List<ProductModel>>> = flow {
+        emit(TaskResult.Loading)
+        val result = SafeCallAPI.callApi {
+            productAPI.getProductByCateAndName(cateId = getProductByCateAndNameRequestDTO.cateId,
+                proName = getProductByCateAndNameRequestDTO.proName,
+                limit = getProductByCateAndNameRequestDTO.limit,
+                offset = getProductByCateAndNameRequestDTO.offset)
+        }.map { it -> it.map { it.toProductModel() } }
+        emit(result)
+    }
+
 
     override fun updateProductById(
         productId: Int,
