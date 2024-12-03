@@ -16,7 +16,42 @@
        app:layout_constraintBottom_toBottomOf="parent"
        app:layout_constraintStart_toStartOf="parent"
        app:layout_constraintEnd_toEndOf="parent"/>
-
+   <androidx.appcompat.widget.AppCompatTextView
+       app:layout_constraintTop_toBottomOf="@+id/logoutButton"
+       android:layout_marginVertical="@dimen/_16sdp"
+       app:layout_constraintEnd_toStartOf="@+id/spinnerLimit"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:textSize="@dimen/_12sdp"
+       android:textStyle="bold"
+      android:text="Limit: "/>
+   <androidx.appcompat.widget.AppCompatSpinner
+       app:layout_constraintTop_toBottomOf="@+id/logoutButton"
+       android:layout_marginVertical="@dimen/_16sdp"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:id="@+id/spinnerLimit"
+       android:entries="@array/product_limit"/>
+   <androidx.appcompat.widget.AppCompatTextView
+       app:layout_constraintTop_toBottomOf="@+id/spinnerLimit"
+       android:layout_marginVertical="@dimen/_16sdp"
+       app:layout_constraintEnd_toStartOf="@+id/spinnerLimit"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:textSize="@dimen/_12sdp"
+       android:textStyle="bold"
+       android:id="@+id/tvSortStatus"
+       android:text="Sort: "/>
+   <com.google.android.material.materialswitch.MaterialSwitch
+       android:id="@+id/sortSwitch"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_marginVertical="@dimen/_5sdp"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintTop_toBottomOf="@+id/spinnerLimit"/>
    <com.google.android.material.textview.MaterialTextView
        app:layout_constraintStart_toStartOf="parent"
        app:layout_constraintBottom_toBottomOf="parent"

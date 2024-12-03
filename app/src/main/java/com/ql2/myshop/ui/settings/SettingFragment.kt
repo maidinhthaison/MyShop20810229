@@ -6,14 +6,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import com.ql2.myshop.BuildConfig
 import com.ql2.myshop.R
 import com.ql2.myshop.base.BaseFragment
 import com.ql2.myshop.databinding.FragmentSettingBinding
-import com.ql2.myshop.domain.UserAppSession
+import com.ql2.myshop.domain.local.UserAppSession
 import com.ql2.myshop.ui.login.LoginActivity
 import com.ql2.myshop.utils.AppDialog
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -51,5 +54,41 @@ class SettingFragment :  BaseFragment<FragmentSettingBinding>() {
             }
         }
 
+        binding.sortSwitch.setOnCheckedChangeListener { _, isChecked ->
+            run {
+                binding.tvSortStatus.text = if (isChecked) {
+                    getString(R.string.sort_status_asc)
+                } else {
+                    getString(R.string.sort_status_desc)
+                }
+            }
+        }
+
+        ArrayAdapter.createFromResource(requireContext(), R.array.product_limit,
+            android.R.layout.simple_spinner_item).also {
+                adapter ->
+            run {
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                binding.spinnerLimit.adapter = adapter
+            }
+        }
+        binding.spinnerLimit.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+
+                    val sort = parent?.getItemAtPosition(position).toString()
+                    Timber.d("orderStatus: $sort")
+
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+            }
     }
 }

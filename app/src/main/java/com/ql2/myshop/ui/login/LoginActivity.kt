@@ -14,7 +14,7 @@ import com.ql2.myshop.R
 import com.ql2.myshop.base.BaseActivity
 import com.ql2.myshop.databinding.ActivityLoginBinding
 import com.ql2.myshop.domain.local.ConfigServer
-import com.ql2.myshop.domain.UserAppSession
+import com.ql2.myshop.domain.local.UserAppSession
 import com.ql2.myshop.domain.model.login.UserModel
 import com.ql2.myshop.main.MainActivity
 import com.ql2.myshop.ui.config.ConfigActivity

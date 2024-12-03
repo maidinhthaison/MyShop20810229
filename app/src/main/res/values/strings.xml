@@ -29,15 +29,18 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="search">Search</string>
+    <string name="all">---ALL---</string>
 
     <!--Setting-->
     <string name="logout">Logout</string>
     <string name="dialog_logout_confirm_title">Logout</string>
     <string name="dialog_logout_confirm_message">Are you sure?</string>
-
+    <string name="sort_status_asc">ASC</string>
+    <string name="sort_status_desc">DESC</string>
     <!--Product-->
     <string name="product_list_title">Products</string>
     <string name="message_api_error">API error</string>
+    <string name="label_paging">Page %1$s</string>
 
     <!--Product Detail-->
     <string name="hint_product_name">Product name</string>

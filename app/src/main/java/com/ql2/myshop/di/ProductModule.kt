@@ -4,13 +4,17 @@ import com.ql2.myshop.data.api.ProductAPI
 import com.ql2.myshop.data.repository.product.ProductRepositoryImpl
 import com.ql2.myshop.data.retrofit.RetrofitManager
 import com.ql2.myshop.data.usecase.product.AddProductUseCaseImpl
+import com.ql2.myshop.data.usecase.product.GetProductByCateAndNameUseCaseImpl
+import com.ql2.myshop.data.usecase.product.GetProductByCateUseCaseImpl
+import com.ql2.myshop.data.usecase.product.GetProductByNameUseCaseImpl
 import com.ql2.myshop.data.usecase.product.GetProductUseCaseImpl
-import com.ql2.myshop.data.usecase.product.SearchProductUseCaseImpl
 import com.ql2.myshop.data.usecase.product.UpdateProductByIdUseCaseImpl
 import com.ql2.myshop.domain.repository.product.ProductRepository
 import com.ql2.myshop.domain.usecase.product.AddProductUseCase
+import com.ql2.myshop.domain.usecase.product.GetProductByCateAndNameUseCase
+import com.ql2.myshop.domain.usecase.product.GetProductByCateUseCase
+import com.ql2.myshop.domain.usecase.product.GetProductByNameUseCase
 import com.ql2.myshop.domain.usecase.product.GetProductUseCase
-import com.ql2.myshop.domain.usecase.product.SearchProductUseCase
 import com.ql2.myshop.domain.usecase.product.UpdateProductByIdUseCase
 import dagger.Module
 import dagger.Provides
@@ -43,8 +47,18 @@ class ProductModule {
     }
 
     @Provides
-    fun provideSearchProductUseCase(productRepository: ProductRepository): SearchProductUseCase {
-        return SearchProductUseCaseImpl(productRepository)
+    fun provideGetProductByNameUseCase(productRepository: ProductRepository): GetProductByNameUseCase {
+        return GetProductByNameUseCaseImpl(productRepository)
+    }
+
+    @Provides
+    fun provideGetProductByCateUseCase(productRepository: ProductRepository): GetProductByCateUseCase {
+        return GetProductByCateUseCaseImpl(productRepository)
+    }
+
+    @Provides
+    fun provideGetProductByCateAndNameUseCase(productRepository: ProductRepository): GetProductByCateAndNameUseCase {
+        return GetProductByCateAndNameUseCaseImpl(productRepository)
     }
 
     @Provides

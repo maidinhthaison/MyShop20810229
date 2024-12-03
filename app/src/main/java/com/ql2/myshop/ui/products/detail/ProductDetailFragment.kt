@@ -1,7 +1,6 @@
 package com.ql2.myshop.ui.products.detail
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -15,10 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.ql2.myshop.R
 import com.ql2.myshop.base.BaseFragment
 import com.ql2.myshop.databinding.FragmentProductDetailBinding
-import com.ql2.myshop.domain.UserAppSession
-import com.ql2.myshop.domain.model.login.UserModel
 import com.ql2.myshop.domain.model.product.ProductModel
-import com.ql2.myshop.main.MainActivity
 import com.ql2.myshop.ui.products.ProductFragment
 import com.ql2.myshop.ui.products.ProductViewModel
 import com.ql2.myshop.ui.products.detail.adapter.ImageSlideAdapter

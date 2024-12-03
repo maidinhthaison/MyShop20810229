@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import com.ql2.myshop.base.BaseActivity
 import com.ql2.myshop.databinding.ActivitySplashBinding
-import com.ql2.myshop.domain.UserAppSession
+import com.ql2.myshop.domain.local.UserAppSession
 import com.ql2.myshop.main.MainActivity
 import com.ql2.myshop.ui.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint

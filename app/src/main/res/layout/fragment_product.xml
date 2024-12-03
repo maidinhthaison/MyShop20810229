@@ -78,6 +78,8 @@
                     android:text="@string/product_list_title"
                     android:textSize="@dimen/_16sdp"
                     android:textColor="@color/black" />
+
+
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivAddProduct"
                     android:layout_width="@dimen/_24sdp"
@@ -87,6 +89,35 @@
                     android:layout_below="@+id/buttonSearch"
                     android:layout_toRightOf="@+id/tvHeader"
                     android:layout_marginHorizontal="@dimen/_10sdp"/>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_below="@+id/buttonSearch"
+                    android:layout_toEndOf="@+id/ivAddProduct"
+                    android:layout_marginVertical="@dimen/_5sdp">
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivPre"
+                        android:padding="@dimen/_2sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_arrow_previous_32" />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="1/4"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:layout_marginHorizontal="@dimen/_10sdp"
+                        android:id="@+id/tvPaging"
+                        android:textSize="@dimen/_12sdp"/>
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivNext"
+                        android:padding="@dimen/_2sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_arrow_next_32" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
             </RelativeLayout>
 

@@ -13,14 +13,32 @@ import retrofit2.http.Path
 
 interface ProductAPI {
 
-    @GET("/api/products")
+    @GET("/api/products/{limit}/{offset}")
     suspend fun getAllProducts(
+        @Path("limit") limit: Int?,
+        @Path("offset") offset: Int?
     ): Response<List<ProductResponseDTO>>
 
-    @GET("/api/products/cate/{cateId}/pro/{proName}")
-    suspend fun searchProducts(
-        @Path("cateId") cateId: Int,
-        @Path("proName") proName: String
+    @GET("/api/products/{cateId}/{limit}/{offset}")
+    suspend fun getProductByCate(
+        @Path("cateId") cateId: Int?,
+        @Path("limit") limit: Int?,
+        @Path("offset") offset: Int?
+    ): Response<List<ProductResponseDTO>>
+
+    @GET("/api/products/cate/{proName}/{limit}/{offset}")
+    suspend fun getProductByName(
+        @Path("proName") proName: String?,
+        @Path("limit") limit: Int?,
+        @Path("offset") offset: Int?
+    ): Response<List<ProductResponseDTO>>
+
+    @GET("/api/products/{cateId}/{proName}/{limit}/{offset}")
+    suspend fun getProductByCateAndName(
+        @Path("cateId") cateId: Int?,
+        @Path("proName") proName: String?,
+        @Path("limit") limit: Int?,
+        @Path("offset") offset: Int?
     ): Response<List<ProductResponseDTO>>
 
     @POST("/api/products/{id}")

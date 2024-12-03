@@ -3,7 +3,7 @@ package com.ql2.myshop.data.local
 import com.ql2.myshop.domain.local.ConfigServer
 import com.ql2.myshop.domain.local.ConfigServer.Companion.KEY_CONFIG_SERVER
 import com.ql2.myshop.domain.LocalCache
-import com.ql2.myshop.domain.UserAppSession.Companion.KEY_USER
+import com.ql2.myshop.domain.local.UserAppSession.Companion.KEY_USER
 import com.ql2.myshop.domain.model.config.ConfigModel
 
 class ConfigServerImpl (private val cache: LocalCache) : ConfigServer {
