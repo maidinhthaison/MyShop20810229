@@ -22,7 +22,9 @@
     <string name="save_button_text">Login</string>
     <string name="dialog_config_error_title">Error</string>
     <string name="dialog_config_error_message">You need config server</string>
-
+    <string name="content_default_server">192.168.1.5</string>
+    <string name="content_default_port">8080</string>
+    <string name="save_config_success">Config saved successfully</string>
     <!--Common-->
     <string name="ok">OK</string>"
     <string name="cancel">Cancel</string>
@@ -37,6 +39,9 @@
     <string name="dialog_logout_confirm_message">Are you sure?</string>
     <string name="sort_status_asc">ASC</string>
     <string name="sort_status_desc">DESC</string>
+    <string name="label_limit_offset">Limit products: %1$s</string>
+    <string name="label_limit_dashboard">Limit dashboard: %1$s</string>
+    <string name="save_setting_success">Setting saved successfully</string>
     <!--Product-->
     <string name="product_list_title">Products</string>
     <string name="message_api_error">API error</string>

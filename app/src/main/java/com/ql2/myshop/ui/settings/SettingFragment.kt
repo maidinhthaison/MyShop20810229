@@ -12,15 +12,19 @@ import com.ql2.myshop.BuildConfig
 import com.ql2.myshop.R
 import com.ql2.myshop.base.BaseFragment
 import com.ql2.myshop.databinding.FragmentSettingBinding
+import com.ql2.myshop.domain.local.ConfigServer
+import com.ql2.myshop.domain.local.SettingApp
 import com.ql2.myshop.domain.local.UserAppSession
+import com.ql2.myshop.domain.model.setting.SettingModel
 import com.ql2.myshop.ui.login.LoginActivity
 import com.ql2.myshop.utils.AppDialog
+import com.ql2.myshop.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SettingFragment :  BaseFragment<FragmentSettingBinding>() {
+class SettingFragment : BaseFragment<FragmentSettingBinding>() {
     override fun initBindingObject(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,17 +35,23 @@ class SettingFragment :  BaseFragment<FragmentSettingBinding>() {
 
     @Inject
     lateinit var userAppSession: UserAppSession
+    @Inject
+    lateinit var settingApp: SettingApp
+    @Inject
+    lateinit var configServer: ConfigServer
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val configModel = configServer.getConfig()
         val stringBuilder = StringBuilder()
         stringBuilder.append(getString(R.string.app_name))
             .append("\n${BuildConfig.VERSION_NAME}").append(" ")
             .append(BuildConfig.FLAVOR)
             .append(BuildConfig.BUILD_TYPE)
-            .append("\n${BuildConfig.BASE_API_URL}")
+            .append("\n${configServer.getServer(configModel = configModel)}")
         binding.infoAppTextView.text = stringBuilder.toString()
+
         binding.logoutButton.setOnClickListener {
             AppDialog.displayConfirmDialog(
                 requireContext(), R.string.dialog_logout_confirm_title,
@@ -49,11 +59,14 @@ class SettingFragment :  BaseFragment<FragmentSettingBinding>() {
                 R.string.ok, R.string.cancel
             ) { _, _ ->
                 userAppSession.clearUser()
-                startActivity(Intent(requireActivity(),LoginActivity::class.java))
+                startActivity(Intent(requireActivity(), LoginActivity::class.java))
                 requireActivity().finish()
             }
         }
-
+        // Switch
+        if (binding.sortSwitch.isChecked) binding.tvSortStatus.text =
+            getString(R.string.sort_status_asc)
+        else binding.tvSortStatus.text = getString(R.string.sort_status_desc)
         binding.sortSwitch.setOnCheckedChangeListener { _, isChecked ->
             run {
                 binding.tvSortStatus.text = if (isChecked) {
@@ -63,10 +76,11 @@ class SettingFragment :  BaseFragment<FragmentSettingBinding>() {
                 }
             }
         }
-
-        ArrayAdapter.createFromResource(requireContext(), R.array.product_limit,
-            android.R.layout.simple_spinner_item).also {
-                adapter ->
+        //Limit Offset
+        ArrayAdapter.createFromResource(
+            requireContext(), R.array.product_limit,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
             run {
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 binding.spinnerLimit.adapter = adapter
@@ -81,14 +95,77 @@ class SettingFragment :  BaseFragment<FragmentSettingBinding>() {
                     id: Long
                 ) {
 
-                    val sort = parent?.getItemAtPosition(position).toString()
-                    Timber.d("orderStatus: $sort")
-
+                    val limit = parent?.getItemAtPosition(position).toString()
+                    Timber.d("spinnerLimit: $limit")
+                    binding.tvLimitOffset.text =
+                        String.format(getString(R.string.label_limit_offset), limit)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
 
                 }
             }
+
+        //Limit Dashboard
+        ArrayAdapter.createFromResource(
+            requireContext(), R.array.product_dashboard,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            run {
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                binding.spinnerDashboardLimit.adapter = adapter
+            }
+        }
+        binding.spinnerDashboardLimit.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+
+                    val limit = parent?.getItemAtPosition(position).toString()
+                    Timber.d("spinnerDashboardLimit: $limit")
+                    binding.tvLimitDashboard.text =
+                        String.format(getString(R.string.label_limit_dashboard), limit)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+            }
+
+        // Init value for spinner read from cached
+        val settingModel = settingApp.getSetting()
+        if (settingModel != null) {
+            val limitPosition = context?.resources?.getStringArray(R.array.product_limit)
+                ?.indexOf(settingModel.limit.toString())
+            limitPosition?.let { binding.spinnerLimit.setSelection(it) }
+            val limitDashboardPosition = context?.resources?.getStringArray(R.array.product_dashboard)
+                ?.indexOf(settingModel.limitDashboard.toString())
+            limitDashboardPosition?.let { binding.spinnerDashboardLimit.setSelection(it) }
+
+            binding.tvLimitOffset.text = String.format(
+                getString(R.string.label_limit_dashboard),
+                binding.spinnerLimit.getItemAtPosition(limitPosition!!)
+            )
+
+            binding.tvLimitDashboard.text = String.format(
+                getString(R.string.label_limit_dashboard),
+                binding.spinnerDashboardLimit.getItemAtPosition(limitDashboardPosition!!)
+            )
+        }
+        // Save button
+        binding.saveButton.setOnClickListener {
+            settingApp.saveSetting(
+                SettingModel(
+                    sort = binding.tvSortStatus.text.toString(),
+                    limit = binding.spinnerLimit.selectedItem.toString().toInt(),
+                    limitDashboard = binding.spinnerDashboardLimit.selectedItem.toString().toInt()
+                )
+            )
+            showToast(requireContext(), getString(R.string.save_setting_success))
+        }
     }
 }

@@ -18,14 +18,16 @@ import com.ql2.myshop.data.api.request.GetAllProductRequestDTO
 import com.ql2.myshop.data.api.request.GetProductByCateAndNameRequestDTO
 import com.ql2.myshop.data.api.request.GetProductByCateRequestDTO
 import com.ql2.myshop.data.api.request.GetProductByNameRequestDTO
-import com.ql2.myshop.data.api.request.LIMIT
+import com.ql2.myshop.data.api.request.LIMIT_DEFAULT
 import com.ql2.myshop.databinding.FragmentProductBinding
+import com.ql2.myshop.domain.local.SettingApp
 import com.ql2.myshop.domain.model.product.ProductModel
 import com.ql2.myshop.ui.category.CategoryViewModel
 import com.ql2.myshop.ui.products.adapter.ListProductUIEvent
 import com.ql2.myshop.ui.products.adapter.ProductAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProductFragment :
@@ -46,11 +48,13 @@ class ProductFragment :
 
     private var cateId: Int? = 0
     private var offset: Int? = 0
-    private var totalPageSize: Int? = 0
+    private var limit: Int? = 0
+    @Inject
+    lateinit var settingApp: SettingApp
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        limit = settingApp.getSetting()?.limit ?: LIMIT_DEFAULT
         productAdapter = ProductAdapter(context = requireContext())
         binding.rvProducts.apply {
             adapter = productAdapter
@@ -58,17 +62,6 @@ class ProductFragment :
             itemAnimator = DefaultItemAnimator()
         }
         paging()
-        /*with(productViewModel) {
-            getListProducts(getAllProductRequestDTO = GetAllProductRequestDTO(offset = 0))
-        }*/
-
-        productViewModel.uiGetProductModel.collectWhenStarted {
-            binding.loadingProgress.isVisible = it.isLoading
-            if (it.data != null) {
-                productAdapter.submitList(it.data.toList())
-            }
-        }
-
 
         productAdapter.onClicked = {
             when (it) {
@@ -131,7 +124,7 @@ class ProductFragment :
          * Pre Next Button Click
          */
         binding.ivPre.setOnClickListener {
-            offset = offset?.minus(LIMIT)
+            offset = offset?.minus(limit!!)
             if(offset!! <  0){
                 offset = 0
                 binding.ivPre.isEnabled = false
@@ -142,27 +135,29 @@ class ProductFragment :
 
         }
         binding.ivNext.setOnClickListener {
-            offset = offset?.plus(LIMIT)
+            offset = offset?.plus(limit!!)
             paging()
         }
     }
 
     @SuppressLint("SetTextI18n")
     private fun paging(){
-        Timber.d(">>>limit :$LIMIT - Offset: $offset")
+        Timber.d(">>>limit :$limit - Offset: $offset")
         val proName = binding.editTextProductName.text.toString()
         with(productViewModel) {
             if(cateId == 0 && proName.isNullOrEmpty()){
-                getListProducts(getAllProductRequestDTO = GetAllProductRequestDTO(offset = offset))
+                getListProducts(getAllProductRequestDTO =
+                GetAllProductRequestDTO(limit = limit, offset = offset))
             }else if(cateId != 0 && proName.isNullOrEmpty()){
                 getListProductsByCate(getProductByCateRequestDTO =
-                GetProductByCateRequestDTO(cateId = cateId, offset = offset))
+                GetProductByCateRequestDTO(cateId = cateId, limit = limit, offset = offset))
             }else if(cateId == 0 && !proName.isNullOrEmpty()){
                 getListProductsByName(getProductByNameRequestDTO =
-                GetProductByNameRequestDTO(proName = proName, offset = offset))
+                GetProductByNameRequestDTO(proName = proName, limit = limit, offset = offset))
             }else if(cateId != 0 && !proName.isNullOrEmpty()){
                 getListProductsByCateAndName(getProductByCateAndNameRequestDTO =
-                GetProductByCateAndNameRequestDTO(cateId = cateId, proName = proName, offset = offset))
+                GetProductByCateAndNameRequestDTO(cateId = cateId, proName = proName,
+                    limit = limit, offset = offset))
             }
 
         }
@@ -170,8 +165,8 @@ class ProductFragment :
             binding.loadingProgress.isVisible = it.isLoading
             if (it.data != null) {
                 binding.tvPaging.text = String.format(getString(R.string.label_paging),
-                    "${offset?.div(LIMIT)?.plus(1)}")
-                if(it.data.size < LIMIT) binding.ivNext.isEnabled = false
+                    "${offset?.div(limit!!)?.plus(1)}")
+                if(it.data.size < limit!!) binding.ivNext.isEnabled = false
                 else {
                     binding.ivNext.isEnabled = true
                     binding.ivPre.isEnabled = true
