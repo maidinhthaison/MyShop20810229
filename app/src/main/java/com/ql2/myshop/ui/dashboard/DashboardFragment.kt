@@ -194,7 +194,7 @@ class DashboardFragment :
         dashboardViewModel.uiPieChartModel.collectWhenStarted {
             binding.loadingProgress.isVisible = it.isLoading
             val pieChartData = it.data
-            if (pieChartData != null) {
+            if (!pieChartData.isNullOrEmpty()) {
                 val entries = ArrayList<PieEntry>()
                 val sumOfProduct = pieChartData.sumOf { it1 -> it1.numOfProduct ?: 0 }
                 for (item in pieChartData) {
@@ -251,7 +251,7 @@ class DashboardFragment :
         dashboardViewModel.uiGetIncomeInMonthModel.collectWhenStarted {
             binding.loadingProgress.isVisible = it.isLoading
             val lineChartData = it.data
-            if (lineChartData != null){
+            if(!lineChartData.isNullOrEmpty()){
                 val xValues = ArrayList<String>()
                 val entries = ArrayList<BarEntry>()
                 for (i in lineChartData.indices) {
@@ -285,9 +285,7 @@ class DashboardFragment :
                 barChart.xAxis.axisLineWidth = 2f
                 barChart.xAxis.axisLineColor = Color.BLACK
                 setUpBarChart(barChart)
-
             }
-
         }
 
     }
