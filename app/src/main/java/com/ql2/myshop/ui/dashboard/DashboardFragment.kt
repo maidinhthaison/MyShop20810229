@@ -14,19 +14,12 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.BarChart
-import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.charts.PieChart
-import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.Legend
-import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.XAxis.XAxisPosition
-import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
@@ -35,7 +28,9 @@ import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.ql2.myshop.R
 import com.ql2.myshop.base.BaseFragment
+import com.ql2.myshop.data.api.request.TOP_LIMIT_DEFAULT
 import com.ql2.myshop.databinding.FragmentDashboardBinding
+import com.ql2.myshop.domain.local.SettingApp
 import com.ql2.myshop.ui.dashboard.adapter.BestSalesProductAdapter
 import com.ql2.myshop.ui.dashboard.adapter.LatestOrderAdapter
 import com.ql2.myshop.ui.dashboard.adapter.OutOfStockProductAdapter
@@ -43,8 +38,8 @@ import com.ql2.myshop.utils.DATE_ORDER_DATETIME
 import com.ql2.myshop.utils.formatDate
 import com.ql2.myshop.utils.formatPriceToCurrency
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import java.util.Date
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -65,14 +60,20 @@ class DashboardFragment :
 
     private lateinit var latestOrderAdapter: LatestOrderAdapter
 
+    @Inject
+    lateinit var settingApp: SettingApp
+
+    private var topLimit: Int? = 5
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        topLimit = settingApp.getSetting()?.limitDashboard ?: TOP_LIMIT_DEFAULT
         bindStatisticInDay()
         setupPieChart(binding.pieChartProductCategory)
         loadPieChartData(binding.pieChartProductCategory)
         loadBarChart(binding.barChart)
         initRecycleView()
-        loadOutOfStockProduct(limit = 5)
+        loadOutOfStockProduct(limit = topLimit!!)
     }
     private fun initRecycleView(){
         outOfStockProductAdapter =  OutOfStockProductAdapter(context = requireContext())

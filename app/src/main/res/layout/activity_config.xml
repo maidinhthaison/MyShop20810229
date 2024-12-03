@@ -49,7 +49,7 @@
             android:layout_marginTop="@dimen/_16sdp"
             app:endIconMode="clear_text">
             <com.google.android.material.textfield.TextInputEditText
-                android:text="8080"
+                android:text="@string/content_default_port"
                 android:id="@+id/portEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

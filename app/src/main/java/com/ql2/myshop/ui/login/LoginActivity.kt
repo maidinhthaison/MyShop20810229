@@ -6,7 +6,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -19,6 +18,7 @@ import com.ql2.myshop.domain.model.login.UserModel
 import com.ql2.myshop.main.MainActivity
 import com.ql2.myshop.ui.config.ConfigActivity
 import com.ql2.myshop.utils.AppDialog
+import com.ql2.myshop.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
@@ -63,7 +63,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
             ActivityResultContracts.StartActivityForResult()
         ) { result: ActivityResult ->
             if (result.resultCode == RESULT_OK) {
-                Toast.makeText(this, "Config saved", Toast.LENGTH_SHORT).show()
+                showToast(this, getString(R.string.save_config_success))
                 /*val data = result.data
                 configServer.saveConfig(ConfigModel(data?.getStringExtra(CONFIG_SERVER).toString()
                     , data?.getStringExtra(CONFIG_PORT).toString()

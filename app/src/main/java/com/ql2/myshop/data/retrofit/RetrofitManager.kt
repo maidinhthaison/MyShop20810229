@@ -66,11 +66,9 @@ class RetrofitManager (
                 .addConverterFactory(GsonConverterFactory.create(gson)).client(createHttpClient())
                 .build()
         }
-        val baseUrl = StringBuilder()
-        baseUrl.append("http://")
-                .append(configModel?.server).append(":${configModel?.port}/")
+        val baseUrl = configServer.getServer(configModel)
         Timber.d(">>>>${baseUrl}")
-        return Retrofit.Builder().baseUrl(baseUrl.toString())
+        return Retrofit.Builder().baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create(gson)).client(createHttpClient())
             .build()
     }

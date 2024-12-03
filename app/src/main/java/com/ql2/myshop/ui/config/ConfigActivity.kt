@@ -12,7 +12,6 @@ import com.ql2.myshop.databinding.ActivityConfigBinding
 import com.ql2.myshop.domain.local.ConfigServer
 import com.ql2.myshop.domain.model.config.ConfigModel
 import com.ql2.myshop.ui.login.LoginActivity
-import com.ql2.myshop.utils.AppDialog
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -28,6 +27,11 @@ class ConfigActivity : BaseActivity<ActivityConfigBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val configModel = configServer.getConfig()
+        if (configModel != null) {
+            binding.serverEditText.setText(configModel.server)
+            binding.portEditText.setText(configModel.port)
+        }
         setUpListener()
     }
 
@@ -36,7 +40,7 @@ class ConfigActivity : BaseActivity<ActivityConfigBinding>() {
         binding.portEditText.addTextChangedListener(TextFieldValidation(binding.portEditText))
 
         binding.saveButton.setOnClickListener {
-            if(isValidate()){
+            if (isValidate()) {
                 val server = binding.serverEditText.text?.trim().toString()
                 val port = binding.portEditText.text?.trim().toString()
                 configServer.saveConfig(ConfigModel(server, port))
@@ -47,15 +51,18 @@ class ConfigActivity : BaseActivity<ActivityConfigBinding>() {
 
         }
         binding.clearButton.setOnClickListener {
-            AppDialog.displayErrorMessage(
+            /*AppDialog.displayErrorMessage(
                 this, R.string.dialog_config_error_title,
                 R.string.dialog_config_error_message,
                 R.string.ok
-            ) { _, _ -> }
+            ) { _, _ -> }*/
+            finish()
         }
     }
+
     private fun isValidate(): Boolean =
         validateServer() && validatePort()
+
     /**
      * applying text watcher on each text field
      */

@@ -12,46 +12,95 @@
        android:layout_height="wrap_content"
        android:text="@string/logout"
        android:id="@+id/logoutButton"
+       android:layout_marginVertical="@dimen/_16sdp"
+       android:layout_marginHorizontal="@dimen/_16sdp"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"/>
+   <androidx.appcompat.widget.LinearLayoutCompat
+       android:id="@+id/ll0"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintTop_toTopOf="parent"
        app:layout_constraintBottom_toBottomOf="parent"
-       app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintEnd_toEndOf="parent"/>
-   <androidx.appcompat.widget.AppCompatTextView
-       app:layout_constraintTop_toBottomOf="@+id/logoutButton"
        android:layout_marginVertical="@dimen/_16sdp"
-       app:layout_constraintEnd_toStartOf="@+id/spinnerLimit"
+      android:orientation="horizontal">
+      <androidx.appcompat.widget.AppCompatTextView
+          android:id="@+id/tvLimitOffset"
+          android:gravity="center"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="@dimen/_12sdp"
+          android:textStyle="bold"
+          android:text="@string/label_limit_offset"/>
+      <androidx.appcompat.widget.AppCompatSpinner
+          android:background="@drawable/bg_default_spinner"
+          android:gravity="center"
+          android:layout_width="@dimen/_60sdp"
+          android:layout_height="@dimen/_30sdp"
+          android:id="@+id/spinnerLimit"
+          android:layout_marginStart="@dimen/_20sdp"
+          android:entries="@array/product_limit"/>
+   </androidx.appcompat.widget.LinearLayoutCompat>
+   <androidx.appcompat.widget.LinearLayoutCompat
+       android:id="@+id/ll1"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:textSize="@dimen/_12sdp"
-       android:textStyle="bold"
-      android:text="Limit: "/>
-   <androidx.appcompat.widget.AppCompatSpinner
-       app:layout_constraintTop_toBottomOf="@+id/logoutButton"
-       android:layout_marginVertical="@dimen/_16sdp"
-       app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintEnd_toEndOf="parent"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:id="@+id/spinnerLimit"
-       android:entries="@array/product_limit"/>
-   <androidx.appcompat.widget.AppCompatTextView
-       app:layout_constraintTop_toBottomOf="@+id/spinnerLimit"
-       android:layout_marginVertical="@dimen/_16sdp"
-       app:layout_constraintEnd_toStartOf="@+id/spinnerLimit"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:textSize="@dimen/_12sdp"
-       android:textStyle="bold"
-       android:id="@+id/tvSortStatus"
-       android:text="Sort: "/>
-   <com.google.android.material.materialswitch.MaterialSwitch
-       android:id="@+id/sortSwitch"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_marginVertical="@dimen/_5sdp"
        app:layout_constraintStart_toStartOf="parent"
        app:layout_constraintEnd_toEndOf="parent"
-       app:layout_constraintTop_toBottomOf="@+id/spinnerLimit"/>
+       app:layout_constraintTop_toBottomOf="@+id/ll0"
+       android:layout_marginVertical="@dimen/_16sdp"
+       android:orientation="horizontal">
+      <androidx.appcompat.widget.AppCompatTextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textSize="@dimen/_12sdp"
+          android:textStyle="bold"
+          android:id="@+id/tvSortStatus"
+          android:text="@string/sort_status_asc"/>
+      <com.google.android.material.materialswitch.MaterialSwitch
+          android:layout_marginStart="@dimen/_20sdp"
+          android:checked="true"
+          android:id="@+id/sortSwitch"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content" />
+   </androidx.appcompat.widget.LinearLayoutCompat>
+   <androidx.appcompat.widget.LinearLayoutCompat
+       android:id="@+id/ll2"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintTop_toBottomOf="@+id/ll1"
+       android:layout_marginVertical="@dimen/_16sdp"
+       android:orientation="horizontal">
+      <androidx.appcompat.widget.AppCompatTextView
+          android:id="@+id/tvLimitDashboard"
+          android:gravity="center"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="@dimen/_12sdp"
+          android:textStyle="bold"
+          android:text="@string/label_limit_dashboard"/>
+      <androidx.appcompat.widget.AppCompatSpinner
+          android:background="@drawable/bg_default_spinner"
+          android:gravity="center"
+          android:layout_width="@dimen/_60sdp"
+          android:layout_height="@dimen/_30sdp"
+          android:id="@+id/spinnerDashboardLimit"
+          android:layout_marginStart="@dimen/_20sdp"
+          android:entries="@array/product_limit"/>
+   </androidx.appcompat.widget.LinearLayoutCompat>
+   <com.google.android.material.button.MaterialButton
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="@string/buttonSave"
+       android:id="@+id/saveButton"
+       app:layout_constraintTop_toBottomOf="@+id/ll2"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       android:layout_marginVertical="@dimen/_16sdp"/>
    <com.google.android.material.textview.MaterialTextView
        app:layout_constraintStart_toStartOf="parent"
        app:layout_constraintBottom_toBottomOf="parent"
@@ -61,6 +110,6 @@
        android:layout_marginHorizontal="@dimen/_16sdp"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-         android:textSize="@dimen/_12sdp"
-         android:textColor="@color/black"/>
+       android:textSize="@dimen/_12sdp"
+       android:textColor="@color/black"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
