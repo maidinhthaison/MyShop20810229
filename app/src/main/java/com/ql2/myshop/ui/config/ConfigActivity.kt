@@ -89,7 +89,7 @@ class ConfigActivity : BaseActivity<ActivityConfigBinding>() {
      */
     private fun validateServer(): Boolean {
         return if (binding.serverEditText.text.toString().trim().isEmpty()) {
-            binding.tilServer.error = "Required Field!"
+            binding.tilServer.error = getString(R.string.require_field)
             binding.serverEditText.requestFocus()
             false
         } else {
@@ -104,7 +104,7 @@ class ConfigActivity : BaseActivity<ActivityConfigBinding>() {
     private fun validatePort(): Boolean {
 
         return if (binding.portEditText.text.toString().trim().isEmpty()) {
-            binding.tilPort.error = "Required Field!"
+            binding.tilPort.error = getString(R.string.require_field)
             binding.portEditText.requestFocus()
             false
         } else {

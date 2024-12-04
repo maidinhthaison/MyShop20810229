@@ -18,13 +18,13 @@ import com.ql2.myshop.data.api.request.GetAllProductRequestDTO
 import com.ql2.myshop.data.api.request.GetProductByCateAndNameRequestDTO
 import com.ql2.myshop.data.api.request.GetProductByCateRequestDTO
 import com.ql2.myshop.data.api.request.GetProductByNameRequestDTO
-import com.ql2.myshop.data.api.request.LIMIT_DEFAULT
 import com.ql2.myshop.databinding.FragmentProductBinding
 import com.ql2.myshop.domain.local.SettingApp
 import com.ql2.myshop.domain.model.product.ProductModel
 import com.ql2.myshop.ui.category.CategoryViewModel
 import com.ql2.myshop.ui.products.adapter.ListProductUIEvent
 import com.ql2.myshop.ui.products.adapter.ProductAdapter
+import com.ql2.myshop.utils.LIMIT_DEFAULT
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
@@ -145,16 +145,16 @@ class ProductFragment :
         Timber.d(">>>limit :$limit - Offset: $offset")
         val proName = binding.editTextProductName.text.toString()
         with(productViewModel) {
-            if(cateId == 0 && proName.isNullOrEmpty()){
+            if(cateId == 0 && proName.isEmpty()){
                 getListProducts(getAllProductRequestDTO =
                 GetAllProductRequestDTO(limit = limit, offset = offset))
-            }else if(cateId != 0 && proName.isNullOrEmpty()){
+            }else if(cateId != 0 && proName.isEmpty()){
                 getListProductsByCate(getProductByCateRequestDTO =
                 GetProductByCateRequestDTO(cateId = cateId, limit = limit, offset = offset))
-            }else if(cateId == 0 && !proName.isNullOrEmpty()){
+            }else if(cateId == 0 && proName.isNotEmpty()){
                 getListProductsByName(getProductByNameRequestDTO =
                 GetProductByNameRequestDTO(proName = proName, limit = limit, offset = offset))
-            }else if(cateId != 0 && !proName.isNullOrEmpty()){
+            }else if(cateId != 0 && proName.isNotEmpty()){
                 getListProductsByCateAndName(getProductByCateAndNameRequestDTO =
                 GetProductByCateAndNameRequestDTO(cateId = cateId, proName = proName,
                     limit = limit, offset = offset))

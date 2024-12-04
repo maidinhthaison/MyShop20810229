@@ -28,13 +28,13 @@ import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.ql2.myshop.R
 import com.ql2.myshop.base.BaseFragment
-import com.ql2.myshop.data.api.request.TOP_LIMIT_DEFAULT
 import com.ql2.myshop.databinding.FragmentDashboardBinding
 import com.ql2.myshop.domain.local.SettingApp
 import com.ql2.myshop.ui.dashboard.adapter.BestSalesProductAdapter
 import com.ql2.myshop.ui.dashboard.adapter.LatestOrderAdapter
 import com.ql2.myshop.ui.dashboard.adapter.OutOfStockProductAdapter
 import com.ql2.myshop.utils.DATE_ORDER_DATETIME
+import com.ql2.myshop.utils.TOP_LIMIT_DEFAULT
 import com.ql2.myshop.utils.formatDate
 import com.ql2.myshop.utils.formatPriceToCurrency
 import dagger.hilt.android.AndroidEntryPoint

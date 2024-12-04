@@ -32,6 +32,8 @@
     <string name="no">No</string>
     <string name="search">Search</string>
     <string name="all">---ALL---</string>
+    <string name="require_field">Required Field!</string>
+
 
     <!--Setting-->
     <string name="logout">Logout</string>

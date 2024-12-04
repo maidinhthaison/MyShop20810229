@@ -35,8 +35,8 @@ import com.ql2.myshop.domain.model.category.CategoryModel
 import com.ql2.myshop.ui.category.CategoryViewModel
 import com.ql2.myshop.ui.products.ProductViewModel
 import com.ql2.myshop.utils.AppDialog
+import com.ql2.myshop.utils.CHAR_SPLIT
 import com.ql2.myshop.utils.FileUtils
-import com.ql2.myshop.utils.StringExt.CHAR_SPLIT
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.io.File
@@ -182,7 +182,7 @@ class AddProductBottomSheetFragment :
             if (response != null){
                 val selectedImageUri = response.data
                 val fileRealPath = filesUtils.getRealPathFromURI(requireContext(), selectedImageUri!!)
-                val file = File(fileRealPath)
+                val file = File(fileRealPath.toString())
                 val fileName : String = file.name
                 Timber.d("filePath : $fileName")
                 val s = binding.proImagesEditText.text.toString().trim()
@@ -261,7 +261,7 @@ class AddProductBottomSheetFragment :
      */
     private fun validateProductName(): Boolean {
         return if (binding.proNameEditText.text.toString().trim().isEmpty()) {
-            binding.tilProName.error = "Required Field!"
+            binding.tilProName.error = getString(R.string.require_field)
             binding.proNameEditText.requestFocus()
             false
         } else {
@@ -276,7 +276,7 @@ class AddProductBottomSheetFragment :
     private fun validateSalePrice(): Boolean {
 
         return if (binding.proPriceEditText.text.toString().trim().isEmpty()) {
-            binding.tilProPrice.error = "Required Field!"
+            binding.tilProPrice.error = getString(R.string.require_field)
             binding.proPriceEditText.requestFocus()
             false
         } else {
@@ -290,7 +290,7 @@ class AddProductBottomSheetFragment :
     private fun validateQuantity(): Boolean {
 
         return if (binding.proQuantityEditText.text.toString().trim().isEmpty()) {
-            binding.tilProQuantity.error = "Required Field!"
+            binding.tilProQuantity.error = getString(R.string.require_field)
             binding.proQuantityEditText.requestFocus()
             false
         } else {
@@ -304,7 +304,7 @@ class AddProductBottomSheetFragment :
     private fun validateDescription(): Boolean {
 
         return if (binding.proDesEditText.text.toString().trim().isEmpty()) {
-            binding.tilProDes.error = "Required Field!"
+            binding.tilProDes.error = getString(R.string.require_field)
             binding.proDesEditText.requestFocus()
             false
         } else {
@@ -317,7 +317,7 @@ class AddProductBottomSheetFragment :
      */
     private fun validateImages(): Boolean {
         return if (binding.proImagesEditText.text.toString().trim().isEmpty()) {
-            binding.tilProImages.error = "Required Field!"
+            binding.tilProImages.error = getString(R.string.require_field)
             binding.proImagesEditText.requestFocus()
             false
         } else {
@@ -330,7 +330,7 @@ class AddProductBottomSheetFragment :
      */
     private fun validateImportPrice(): Boolean {
         return if (binding.proPriceEditText.text.toString().trim().isEmpty()) {
-            binding.tilProPrice.error = "Required Field!"
+            binding.tilProPrice.error = getString(R.string.require_field)
             binding.proPriceEditText.requestFocus()
             false
         } else {

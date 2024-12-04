@@ -18,6 +18,8 @@ import com.ql2.myshop.domain.model.login.UserModel
 import com.ql2.myshop.main.MainActivity
 import com.ql2.myshop.ui.config.ConfigActivity
 import com.ql2.myshop.utils.AppDialog
+import com.ql2.myshop.utils.MOCK_PASSWORD
+import com.ql2.myshop.utils.MOCK_USERNAME
 import com.ql2.myshop.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -43,7 +45,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
                 val username = binding.usernameEditText.text?.trim().toString()
                 val password = binding.passwordEditText.text?.trim().toString()
                 val rememberMe= binding.rememberMeCheckbox.isChecked
-                if (username == UserAppSession.MOCK_USERNAME && password ==  UserAppSession.MOCK_PASSWORD){
+                if (username == MOCK_USERNAME && password ==  MOCK_PASSWORD){
                     userAppSession.saveUser(UserModel(username, password, rememberMe))
                     startActivity(Intent(this, MainActivity::class.java))
                     this.finish()
@@ -117,7 +119,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
      */
     private fun validateUsername(): Boolean {
         return if (binding.usernameEditText.text.toString().trim().isEmpty()) {
-            binding.tilUsername.error = "Required Field!"
+            binding.tilUsername.error = getString(R.string.require_field)
             binding.usernameEditText.requestFocus()
             false
         } else {
@@ -132,17 +134,12 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     private fun validatePassword(): Boolean {
 
         return if (binding.passwordEditText.text.toString().trim().isEmpty()) {
-            binding.tilPassword.error = "Required Field!"
+            binding.tilPassword.error = getString(R.string.require_field)
             binding.passwordEditText.requestFocus()
             false
         } else {
             binding.tilPassword.isErrorEnabled = false
             true
         }
-    }
-
-    companion object {
-        const val CONFIG_SERVER = "config_server"
-        const val CONFIG_PORT = "config_port"
     }
 }
