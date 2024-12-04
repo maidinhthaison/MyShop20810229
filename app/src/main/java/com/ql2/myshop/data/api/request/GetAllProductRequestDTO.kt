@@ -22,12 +22,3 @@ data class GetProductByCateAndNameRequestDTO(
     val cateId: Int? = null,
     val proName: String? = null
 )
-
-enum class SortBy{
-    PRICE, CREATE_DATE
-}
-enum class SortDirection{
-    ASC, DESC
-}
-const val LIMIT_DEFAULT : Int = 10
-const val TOP_LIMIT_DEFAULT : Int = 5

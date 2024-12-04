@@ -18,6 +18,8 @@ import com.ql2.myshop.domain.local.UserAppSession
 import com.ql2.myshop.domain.model.setting.SettingModel
 import com.ql2.myshop.ui.login.LoginActivity
 import com.ql2.myshop.utils.AppDialog
+import com.ql2.myshop.utils.LIMIT_DEFAULT
+import com.ql2.myshop.utils.TOP_LIMIT_DEFAULT
 import com.ql2.myshop.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -44,12 +46,14 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val configModel = configServer.getConfig()
+        val server = if(configModel == null) BuildConfig.BASE_API_URL
+                    else configServer.getServer(configModel)
         val stringBuilder = StringBuilder()
         stringBuilder.append(getString(R.string.app_name))
             .append("\n${BuildConfig.VERSION_NAME}").append(" ")
             .append(BuildConfig.FLAVOR)
             .append(BuildConfig.BUILD_TYPE)
-            .append("\n${configServer.getServer(configModel = configModel)}")
+            .append("\n$server")
         binding.infoAppTextView.text = stringBuilder.toString()
 
         binding.logoutButton.setOnClickListener {
@@ -139,11 +143,10 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>() {
         // Init value for spinner read from cached
         val settingModel = settingApp.getSetting()
         if (settingModel != null) {
-            val limitPosition = context?.resources?.getStringArray(R.array.product_limit)
-                ?.indexOf(settingModel.limit.toString())
+            val limitPosition = settingModel.limit?.let { getLimitPosition(it) }
+            val limitDashboardPosition = settingModel.limitDashboard?.let { getTopLimitPosition(it) }
+
             limitPosition?.let { binding.spinnerLimit.setSelection(it) }
-            val limitDashboardPosition = context?.resources?.getStringArray(R.array.product_dashboard)
-                ?.indexOf(settingModel.limitDashboard.toString())
             limitDashboardPosition?.let { binding.spinnerDashboardLimit.setSelection(it) }
 
             binding.tvLimitOffset.text = String.format(
@@ -154,6 +157,32 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>() {
             binding.tvLimitDashboard.text = String.format(
                 getString(R.string.label_limit_dashboard),
                 binding.spinnerDashboardLimit.getItemAtPosition(limitDashboardPosition!!)
+            )
+
+            binding.tvLimitOffset.text = String.format(
+                getString(R.string.label_limit_dashboard),
+                binding.spinnerLimit.getItemAtPosition(limitPosition)
+            )
+
+            binding.tvLimitDashboard.text = String.format(
+                getString(R.string.label_limit_dashboard),
+                binding.spinnerDashboardLimit.getItemAtPosition(limitDashboardPosition)
+            )
+        }else{
+            val limitPosition = getLimitPosition(LIMIT_DEFAULT)
+            val limitDashboardPosition = getTopLimitPosition(TOP_LIMIT_DEFAULT)
+
+            binding.spinnerLimit.setSelection(limitPosition)
+            binding.spinnerDashboardLimit.setSelection(limitDashboardPosition)
+
+            binding.tvLimitOffset.text = String.format(
+                getString(R.string.label_limit_dashboard),
+                binding.spinnerLimit.getItemAtPosition(limitPosition)
+            )
+
+            binding.tvLimitDashboard.text = String.format(
+                getString(R.string.label_limit_dashboard),
+                binding.spinnerDashboardLimit.getItemAtPosition(limitDashboardPosition)
             )
         }
         // Save button
@@ -167,5 +196,11 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>() {
             )
             showToast(requireContext(), getString(R.string.save_setting_success))
         }
+    }
+    private fun getLimitPosition(value : Int) : Int{
+        return context?.resources?.getStringArray(R.array.product_limit)?.indexOf("$value") ?: 0
+    }
+    private fun getTopLimitPosition(value : Int) : Int{
+        return context?.resources?.getStringArray(R.array.product_dashboard)?.indexOf("$value") ?: 0
     }
 }

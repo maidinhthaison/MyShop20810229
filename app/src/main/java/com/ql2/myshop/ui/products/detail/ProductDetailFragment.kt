@@ -157,7 +157,7 @@ class ProductDetailFragment :
      */
     private fun validateProductName(): Boolean {
         return if (binding.proNameEditText.text.toString().trim().isEmpty()) {
-            binding.tilProName.error = "Required Field!"
+            binding.tilProName.error = getString(R.string.require_field)
             binding.proNameEditText.requestFocus()
             false
         } else {
@@ -172,7 +172,7 @@ class ProductDetailFragment :
     private fun validateSalePrice(): Boolean {
 
         return if (binding.proPriceEditText.text.toString().trim().isEmpty()) {
-            binding.tilProPrice.error = "Required Field!"
+            binding.tilProPrice.error = getString(R.string.require_field)
             binding.proPriceEditText.requestFocus()
             false
         } else {
@@ -186,7 +186,7 @@ class ProductDetailFragment :
     private fun validateQuantity(): Boolean {
 
         return if (binding.proQuantityEditText.text.toString().trim().isEmpty()) {
-            binding.tilProQuantity.error = "Required Field!"
+            binding.tilProQuantity.error = getString(R.string.require_field)
             binding.proQuantityEditText.requestFocus()
             false
         } else {
@@ -200,7 +200,7 @@ class ProductDetailFragment :
     private fun validateDescription(): Boolean {
 
         return if (binding.proDesEditText.text.toString().trim().isEmpty()) {
-            binding.tilProDes.error = "Required Field!"
+            binding.tilProDes.error = getString(R.string.require_field)
             binding.proDesEditText.requestFocus()
             false
         } else {
