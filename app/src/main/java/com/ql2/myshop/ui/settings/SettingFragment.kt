@@ -19,6 +19,7 @@ import com.ql2.myshop.domain.model.setting.SettingModel
 import com.ql2.myshop.ui.login.LoginActivity
 import com.ql2.myshop.utils.AppDialog
 import com.ql2.myshop.utils.LIMIT_DEFAULT
+import com.ql2.myshop.utils.SORT
 import com.ql2.myshop.utils.TOP_LIMIT_DEFAULT
 import com.ql2.myshop.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
@@ -69,14 +70,14 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>() {
         }
         // Switch
         if (binding.sortSwitch.isChecked) binding.tvSortStatus.text =
-            getString(R.string.sort_status_asc)
-        else binding.tvSortStatus.text = getString(R.string.sort_status_desc)
+            String.format(getString(R.string.sort_status), SORT.ASC)
+        else binding.tvSortStatus.text = String.format(getString(R.string.sort_status), SORT.DESC)
         binding.sortSwitch.setOnCheckedChangeListener { _, isChecked ->
             run {
                 binding.tvSortStatus.text = if (isChecked) {
-                    getString(R.string.sort_status_asc)
+                    String.format(getString(R.string.sort_status), SORT.ASC)
                 } else {
-                    getString(R.string.sort_status_desc)
+                    String.format(getString(R.string.sort_status), SORT.DESC)
                 }
             }
         }
@@ -187,9 +188,10 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>() {
         }
         // Save button
         binding.saveButton.setOnClickListener {
+            val sort = if (binding.sortSwitch.isChecked) SORT.ASC else SORT.DESC
             settingApp.saveSetting(
                 SettingModel(
-                    sort = binding.tvSortStatus.text.toString(),
+                    sort = sort,
                     limit = binding.spinnerLimit.selectedItem.toString().toInt(),
                     limitDashboard = binding.spinnerDashboardLimit.selectedItem.toString().toInt()
                 )

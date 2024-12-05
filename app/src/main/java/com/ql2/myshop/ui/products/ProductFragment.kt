@@ -25,6 +25,7 @@ import com.ql2.myshop.ui.category.CategoryViewModel
 import com.ql2.myshop.ui.products.adapter.ListProductUIEvent
 import com.ql2.myshop.ui.products.adapter.ProductAdapter
 import com.ql2.myshop.utils.LIMIT_DEFAULT
+import com.ql2.myshop.utils.SORT
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
@@ -49,6 +50,7 @@ class ProductFragment :
     private var cateId: Int? = 0
     private var offset: Int? = 0
     private var limit: Int? = 0
+
     @Inject
     lateinit var settingApp: SettingApp
 
@@ -68,6 +70,8 @@ class ProductFragment :
                 is ListProductUIEvent.OnItemClicked -> {
                     gotoDetailScreen(it.productItem)
                 }
+
+                else -> {}
             }
         }
 
@@ -94,9 +98,9 @@ class ProductFragment :
                             position: Int,
                             id: Long
                         ) {
-                            cateId = if(position == 0){
+                            cateId = if (position == 0) {
                                 0
-                            }else{
+                            } else {
                                 it.data[position - 1].cateId
                             }
                         }
@@ -115,20 +119,26 @@ class ProductFragment :
         /**
          * Add Product
          */
-        binding.ivAddProduct.setOnClickListener {
+        binding.btnAddProduct.setOnClickListener {
             findNavController().navigate(
                 R.id.addProductBottomSheetFragment
             )
+        }
+        /**
+         * Add Category
+         */
+        binding.btnAddCate.setOnClickListener {
+
         }
         /**
          * Pre Next Button Click
          */
         binding.ivPre.setOnClickListener {
             offset = offset?.minus(limit!!)
-            if(offset!! <  0){
+            if (offset!! < 0) {
                 offset = 0
                 binding.ivPre.isEnabled = false
-            }else{
+            } else {
                 binding.ivPre.isEnabled = true
                 paging()
             }
@@ -138,40 +148,94 @@ class ProductFragment :
             offset = offset?.plus(limit!!)
             paging()
         }
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun paging(){
-        Timber.d(">>>limit :$limit - Offset: $offset")
-        val proName = binding.editTextProductName.text.toString()
-        with(productViewModel) {
-            if(cateId == 0 && proName.isEmpty()){
-                getListProducts(getAllProductRequestDTO =
-                GetAllProductRequestDTO(limit = limit, offset = offset))
-            }else if(cateId != 0 && proName.isEmpty()){
-                getListProductsByCate(getProductByCateRequestDTO =
-                GetProductByCateRequestDTO(cateId = cateId, limit = limit, offset = offset))
-            }else if(cateId == 0 && proName.isNotEmpty()){
-                getListProductsByName(getProductByNameRequestDTO =
-                GetProductByNameRequestDTO(proName = proName, limit = limit, offset = offset))
-            }else if(cateId != 0 && proName.isNotEmpty()){
-                getListProductsByCateAndName(getProductByCateAndNameRequestDTO =
-                GetProductByCateAndNameRequestDTO(cateId = cateId, proName = proName,
-                    limit = limit, offset = offset))
+        /**
+         * Sort
+         */
+        val settingModel = settingApp.getSetting()
+        if (settingModel != null) {
+            binding.tvSortStatus.text = String.format(getString(R.string.sort_status), settingModel.sort)
+            binding.sortSwitch.isChecked = settingModel.sort != SORT.DESC
+        }else{
+            binding.tvSortStatus.text = String.format(getString(R.string.sort_status), SORT.ASC)
+            binding.sortSwitch.isChecked = true
+        }
+        binding.sortSwitch.setOnCheckedChangeListener { _, isChecked ->
+            run {
+                when(isChecked){
+                    true -> {
+                        binding.tvSortStatus.text = String.format(getString(R.string.sort_status), SORT.ASC)
+                        val listData = productAdapter.currentList.sortedWith(compareBy { it.salePrice })
+                        productAdapter.submitList(listData)
+                    }else -> {
+                        binding.tvSortStatus.text = String.format(getString(R.string.sort_status), SORT.DESC)
+                        val listData = productAdapter.currentList.sortedWith(compareByDescending { it.salePrice })
+                        productAdapter.submitList(listData)
+                    }
+                }
             }
 
         }
-        productViewModel.uiGetProductModel.collectWhenStarted {
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.sortSwitch.setOnCheckedChangeListener(null)
+    }
+    @SuppressLint("SetTextI18n")
+    private fun paging() {
+        Timber.d(">>>limit :$limit - Offset: $offset")
+        val proName = binding.editTextProductName.text.toString()
+        with(productViewModel) {
+            if (cateId == 0 && proName.isEmpty()) {
+                getListProducts(
+                    getAllProductRequestDTO =
+                    GetAllProductRequestDTO(limit = limit, offset = offset)
+                )
+            } else if (cateId != 0 && proName.isEmpty()) {
+                getListProductsByCate(
+                    getProductByCateRequestDTO =
+                    GetProductByCateRequestDTO(cateId = cateId, limit = limit, offset = offset)
+                )
+            } else if (cateId == 0 && proName.isNotEmpty()) {
+                getListProductsByName(
+                    getProductByNameRequestDTO =
+                    GetProductByNameRequestDTO(proName = proName, limit = limit, offset = offset)
+                )
+            } else if (cateId != 0 && proName.isNotEmpty()) {
+                getListProductsByCateAndName(
+                    getProductByCateAndNameRequestDTO =
+                    GetProductByCateAndNameRequestDTO(
+                        cateId = cateId, proName = proName,
+                        limit = limit, offset = offset
+                    )
+                )
+            }
+
+        }
+        productViewModel.uiGetProductModel.collectWhenStarted { it ->
             binding.loadingProgress.isVisible = it.isLoading
             if (it.data != null) {
-                binding.tvPaging.text = String.format(getString(R.string.label_paging),
-                    "${offset?.div(limit!!)?.plus(1)}")
-                if(it.data.size < limit!!) binding.ivNext.isEnabled = false
+                binding.tvPaging.text = String.format(
+                    getString(R.string.label_paging),
+                    "${offset?.div(limit!!)?.plus(1)}"
+                )
+                if (it.data.size < limit!!) binding.ivNext.isEnabled = false
                 else {
                     binding.ivNext.isEnabled = true
                     binding.ivPre.isEnabled = true
                 }
-                productAdapter.submitList(it.data.toList())
+                //productAdapter.submitList(it.data.toList())
+                // sort price
+                when(binding.sortSwitch.isChecked){
+                    true -> {
+                        val listData = it.data.sortedWith(compareBy { it.salePrice })
+                        productAdapter.submitList(listData)
+                    }
+                    else -> {
+                        val listData = it.data.sortedWith(compareByDescending { it.salePrice })
+                        productAdapter.submitList(listData)
+                    }
+                }
 
             }
 

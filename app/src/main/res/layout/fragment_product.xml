@@ -39,63 +39,72 @@
                 android:layout_marginVertical="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
-
-                <androidx.appcompat.widget.AppCompatSpinner
-                    android:layout_alignParentStart="true"
-
-                    android:layout_width="@dimen/_80sdp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:background="@drawable/bg_default_spinner"
-                    android:id="@+id/spinnerCate" />
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:hint="@string/hint_product_name"
-                    android:textSize="@dimen/_12sdp"
-                    android:layout_toRightOf="@+id/spinnerCate"
-                    android:layout_width="@dimen/_125sdp"
-                    android:layout_height="match_parent"
-                    android:id="@+id/editTextProductName"/>
-                <com.google.android.material.button.MaterialButton
-                    android:layout_toRightOf="@+id/editTextProductName"
-                    android:layout_marginHorizontal="@dimen/_10sdp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/search"
-                    android:textAllCaps="false"
-                    android:id="@+id/buttonSearch"
-                   />
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvHeader"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginVertical="@dimen/_10sdp"
-                    android:layout_below="@+id/buttonSearch"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/product_list_title"
-                    android:textSize="@dimen/_16sdp"
-                    android:textColor="@color/black" />
-
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/ivAddProduct"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
-                    android:layout_marginVertical="@dimen/_10sdp"
-                    app:srcCompat="@drawable/ic_add_circle_36"
-                    android:layout_below="@+id/buttonSearch"
-                    android:layout_toRightOf="@+id/tvHeader"
-                    android:layout_marginHorizontal="@dimen/_10sdp"/>
                 <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/ll0"
+                    android:layout_alignParentTop="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <com.google.android.material.button.MaterialButton
+                        android:gravity="center"
+                        android:id="@+id/btnAddProduct"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Add product"
+                        android:textSize="@dimen/_10sdp"
+                        android:layout_alignParentTop="true"/>
+                    <com.google.android.material.button.MaterialButton
+                        android:gravity="center"
+                        android:id="@+id/btnAddCate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:text="Add Category"
+                        android:textSize="@dimen/_10sdp"
+                        android:layout_toEndOf="@+id/btnAddProduct"
+                        android:layout_alignParentTop="true" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/ll1"
+                    android:layout_below="@+id/ll0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:background="@drawable/bg_default_spinner"
+                        android:id="@+id/spinnerCate" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:hint="@string/hint_product_name"
+                        android:textSize="@dimen/_12sdp"
+                        android:layout_toEndOf="@+id/spinnerCate"
+                        android:layout_width="@dimen/_125sdp"
+                        android:layout_height="match_parent"
+                        android:id="@+id/editTextProductName"/>
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_toEndOf="@+id/editTextProductName"
+                        android:layout_marginHorizontal="@dimen/_10sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/search"
+                        android:textAllCaps="false"
+                        android:id="@+id/buttonSearch"
+                        />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/ll2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_below="@+id/buttonSearch"
-                    android:layout_toEndOf="@+id/ivAddProduct"
-                    android:weightSum="5"
-                    android:layout_marginVertical="@dimen/_5sdp">
+                    android:layout_below="@+id/ll1"
+                    android:weightSum="5">
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/ivPre"
                         android:layout_width="0dp"
@@ -118,7 +127,30 @@
                         android:layout_height="@dimen/_32sdp"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/ic_arrow_next_32" />
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/ll3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ll2"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:orientation="horizontal">
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/_12sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:textStyle="bold"
+                            android:id="@+id/tvSortStatus"
+                            android:text="@string/sort_status"/>
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:checked="true"
+                            android:id="@+id/sortSwitch"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
+
 
             </RelativeLayout>
 
