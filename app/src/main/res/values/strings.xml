@@ -39,8 +39,7 @@
     <string name="logout">Logout</string>
     <string name="dialog_logout_confirm_title">Logout</string>
     <string name="dialog_logout_confirm_message">Are you sure?</string>
-    <string name="sort_status_asc">ASC</string>
-    <string name="sort_status_desc">DESC</string>
+    <string name="sort_status">Sort: %1$s</string>
     <string name="label_limit_offset">Limit products: %1$s</string>
     <string name="label_limit_dashboard">Limit dashboard: %1$s</string>
     <string name="save_setting_success">Setting saved successfully</string>

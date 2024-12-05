@@ -58,7 +58,7 @@
           android:textSize="@dimen/_12sdp"
           android:textStyle="bold"
           android:id="@+id/tvSortStatus"
-          android:text="@string/sort_status_asc"/>
+          android:text="@string/sort_status"/>
       <com.google.android.material.materialswitch.MaterialSwitch
           android:layout_marginStart="@dimen/_20sdp"
           android:checked="true"

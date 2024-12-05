@@ -17,3 +17,8 @@ const val DATE_ORDER_DATE = "yyyy-MM-dd"
 const val DATE_COMMON_FORMAT = "yyyy-MM-dd"
 
 const val CHAR_SPLIT = "@@"
+
+enum class SORT{
+    ASC,
+    DESC
+}
