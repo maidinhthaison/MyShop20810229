@@ -34,7 +34,6 @@
                 android:layout_marginEnd="@dimen/_10sdp">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
@@ -73,15 +72,6 @@
                     </com.google.android.material.textfield.TextInputLayout>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/ivCloseBottomSheet"
-                    android:layout_width="@dimen/_36sdp"
-                    android:layout_height="@dimen/_36sdp"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginHorizontal="@dimen/_10sdp"
-                    android:padding="@dimen/_5sdp"
-                    app:srcCompat="@drawable/ic_cancel_circle_36" />
             </RelativeLayout>
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -105,11 +95,11 @@
                     app:strokeColor="@color/darkGray" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/buttonClear"
+                    android:id="@+id/buttonCancel"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/buttonClear"
+                    android:text="@string/clear_button_text"
                     android:textAllCaps="false"
                     android:textColor="@color/black"
                     app:cornerRadius="10dp"

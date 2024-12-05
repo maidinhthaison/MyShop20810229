@@ -60,8 +60,8 @@ class AddCategoryBottomSheetFragment :
 
             }
         }
-        binding.buttonClear.setOnClickListener {
-
+        binding.buttonCancel.setOnClickListener {
+            this.dismiss()
         }
     }
     /**
