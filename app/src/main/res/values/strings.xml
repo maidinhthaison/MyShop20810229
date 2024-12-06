@@ -66,6 +66,10 @@
     <string name="dialog_select_image_title">Select Images</string>
     <string name="dialog_select_image_message">Maximum 3 images</string>
 
+    <!--Add category bottom sheet-->
+    <string name="hint_cate_name">Category name</string>
+    <string name="hint_cate_des">Category description</string>
+
     <!--Orders-->
     <string name="order_list_title">Orders</string>
     <string name="hint_date_from">Date from</string>

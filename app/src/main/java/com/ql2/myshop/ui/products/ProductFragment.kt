@@ -128,7 +128,9 @@ class ProductFragment :
          * Add Category
          */
         binding.btnAddCate.setOnClickListener {
-
+            findNavController().navigate(
+                R.id.addCategoryBottomSheetFragment
+            )
         }
         /**
          * Pre Next Button Click

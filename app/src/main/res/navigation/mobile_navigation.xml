@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_navigation_product_to_addProductBottomSheetFragment"
             app:destination="@id/addProductBottomSheetFragment" />
+        <action
+            android:id="@+id/action_navigation_product_to_addCategoryBottomSheetFragment"
+            app:destination="@id/addCategoryBottomSheetFragment" />
     </fragment>
 
     <fragment
@@ -57,5 +60,9 @@
         android:id="@+id/orderDetailFragment"
         android:name="com.ql2.myshop.ui.orders.detail.OrderDetailBottomSheetFragment"
         android:label="OrderDetailFragment" />
+    <dialog
+        android:id="@+id/addCategoryBottomSheetFragment"
+        android:name="com.ql2.myshop.ui.category.bottomsheet.AddCategoryBottomSheetFragment"
+        android:label="AddCategoryBottomSheetFragment" />
 
 </navigation>
