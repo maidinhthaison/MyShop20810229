@@ -36,8 +36,8 @@ class AddCategoryBottomSheetFragment :
         return true
     }
 
-    override fun weightOfHeight(): Float? {
-        return 0.6f
+    override fun weightOfHeight(): Float {
+        return 0.5f
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
