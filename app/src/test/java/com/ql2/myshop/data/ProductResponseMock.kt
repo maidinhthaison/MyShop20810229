@@ -1,6 +1,5 @@
 package com.ql2.myshop.data
 
-import com.ql2.myshop.domain.model.category.CategoryModel
 import com.ql2.myshop.domain.model.product.ProductModel
 
 object ProductResponseMock {

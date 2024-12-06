@@ -3,6 +3,7 @@ package com.ql2.myshop.repo
 import com.ql2.myshop.data.GetCategoryResponseMock
 import com.ql2.myshop.domain.AppError
 import com.ql2.myshop.domain.TaskResult
+import com.ql2.myshop.domain.model.category.AddCategoryModel
 import com.ql2.myshop.domain.model.category.CategoryModel
 import com.ql2.myshop.domain.repository.category.CategoryRepository
 import kotlinx.coroutines.delay
@@ -33,6 +34,13 @@ class CategoryRepositoryMock : CategoryRepository{
                 emit(TaskResult.Success(result))
             }
         }
+    }
+
+    override fun addNewCategories(
+        cateName: String,
+        cateDescription: String
+    ): Flow<TaskResult<AddCategoryModel>> {
+        TODO("Not yet implemented")
     }
 
 }

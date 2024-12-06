@@ -1,14 +1,15 @@
 package com.ql2.myshop.repo
 
-import com.ql2.myshop.data.GetCategoryResponseMock
 import com.ql2.myshop.data.ProductResponseMock
+import com.ql2.myshop.data.api.request.GetAllProductRequestDTO
+import com.ql2.myshop.data.api.request.GetProductByCateAndNameRequestDTO
+import com.ql2.myshop.data.api.request.GetProductByCateRequestDTO
+import com.ql2.myshop.data.api.request.GetProductByNameRequestDTO
 import com.ql2.myshop.domain.AppError
 import com.ql2.myshop.domain.TaskResult
-import com.ql2.myshop.domain.model.category.CategoryModel
 import com.ql2.myshop.domain.model.product.AddProductModel
 import com.ql2.myshop.domain.model.product.ProductModel
 import com.ql2.myshop.domain.model.product.UpdateProductByIdModel
-import com.ql2.myshop.domain.repository.category.CategoryRepository
 import com.ql2.myshop.domain.repository.product.ProductRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -17,7 +18,10 @@ import kotlinx.coroutines.flow.flow
 class ProductRepositoryMock : ProductRepository {
     private var isError = false
     private var listProductModel: List<ProductModel>
-    private var productResponseMock : ProductResponseMock.MockGetAllProductResponseDTO = ProductResponseMock.MockGetAllProductResponseDTO()
+
+    private var productResponseMock : ProductResponseMock.MockGetAllProductResponseDTO =
+        ProductResponseMock.MockGetAllProductResponseDTO()
+
     init {
         listProductModel = listOf(
             ProductModel(
@@ -33,7 +37,9 @@ class ProductRepositoryMock : ProductRepository {
 
     }
 
-    override fun getAllProducts(): Flow<TaskResult<List<ProductModel>>> {
+
+    override fun getAllProducts(productRequestDTO: GetAllProductRequestDTO):
+            Flow<TaskResult<List<ProductModel>>> {
         return flow {
             emit(TaskResult.Loading)
             delay(2000L)
@@ -46,11 +52,44 @@ class ProductRepositoryMock : ProductRepository {
         }
     }
 
-    override fun searchProducts(
-        cateId: Int,
-        proName: String
-    ): Flow<TaskResult<List<ProductModel>>> {
-        TODO("Not yet implemented")
+    override fun getProductsByCate(getProductByCateRequestDTO: GetProductByCateRequestDTO):
+            Flow<TaskResult<List<ProductModel>>> {
+        return flow {
+            emit(TaskResult.Loading)
+            delay(2000L)
+            if (isError) {
+                emit(TaskResult.Failure(AppError.GeneralError(NullPointerException())))
+            } else {
+                val result = productResponseMock.results
+                emit(TaskResult.Success(result))
+            }
+        }
+    }
+
+    override fun getProductsByName(getProductByNameRequestDTO: GetProductByNameRequestDTO): Flow<TaskResult<List<ProductModel>>> {
+        return flow {
+            emit(TaskResult.Loading)
+            delay(2000L)
+            if (isError) {
+                emit(TaskResult.Failure(AppError.GeneralError(NullPointerException())))
+            } else {
+                val result = productResponseMock.results
+                emit(TaskResult.Success(result))
+            }
+        }
+    }
+
+    override fun getProductsByCateAndName(getProductByCateAndNameRequestDTO: GetProductByCateAndNameRequestDTO): Flow<TaskResult<List<ProductModel>>> {
+        return flow {
+            emit(TaskResult.Loading)
+            delay(2000L)
+            if (isError) {
+                emit(TaskResult.Failure(AppError.GeneralError(NullPointerException())))
+            } else {
+                val result = productResponseMock.results
+                emit(TaskResult.Success(result))
+            }
+        }
     }
 
     override fun updateProductById(
