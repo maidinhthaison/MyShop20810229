@@ -69,6 +69,8 @@
     <!--Add category bottom sheet-->
     <string name="hint_cate_name">Category name</string>
     <string name="hint_cate_des">Category description</string>
+    <string name="dialog_add_cate_title">Add New Category</string>
+    <string name="dialog_add_cate_message_successfully">Add New Category successfully</string>
 
     <!--Orders-->
     <string name="order_list_title">Orders</string>
