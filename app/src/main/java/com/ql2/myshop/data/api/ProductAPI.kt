@@ -26,7 +26,7 @@ interface ProductAPI {
         @Path("offset") offset: Int?
     ): Response<List<ProductResponseDTO>>
 
-    @GET("/api/products/cate/{proName}/{limit}/{offset}")
+    @GET("/api/products/{proName}/{limit}/{offset}")
     suspend fun getProductByName(
         @Path("proName") proName: String?,
         @Path("limit") limit: Int?,
