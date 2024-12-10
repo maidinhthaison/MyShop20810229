@@ -94,11 +94,11 @@ android {
 
     applicationVariants.all { variant ->
         if (variant.getName() == "devDebug" || variant.getName() == "devRelease") {
-            variant.buildConfigField "String", "BASE_API_URL", "\"http://192.168.1.5:8080/\""
+            variant.buildConfigField "String", "BASE_API_URL", "\"http://172.29.66.96:8080/\""
         } else if (variant.getName() == "stagDebug" || variant.getName() == "stagRelease") {
-            variant.buildConfigField "String", "BASE_API_URL", "\"http://192.168.1.5:8080/\""
+            variant.buildConfigField "String", "BASE_API_URL", "\"http://172.29.66.96:8080/\""
         }else if (variant.getName() == "prodDebug" || variant.getName() == "prodRelease") {
-            variant.buildConfigField "String", "BASE_API_URL", "\"http://192.168.1.5:8080/\""
+            variant.buildConfigField "String", "BASE_API_URL", "\"http://172.29.66.96:8080/\""
         }
     }
     packagingOptions {

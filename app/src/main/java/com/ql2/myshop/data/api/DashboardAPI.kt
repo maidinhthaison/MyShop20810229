@@ -15,12 +15,12 @@ interface DashboardAPI {
     suspend fun groupProductByCate(
     ): Response<List<PieChartResponseDTO>>
 
-    @GET("/api/products/outofstock/{limit}")
+    @GET("/api/outofstock/{limit}")
     suspend fun getOutOfStockProduct(
         @Path("limit") limit: Int,
     ): Response<List<OutOfStockProductResponseDTO>>
 
-    @GET("/api/products/bestsale/{limit}")
+    @GET("/api/bestsale/{limit}")
     suspend fun getBestSalesProduct(
         @Path("limit") limit: Int,
     ): Response<List<BestSaleProductResponseDTO>>
